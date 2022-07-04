@@ -12,6 +12,7 @@ type bookMarkedMovieType = {
 
 interface UserInterface {
   username: string;
+  name: string;
   passwordHash: string;
   bookmarkedShows: [bookMarkedShowType];
   bookmarkedMovies: [bookMarkedMovieType];
@@ -24,6 +25,7 @@ const userSchema = new mongoose.Schema<UserInterface>({
     required: true,
     minlength: 4,
   },
+  name: String,
   passwordHash: String,
   bookmarkedShows: [
     {
