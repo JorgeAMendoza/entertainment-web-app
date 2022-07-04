@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/JorgeAMendoza/entertainment-web-app/issues"
   },
-  "homepage": "https://github.com/JorgeAMendoza/entertainment-web-app#readme"
+  "homepage": "https://github.com/JorgeAMendoza/entertainment-web-app#readme",
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
 }

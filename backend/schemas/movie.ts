@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 type MovieRatingTypes = 'G' | 'PG' | 'PG-13' | 'R' | 'NC-17';
 
-interface MovieInterfaceType {
+interface Movie extends Document {
   title: string;
   thumbnail: {
-    trending: {
+    trending?: {
       small: string;
+      medium: string;
       large: string;
     };
-    regular: {
+    regular?: {
       small: string;
       medium: string;
       large: string;
@@ -17,25 +18,10 @@ interface MovieInterfaceType {
   };
   year: number;
   rating: MovieRatingTypes;
-  isTrending: boolean;
 }
 
-const movieSchema = new mongoose.Schema<MovieInterfaceType>({
+const movieSchema: Schema = new Schema({
   title: String,
-  thumbnail: {
-    trending: {
-      small: String,
-      large: String,
-    },
-    regular: {
-      small: String,
-      medium: String,
-      large: String,
-    },
-  },
-  year: Number,
-  rating: String,
-  isTrending: Boolean,
 });
 
-module.exports = mongoose.model('Movie', movieSchema);
+export const Movie = model<Movie>('Movie', movieSchema);
