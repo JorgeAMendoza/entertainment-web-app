@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontend:dev": "cd client && npm run start",
-    "start:backend:dev": "cd backend && npx nodemon src/index.ts",
+    "start:backend:dev": "cd server && npx nodemon src/index.ts",
     "start:dev": "npm run start:frontend:dev & npm run start:backend:dev"
   },
   "repository": {
