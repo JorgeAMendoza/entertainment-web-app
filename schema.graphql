@@ -1,57 +1,58 @@
-type Query{
-    movies: [Movie!]!
-    shows: [Show!]!
-    recommended: Recommended!
-    trending: Trending!
+type Query {
+  movies: [Movie!]!
+  shows: [Show!]!
+  recommended: Recommended!
+  trending: Trending!
 }
 
-type Mutation{
-    addFavoriteShow(userId: String!, showId: String!): Show!
-    addFavoriteMovie(userId: String!, movieId: String!): Movie!
-    removeFavoriteShow(userId: String!, showId: String!): Show!
-    removeFavoriteMovie(userId: String!, movieId: String!): Movie!
+type Mutation {
+  addFavoriteShow(userId: String!, showId: String!): Show!
+  addFavoriteMovie(userId: String!, movieId: String!): Movie!
+  removeFavoriteShow(userId: String!, showId: String!): Show!
+  removeFavoriteMovie(userId: String!, movieId: String!): Movie!
+  loginUser(username: String!, password: String!): Token
 }
 
 type Movie {
-    title: String!
-    year: String!
-    rating: String!
-    thumbnailTrending: ImageLinks
-    thumbnailRegular: ImageLinks
+  title: String!
+  year: String!
+  rating: String!
+  thumbnailTrending: ImageLinks
+  thumbnailRegular: ImageLinks
 }
 
 type Show {
-    title: String!
-    year: String!
-    rating: String!
-    thumbnailTrending: ImageLinks
-    thumbnailRegular: ImageLinks
+  title: String!
+  year: String!
+  rating: String!
+  thumbnailTrending: ImageLinks
+  thumbnailRegular: ImageLinks
 }
 
 type User {
-    username: String!
-    name: String!
-    email: String!
-    bookmarkedShows: [Show!]
-    bookmarkedMovies: [Movie!]
+  username: String!
+  name: String!
+  email: String!
+  bookmarkedShows: [Show!]
+  bookmarkedMovies: [Movie!]
 }
 
 type Token {
-    value: String
+  value: String
 }
 
 type Recommended {
-    shows: [Show!]!
-    movies: [Movie!]!
+  shows: [Show!]!
+  movies: [Movie!]!
 }
 
 type Trending {
-    shows: [Show!]!
-    movies: [Show!]!
+  shows: [Show!]!
+  movies: [Show!]!
 }
 
 type ImageLinks {
-    small: String
-    medium: String
-    large: String
+  small: String
+  medium: String
+  large: String
 }
