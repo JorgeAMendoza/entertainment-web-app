@@ -1,32 +1,21 @@
 import mongoose from 'mongoose';
+import { DbUser } from '../db';
 
-type bookMarkedShowType = {
-  type: mongoose.Types.ObjectId;
-  ref: 'Show';
-};
-
-type bookMarkedMovieType = {
-  type: mongoose.Types.ObjectId;
-  ref: 'Movie';
-};
-
-interface UserInterface {
-  username: string;
-  name: string;
-  passwordHash: string;
-  bookmarkedShows: [bookMarkedShowType];
-  bookmarkedMovies: [bookMarkedMovieType];
-}
-
-const userSchema = new mongoose.Schema<UserInterface>({
+const userSchema = new mongoose.Schema<DbUser>({
   username: {
     type: String,
     unique: true,
     required: true,
-    minlength: 4,
+    minlength: 8,
   },
-  name: String,
-  passwordHash: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  passwordHash: {
+    type: String,
+    required: true,
+  },
   bookmarkedShows: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -41,4 +30,4 @@ const userSchema = new mongoose.Schema<UserInterface>({
   ],
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model<DbUser>('User', userSchema);
