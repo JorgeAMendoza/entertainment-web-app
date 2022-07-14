@@ -30,6 +30,7 @@ export interface DbUser extends Document {
 }
 
 export interface DbMovie extends Document {
+  id: string;
   title: string;
   thumbnail: {
     trending?: {
@@ -48,6 +49,7 @@ export interface DbMovie extends Document {
 }
 
 export interface DbShow extends Document {
+  id: string;
   title: string;
   thumbnail: {
     trending: {

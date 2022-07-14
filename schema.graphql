@@ -3,6 +3,7 @@ type Query {
   shows: [Show!]!
   recommended: Recommended!
   trending: Trending!
+  currentUser: User!
 }
 
 type Mutation {
@@ -14,22 +15,25 @@ type Mutation {
 }
 
 type Movie {
+  id: String!
   title: String!
-  year: String!
+  year: Int!
   rating: String!
   thumbnailTrending: ImageLinks
   thumbnailRegular: ImageLinks
 }
 
 type Show {
+  id: String!
   title: String!
-  year: String!
+  year: Int!
   rating: String!
   thumbnailTrending: ImageLinks
   thumbnailRegular: ImageLinks
 }
 
 type User {
+  id: String!
   username: String!
   name: String!
   email: String!
