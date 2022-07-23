@@ -14,22 +14,25 @@ type Mutation {
 }
 
 type Movie {
+  id: String!
   title: String!
-  year: String!
+  year: Int!
   rating: String!
   thumbnailTrending: ImageLinks
   thumbnailRegular: ImageLinks
 }
 
 type Show {
+  id: String!
   title: String!
-  year: String!
+  year: Int!
   rating: String!
   thumbnailTrending: ImageLinks
   thumbnailRegular: ImageLinks
 }
 
 type User {
+  id: String!
   username: String!
   name: String!
   email: String!
