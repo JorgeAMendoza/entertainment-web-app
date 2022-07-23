@@ -1,4 +1,8 @@
 import { DbMovie, DbShow } from '../database/db';
+import { Resolvers } from './resolvers-types.generated';
+import Query from './resolvers/Query';
+import Movie from './resolvers/Movie';
+import Show from './resolvers/Show';
 
 export interface EntertainmentResolverContext {
   userToken: string;
@@ -6,4 +10,10 @@ export interface EntertainmentResolverContext {
   dbShowCache: Record<string, DbShow>;
 }
 
-// the cache will hold our user token, movies we have collected, and shows we have collected. 
+const resolvers: Resolvers<EntertainmentResolverContext> = {
+  Query,
+  Movie,
+  Show,
+};
+
+export default resolvers;

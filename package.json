@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontend:dev": "cd client && npm run start",
-    "start:backend:dev": "cd server && npx nodemon src/index.ts",
+    "start:backend:dev": "cd server && nodemon src/index.ts",
     "start:dev": "npm run start:frontend:dev & npm run start:backend:dev"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "eslint": "^8.19.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.30.1",
+    "nodemon": "^2.0.19",
     "prettier": "^2.7.1"
   }
 }
