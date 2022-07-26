@@ -3,6 +3,7 @@ import { PORT, STATIC_ROOT_FOLDER_PATH } from './utils/constants';
 import { createApolloServer } from './apollo/apollo-sever';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
+import seedDB from './utils/seed-database';
 
 const app = express();
 
@@ -15,8 +16,10 @@ async function main() {
 
   mongoose
     .connect(mongoURL)
-    .then(() => {
-      console.log('connedcted to mongo db');
+    .then(async () => {
+      console.log('connected to mongo db');
+      await seedDB();
+      console.log('database seeded');
     })
     .catch((e) => {
       console.log('error conne cting to mongo DB');
