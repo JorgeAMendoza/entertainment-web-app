@@ -18,8 +18,7 @@ type Movie {
   title: String!
   year: Int!
   rating: String!
-  thumbnailTrending: ImageLinks
-  thumbnailRegular: ImageLinks
+  images: ImageLinks!
 }
 
 type Show {
@@ -27,8 +26,7 @@ type Show {
   title: String!
   year: Int!
   rating: String!
-  thumbnailTrending: ImageLinks
-  thumbnailRegular: ImageLinks
+  images: ImageLinks!
 }
 
 type User {
@@ -41,7 +39,7 @@ type User {
 }
 
 type Token {
-  value: String
+  token: String!
 }
 
 type Recommended {
@@ -51,11 +49,11 @@ type Recommended {
 
 type Trending {
   shows: [Show!]!
-  movies: [Show!]!
+  movies: [Movie!]!
 }
 
 type ImageLinks {
-  small: String
-  medium: String
-  large: String
+  small: String!
+  medium: String!
+  large: String!
 }
