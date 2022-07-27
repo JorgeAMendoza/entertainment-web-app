@@ -3,7 +3,7 @@ import { DbShow } from '../db';
 
 interface NewShow {
   title: DbShow['title'];
-  thumbnail: DbShow['thumbnail'];
+  images: DbShow['images'];
   year: DbShow['year'];
   rating: DbShow['rating'];
 }
@@ -21,7 +21,7 @@ const getShowById = async (id: string): Promise<DbShow> => {
 const insertShow = async (show: NewShow): Promise<DbShow> => {
   const newShow = new Show({
     title: show.title,
-    thumbnail: show.thumbnail,
+    images: show.images,
     year: show.year,
     rating: show.rating,
   });

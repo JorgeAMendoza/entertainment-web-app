@@ -16,17 +16,16 @@ export type Scalars = {
 
 export type ImageLinks = {
   __typename?: 'ImageLinks';
-  large?: Maybe<Scalars['String']>;
-  medium?: Maybe<Scalars['String']>;
-  small?: Maybe<Scalars['String']>;
+  large: Scalars['String'];
+  medium: Scalars['String'];
+  small: Scalars['String'];
 };
 
 export type Movie = {
   __typename?: 'Movie';
   id: Scalars['String'];
+  images: ImageLinks;
   rating: Scalars['String'];
-  thumbnailRegular?: Maybe<ImageLinks>;
-  thumbnailTrending?: Maybe<ImageLinks>;
   title: Scalars['String'];
   year: Scalars['Int'];
 };
@@ -72,7 +71,6 @@ export type MutationRemoveFavoriteShowArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  currentUser: User;
   movies: Array<Movie>;
   recommended: Recommended;
   shows: Array<Show>;
@@ -88,21 +86,20 @@ export type Recommended = {
 export type Show = {
   __typename?: 'Show';
   id: Scalars['String'];
+  images: ImageLinks;
   rating: Scalars['String'];
-  thumbnailRegular?: Maybe<ImageLinks>;
-  thumbnailTrending?: Maybe<ImageLinks>;
   title: Scalars['String'];
   year: Scalars['Int'];
 };
 
 export type Token = {
   __typename?: 'Token';
-  value?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type Trending = {
   __typename?: 'Trending';
-  movies: Array<Show>;
+  movies: Array<Movie>;
   shows: Array<Show>;
 };
 
@@ -216,17 +213,16 @@ export type ResolversParentTypes = {
 };
 
 export type ImageLinksResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageLinks'] = ResolversParentTypes['ImageLinks']> = {
-  large?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  medium?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  small?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  large?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  medium?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  small?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  thumbnailRegular?: Resolver<Maybe<ResolversTypes['ImageLinks']>, ParentType, ContextType>;
-  thumbnailTrending?: Resolver<Maybe<ResolversTypes['ImageLinks']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -241,7 +237,6 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  currentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
   recommended?: Resolver<ResolversTypes['Recommended'], ParentType, ContextType>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
@@ -256,21 +251,20 @@ export type RecommendedResolvers<ContextType = any, ParentType extends Resolvers
 
 export type ShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = {
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  thumbnailRegular?: Resolver<Maybe<ResolversTypes['ImageLinks']>, ParentType, ContextType>;
-  thumbnailTrending?: Resolver<Maybe<ResolversTypes['ImageLinks']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TokenResolvers<ContextType = any, ParentType extends ResolversParentTypes['Token'] = ResolversParentTypes['Token']> = {
-  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TrendingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trending'] = ResolversParentTypes['Trending']> = {
-  movies?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
+  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

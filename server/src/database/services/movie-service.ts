@@ -3,7 +3,7 @@ import { DbMovie } from '../db';
 
 interface NewMovie {
   title: DbMovie['title'];
-  thumbnail: DbMovie['thumbnail'];
+  images: DbMovie['images'];
   year: DbMovie['year'];
   rating: DbMovie['rating'];
 }
@@ -21,7 +21,7 @@ const getMovieById = async (id: string): Promise<DbMovie> => {
 const insertMovie = async (movie: NewMovie): Promise<DbMovie> => {
   const newMovie = new Movie({
     title: movie.title,
-    thumbnail: movie.thumbnail,
+    images: movie.images,
     year: movie.year,
     rating: movie.rating,
   });

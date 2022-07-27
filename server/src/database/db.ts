@@ -32,17 +32,10 @@ export interface DbUser extends Document {
 export interface DbMovie extends Document {
   id: string;
   title: string;
-  thumbnail: {
-    trending?: {
-      small: string;
-      medium: string;
-      large: string;
-    };
-    regular?: {
-      small: string;
-      medium: string;
-      large: string;
-    };
+  images: {
+    small: string;
+    medium: string;
+    large: string;
   };
   year: number;
   rating: MovieRatingTypes;
@@ -51,20 +44,11 @@ export interface DbMovie extends Document {
 export interface DbShow extends Document {
   id: string;
   title: string;
-  thumbnail: {
-    trending: {
-      small: string;
-      large: string;
-    };
-    regular: {
-      small: string;
-      medium: string;
-      large: string;
-    };
+  images: {
+    small: string;
+    medium: string;
+    large: string;
   };
   year: number;
   rating: ShowRatingTypes;
 }
-
-// methods to for the database to be used by GraphQL
-// next time, look back into how we created the mongo db databse, and the methods used to get what we need.

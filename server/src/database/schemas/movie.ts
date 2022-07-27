@@ -3,17 +3,10 @@ import { DbMovie } from '../db';
 
 const movieSchema = new mongoose.Schema<DbMovie>({
   title: String,
-  thumbnail: {
-    trending: {
-      small: String,
-      medium: String,
-      large: String,
-    },
-    regular: {
-      small: String,
-      medium: String,
-      large: String,
-    },
+  images: {
+    small: String,
+    medium: String,
+    large: String,
   },
   year: Number,
   rating: String,
