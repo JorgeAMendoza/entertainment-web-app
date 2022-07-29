@@ -6,12 +6,15 @@ import mongoose from 'mongoose';
 import seedDB from './utils/seed-database';
 
 const app = express();
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 async function main() {
   app.use('/static', express.static(STATIC_ROOT_FOLDER_PATH));
   const httpServer = createServer(app);
   const apolloServer = await createApolloServer(httpServer, app);
 
+  console.log(process.env.MONGO_URL);
   const mongoURL = process.env.MONGO_URL as string;
 
   mongoose
