@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import * as express from 'express';
 import { PORT, STATIC_ROOT_FOLDER_PATH } from './utils/constants';
 import { createApolloServer } from './apollo/apollo-sever';
@@ -6,8 +7,6 @@ import mongoose from 'mongoose';
 import seedDB from './utils/seed-database';
 
 const app = express();
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-require('dotenv').config();
 
 async function main() {
   app.use('/static', express.static(STATIC_ROOT_FOLDER_PATH));
