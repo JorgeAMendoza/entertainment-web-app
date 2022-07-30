@@ -4,14 +4,14 @@ const userOnePasswordHash = hashSync('chopper', 10);
 const userTwoPasswordHash = hashSync('luffy', 10);
 const userData = [
   {
-    username: 'JorgeAM1998',
+    username: 'jorgeam1998',
     name: 'Jorge A. Mendoza II',
     passwordHash: userOnePasswordHash,
     bookMarkedShows: [],
     bookMarkedMovies: [],
   },
   {
-    username: 'IsabelMen2004',
+    username: 'isabelmen2004',
     name: 'Isabel Mendoza',
     passwordHash: userTwoPasswordHash,
     bookMarkedShows: [],
