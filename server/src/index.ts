@@ -1,12 +1,13 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import * as express from 'express';
 import { PORT, STATIC_ROOT_FOLDER_PATH } from './utils/constants';
 import { createApolloServer } from './apollo/apollo-sever';
 import { createServer } from 'http';
+import { MONGO_URL } from './utils/constants';
 import mongoose from 'mongoose';
 import seedDB from './utils/seed-database';
 
-const app = express();
+export const app = express();
 
 async function main() {
   app.use('/static', express.static(STATIC_ROOT_FOLDER_PATH));
@@ -14,7 +15,7 @@ async function main() {
   const apolloServer = await createApolloServer(httpServer, app);
 
   console.log(process.env.MONGO_URL);
-  const mongoURL = process.env.MONGO_URL as string;
+  const mongoURL = MONGO_URL as string;
 
   mongoose
     .connect(mongoURL)
