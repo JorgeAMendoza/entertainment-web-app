@@ -15,17 +15,21 @@ async function main() {
   const apolloServer = await createApolloServer(httpServer, app);
 
   console.log(process.env.MONGO_URL);
+  console.log(process.env.NODE_ENV);
   const mongoURL = MONGO_URL as string;
+  const nodeENV = process.env.NODE_ENV as string;
 
   mongoose
     .connect(mongoURL)
     .then(async () => {
       console.log('connected to mongo db');
-      await seedDB();
-      console.log('database seeded');
+      if (nodeENV !== 'test') {
+        await seedDB();
+        console.log('database seeded');
+      }
     })
     .catch((e) => {
-      console.log('error conne cting to mongo DB');
+      console.log('error connecting to MongoDB');
       console.log(e);
     });
 

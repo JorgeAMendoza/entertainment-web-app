@@ -22,6 +22,6 @@ export const GRAPHQL_SCHEMA_PATH = rootBasedPath('schema.graphql');
 export const PORT = process.env.PORT || 4000;
 
 export const MONGO_URL =
-  process.env.NODE_ENV === 'test'
+  process.env.NODE_ENV == 'test'
     ? process.env.MONGO_URL_TEST
     : process.env.MONGO_URL;
