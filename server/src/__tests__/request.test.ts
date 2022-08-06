@@ -1,33 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line node/no-unpublished-import
 import supertest from 'supertest';
-import { app } from '../index';
-import movieService from '../database/services/movie-service';
-import showService from '../database/services/show-service';
-import userService from '../database/services/user-service';
-import Movie from '../database/schemas/movie';
-import Show from '../database/schemas/show';
-import User from '../database/schemas/user';
-import movieData from '../utils/movie-data';
-import showData from '../utils/show-data';
-import userData from '../utils/user-data';
 
-const api = supertest(app);
-
-beforeEach(async () => {
-  await Movie.deleteMany({});
-  await Show.deleteMany({});
-  await User.deleteMany({});
-
-  const testUser = userData[0];
-  const user = new User(testUser);
-  await user.save();
-
-  await Movie.insertMany(movieData.slice(0, 3));
-  await Show.insertMany(showData.slice(0, 3));
-});
+const baseURL = supertest('http://localhost:4000/graphql');
 
 describe('User login', () => {
-  test.todo('valid user login sent, token returned');
+  test.only('valid user login sent, token returned', async () => {
+    await baseURL
+      .post('')
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($username: String!, $password: String!) {  loginUser(username: $username, password: $password) {token}}',
+        variables: {
+          password: 'chopper',
+          username: 'jorgeam1998',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+  });
   test.todo('invalid user login, null returned');
 });
 
@@ -38,8 +30,26 @@ describe('User sign up', () => {
 });
 
 describe('movie data', () => {
-  test.todo('get all movie data');
-  test.todo('get recommended movies');
+  test('movies returned as json', async () => {
+    await baseURL
+      .post('')
+      .send({ query: '{movies {title, year}}' })
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+  });
+  test('all movies returned', async () => {
+    const response = await baseURL
+      .post('')
+      .send({ query: '{movies {title, year}}' });
+    expect(response.body.data.movies).toHaveLength(3);
+    expect(response.body.data.movies).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          title: 'Beyond Earth',
+        }),
+      ])
+    );
+  });
 });
 
 describe('show data', () => {

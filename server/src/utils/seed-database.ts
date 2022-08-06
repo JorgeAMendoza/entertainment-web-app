@@ -5,7 +5,7 @@ import movieData from './movie-data';
 import showData from './show-data';
 import userData from './user-data';
 
-const seedDB = async () => {
+export const seedDB = async () => {
   await Movie.deleteMany({});
   await User.deleteMany({});
   await Show.deleteMany({});
@@ -15,4 +15,12 @@ const seedDB = async () => {
   await Show.insertMany(showData);
 };
 
-export default seedDB;
+export const seedTestDB = async () => {
+  await Movie.deleteMany({});
+  await User.deleteMany({});
+  await Show.deleteMany({});
+
+  await Movie.insertMany(movieData.slice(0, 3));
+  await Show.insertMany(showData.slice(0, 3));
+  await User.insertMany(userData);
+};

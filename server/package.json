@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend for the entertainment web application, using graphql and mongodb",
   "main": "index.js",
-  "type": "module",
   "jest": {
     "transform": {
       "^.+\\.ts?$": "babel-jest"
