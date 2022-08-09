@@ -1,30 +1,35 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import * as express from 'express';
 import { PORT, STATIC_ROOT_FOLDER_PATH } from './utils/constants';
 import { createApolloServer } from './apollo/apollo-sever';
 import { createServer } from 'http';
+import { MONGO_URL } from './utils/constants';
 import mongoose from 'mongoose';
-import seedDB from './utils/seed-database';
+import { seedDB, seedTestDB } from './utils/seed-database';
 
-const app = express();
+export const app = express();
 
 async function main() {
   app.use('/static', express.static(STATIC_ROOT_FOLDER_PATH));
   const httpServer = createServer(app);
   const apolloServer = await createApolloServer(httpServer, app);
-
-  console.log(process.env.MONGO_URL);
-  const mongoURL = process.env.MONGO_URL as string;
+  const mongoURL = MONGO_URL as string;
+  const nodeENV = process.env.NODE_ENV as string;
 
   mongoose
     .connect(mongoURL)
     .then(async () => {
       console.log('connected to mongo db');
-      await seedDB();
-      console.log('database seeded');
+      if (nodeENV !== 'test') {
+        await seedDB();
+        console.log('database seeded');
+      } else {
+        await seedTestDB();
+        console.log('test database seeded');
+      }
     })
     .catch((e) => {
-      console.log('error conne cting to mongo DB');
+      console.log('error connecting to MongoDB');
       console.log(e);
     });
 

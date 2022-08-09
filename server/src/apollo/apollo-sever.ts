@@ -19,7 +19,6 @@ export async function createApolloServer(
   const server = new ApolloServer({
     schema: addResolversToSchema({ schema: SCHEMA, resolvers }),
     context: (): EntertainmentResolverContext => ({
-      userToken: '',
       dbMovieCache: {},
       dbShowCache: {},
     }),

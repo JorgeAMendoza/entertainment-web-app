@@ -7,8 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:frontend:dev": "cd client && npm run start",
     "start:backend:dev": "cd server && nodemon ./src/index.ts",
+    "start:backend:test": "cd server && npm run server:test",
     "start:dev": "npm run start:frontend:dev & npm run start:backend:dev",
-    "lint:backend": "eslint ./server/src/**/*.{ts,tsx}"
+    "test:api": "cd server && npm run test:api",
+    "lint:backend": "eslint ./server/src/**/*.{ts,tsx}",
+    "docker:mongo:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:mongo:test": "docker-compose -f docker-compose.test.yml up",
+    "docker:mongo:dev:down": "docker-compose -f docker-compose.dev.yml down",
+    "docker:mongo:test:down": "docker-compose -f docker-compose.test.yml down"
   },
   "repository": {
     "type": "git",
@@ -28,6 +34,7 @@
   },
   "homepage": "https://github.com/JorgeAMendoza/entertainment-web-app#readme",
   "devDependencies": {
+    "@babel/preset-typescript": "^7.18.6",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
     "@typescript-eslint/parser": "^5.30.4",
     "concurrently": "^7.2.2",

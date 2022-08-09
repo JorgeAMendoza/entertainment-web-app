@@ -10,4 +10,5 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: entertainment_database
     volumes: 
-    - ./src/database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    - ./server/src/database/utils/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    container_name: entertainment-app-mongo-dev
