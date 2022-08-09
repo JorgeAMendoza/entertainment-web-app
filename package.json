@@ -9,7 +9,7 @@
     "start:backend:dev": "cd server && nodemon ./src/index.ts",
     "start:backend:test": "cd server && npm run server:test",
     "start:dev": "npm run start:frontend:dev & npm run start:backend:dev",
-    "test:server:api": "cd server && npm run test:api",
+    "test:api": "cd server && npm run test:api",
     "lint:backend": "eslint ./server/src/**/*.{ts,tsx}",
     "docker:mongo:dev": "docker-compose -f docker-compose.dev.yml up",
     "docker:mongo:test": "docker-compose -f docker-compose.test.yml up",
