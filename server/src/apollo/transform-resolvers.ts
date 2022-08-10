@@ -12,6 +12,7 @@ export const movieTransform = (movie: DbMovie): Movie => {
       large: movie.images.large,
     },
     year: movie.year,
+    type: 'movie',
   };
 };
 
@@ -26,5 +27,6 @@ export const showTransform = (show: DbShow): Show => {
       large: show.images.large,
     },
     year: show.year,
+    type: 'show',
   };
 };

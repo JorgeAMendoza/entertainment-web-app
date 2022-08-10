@@ -10,6 +10,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2019,
     rating: 'TV-Y',
+    type: 'show',
   },
   {
     title: 'Dark Side of the Moon',
@@ -20,6 +21,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2018,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'The Diary',
@@ -30,6 +32,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2019,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'During the Hunt',
@@ -40,6 +43,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2016,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'Autosport the Series',
@@ -50,6 +54,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2016,
     rating: 'TV-MA',
+    type: 'show',
   },
   {
     title: 'Below Echo',
@@ -60,6 +65,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2016,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'The Rockies',
@@ -70,6 +76,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2015,
     rating: 'TV-G',
+    type: 'show',
   },
   {
     title: 'Community of Ours',
@@ -80,6 +87,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2018,
     rating: 'TV-MA',
+    type: 'show',
   },
   {
     title: '112',
@@ -90,6 +98,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2013,
     rating: 'TV-14',
+    type: 'show',
   },
   {
     title: 'Production Line',
@@ -100,6 +109,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2018,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'Dogs',
@@ -110,6 +120,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2016,
     rating: 'TV-G',
+    type: 'show',
   },
   {
     title: 'Asia in 24 Days',
@@ -120,6 +131,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2020,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'The Tasty Tour',
@@ -130,6 +142,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2016,
     rating: 'TV-PG',
+    type: 'show',
   },
   {
     title: 'Unresolved Cases',
@@ -140,6 +153,7 @@ const showData: Omit<Show, 'id' | '__typename'>[] = [
     },
     year: 2018,
     rating: 'TV-MA',
+    type: 'show',
   },
 ];
 
