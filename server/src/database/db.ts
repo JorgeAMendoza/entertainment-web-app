@@ -22,7 +22,7 @@ type ShowRatingTypes =
   | 'TV-MA';
 
 export interface DbUser extends Document {
-  username: string;
+  email: string;
   name: string;
   passwordHash: string;
   bookmarkedShows: bookMarkedShowType[];

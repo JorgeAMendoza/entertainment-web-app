@@ -6,15 +6,12 @@ import showService from './show-service';
 import movieService from './movie-service';
 
 interface UserLogin {
-  username: string;
+  email: string;
   password: string;
 }
 
-const loginUser = async ({
-  username,
-  password,
-}: UserLogin): Promise<string> => {
-  const targetUser = await User.findOne({ username: username });
+const loginUser = async ({ email, password }: UserLogin): Promise<string> => {
+  const targetUser = await User.findOne({ email });
   if (targetUser === null) throw new Error('User not found');
 
   const correctPassword = await bcrypt.compare(
@@ -24,7 +21,7 @@ const loginUser = async ({
   if (!correctPassword) throw new Error('Incorrect password');
 
   const tokenForUser = {
-    username: targetUser.username,
+    username: targetUser.email,
     id: targetUser._id,
   };
 
