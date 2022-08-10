@@ -27,6 +27,7 @@ export type Movie = {
   images: ImageLinks;
   rating: Scalars['String'];
   title: Scalars['String'];
+  type: Scalars['String'];
   year: Scalars['Int'];
 };
 
@@ -97,6 +98,7 @@ export type Show = {
   images: ImageLinks;
   rating: Scalars['String'];
   title: Scalars['String'];
+  type: Scalars['String'];
   year: Scalars['Int'];
 };
 
@@ -232,6 +234,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -263,6 +266,7 @@ export type ShowResolvers<ContextType = any, ParentType extends ResolversParentT
   images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

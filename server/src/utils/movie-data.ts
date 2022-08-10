@@ -10,6 +10,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2019,
     rating: 'PG',
+    type: 'movie',
   },
   {
     title: 'Bottom Gear',
@@ -20,6 +21,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2021,
     rating: 'PG',
+    type: 'movie',
   },
   {
     title: '1998',
@@ -30,6 +32,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2021,
     rating: 'R',
+    type: 'movie',
   },
   {
     title: 'The Great Lands',
@@ -40,6 +43,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2019,
     rating: 'G',
+    type: 'movie',
   },
   {
     title: "Earth's Untouched",
@@ -50,6 +54,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'R',
+    type: 'movie',
   },
   {
     title: 'No Land Beyond',
@@ -60,6 +65,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2019,
     rating: 'G',
+    type: 'movie',
   },
   {
     title: 'Same Answer II',
@@ -70,6 +76,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'G',
+    type: 'movie',
   },
   {
     title: 'Relentless',
@@ -80,6 +87,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'PG-13',
+    type: 'movie',
   },
   {
     title: 'Van Life',
@@ -90,6 +98,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2015,
     rating: 'PG',
+    type: 'movie',
   },
   {
     title: 'The Heiress',
@@ -100,6 +109,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2021,
     rating: 'PG',
+    type: 'movie',
   },
   {
     title: 'Off the Track',
@@ -110,6 +120,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'R',
+    type: 'movie',
   },
   {
     title: 'Whispering Hill',
@@ -120,6 +131,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'PG',
+    type: 'movie',
   },
   {
     title: 'Lone Heart',
@@ -130,6 +142,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'G',
+    type: 'movie',
   },
   {
     title: 'Darker',
@@ -140,6 +153,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'R',
+    type: 'movie',
   },
   {
     title: 'Mission: Saturn',
@@ -150,6 +164,7 @@ const movieData: Omit<Movie, 'id' | '__typename'>[] = [
     },
     year: 2017,
     rating: 'PG',
+    type: 'movie',
   },
 ];
 

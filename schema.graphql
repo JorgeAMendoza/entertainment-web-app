@@ -20,6 +20,7 @@ type Movie {
   year: Int!
   rating: String!
   images: ImageLinks!
+  type: String!
 }
 
 type Show {
@@ -28,6 +29,7 @@ type Show {
   year: Int!
   rating: String!
   images: ImageLinks!
+  type: String!
 }
 
 type User {
