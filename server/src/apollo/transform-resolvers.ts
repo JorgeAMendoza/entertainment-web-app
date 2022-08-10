@@ -28,5 +28,3 @@ export const showTransform = (show: DbShow): Show => {
     year: show.year,
   };
 };
-
-// so it seems that the transform is just for the regular properties, then properties that use special ones are using hte resolver. focus on the primitive values for hte transform, then the resolver for that grpahql type iwll handle the rest.

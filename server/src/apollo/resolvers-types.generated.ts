@@ -37,6 +37,7 @@ export type Mutation = {
   loginUser?: Maybe<Token>;
   removeFavoriteMovie: Movie;
   removeFavoriteShow: Show;
+  signUpUser?: Maybe<Token>;
 };
 
 
@@ -53,8 +54,8 @@ export type MutationAddFavoriteShowArgs = {
 
 
 export type MutationLoginUserArgs = {
+  email: Scalars['String'];
   password: Scalars['String'];
-  username: Scalars['String'];
 };
 
 
@@ -67,6 +68,13 @@ export type MutationRemoveFavoriteMovieArgs = {
 export type MutationRemoveFavoriteShowArgs = {
   showId: Scalars['String'];
   userId: Scalars['String'];
+};
+
+
+export type MutationSignUpUserArgs = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Query = {
@@ -231,9 +239,10 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   addFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId' | 'userId'>>;
   addFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId' | 'userId'>>;
-  loginUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'password' | 'username'>>;
+  loginUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
   removeFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId' | 'userId'>>;
   removeFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId' | 'userId'>>;
+  signUpUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

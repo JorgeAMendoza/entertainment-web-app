@@ -10,7 +10,8 @@ type Mutation {
   addFavoriteMovie(userId: String!, movieId: String!): Movie!
   removeFavoriteShow(userId: String!, showId: String!): Show!
   removeFavoriteMovie(userId: String!, movieId: String!): Movie!
-  loginUser(username: String!, password: String!): Token
+  loginUser(email: String!, password: String!): Token
+  signUpUser(email: String!, password: String!, name: String!): Token
 }
 
 type Movie {
