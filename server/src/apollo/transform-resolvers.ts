@@ -1,5 +1,7 @@
-import { DbMovie, DbShow } from '../database/db';
-import { Movie, Show } from './resolvers-types.generated';
+import { DbMovie, DbShow, DbUser } from '../database/db';
+import { Movie, Show, User } from './resolvers-types.generated';
+import movieService from '../database/services/movie-service';
+import showService from '../database/services/show-service';
 
 export const movieTransform = (movie: DbMovie): Movie => {
   return {
@@ -29,4 +31,41 @@ export const showTransform = (show: DbShow): Show => {
     year: show.year,
     type: 'show',
   };
+};
+
+export const userTransform = async (user: DbUser): Promise<User> => {
+  const userMovies = await getUserMovies(user.bookmarkedMovies);
+  const userShows = await getUserShows(user.bookmarkedShows);
+
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    bookmarkedMovies: userMovies,
+    bookmarkedShows: userShows,
+  };
+};
+
+const getUserMovies = async (movieIDs: string[]): Promise<Movie[]> => {
+  const userMovies: Movie[] = [];
+
+  for (let i = 0; i < movieIDs.length; i++) {
+    if (movieIDs[i] === undefined) continue;
+    const movie = await movieService.getMovieById(movieIDs[i] as string);
+    userMovies.push(movieTransform(movie));
+  }
+
+  return userMovies;
+};
+
+const getUserShows = async (showIDs: string[]): Promise<Show[]> => {
+  const userShows: Show[] = [];
+
+  for (let i = 0; i < showIDs.length; i++) {
+    if (showIDs[i] === undefined) continue;
+    const show = await showService.getShowById(showIDs[i] as string);
+    userShows.push(showTransform(show));
+  }
+
+  return userShows;
 };
