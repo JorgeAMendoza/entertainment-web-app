@@ -84,6 +84,7 @@ export type Query = {
   recommended: Recommended;
   shows: Array<Show>;
   trending: Trending;
+  user?: Maybe<User>;
 };
 
 export type Recommended = {
@@ -120,7 +121,6 @@ export type User = {
   email: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
-  username: Scalars['String'];
 };
 
 
@@ -253,6 +253,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   recommended?: Resolver<ResolversTypes['Recommended'], ParentType, ContextType>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
   trending?: Resolver<ResolversTypes['Trending'], ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type RecommendedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recommended'] = ResolversParentTypes['Recommended']> = {
@@ -288,7 +289,6 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

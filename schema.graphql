@@ -3,6 +3,7 @@ type Query {
   shows: [Show!]!
   recommended: Recommended!
   trending: Trending!
+  user: User
 }
 
 type Mutation {
@@ -34,7 +35,6 @@ type Show {
 
 type User {
   id: String!
-  username: String!
   name: String!
   email: String!
   bookmarkedShows: [Show!]

@@ -5,8 +5,10 @@ import movieService from '../../database/services/movie-service';
 import {
   movieTransform,
   showTransform,
+  userTransform,
 } from '../../apollo/transform-resolvers';
 import { DbMovie, DbShow } from '../../database/db';
+import User from '../../database/schemas/user';
 
 const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
   movies: async (_, __, { dbMovieCache }) => {
@@ -44,6 +46,14 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       shows: recommendedShows,
       movies: recommendedMovies,
     };
+  },
+  user: async (_, __, { currentUser }) => {
+    if (!currentUser) return null;
+    const user = await User.findById(currentUser.id);
+    if (!user) return null;
+    const transformedUser = await userTransform(user);
+
+    return transformedUser;
   },
 };
 

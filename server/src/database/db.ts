@@ -1,14 +1,4 @@
-import mongoose, { Document } from 'mongoose';
-
-type bookMarkedShowType = {
-  type: mongoose.Types.ObjectId;
-  ref: 'Show';
-};
-
-type bookMarkedMovieType = {
-  type: mongoose.Types.ObjectId;
-  ref: 'Movie';
-};
+import { Document } from 'mongoose';
 
 type MovieRatingTypes = 'G' | 'PG' | 'PG-13' | 'R' | 'NC-17';
 
@@ -25,8 +15,8 @@ export interface DbUser extends Document {
   email: string;
   name: string;
   passwordHash: string;
-  bookmarkedShows: bookMarkedShowType[];
-  bookmarkedMovies: bookMarkedMovieType[];
+  bookmarkedShows: string[];
+  bookmarkedMovies: string[];
 }
 
 export interface DbMovie extends Document {
