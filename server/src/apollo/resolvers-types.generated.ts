@@ -33,11 +33,11 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addFavoriteMovie: Movie;
-  addFavoriteShow: Show;
+  addFavoriteMovie?: Maybe<Movie>;
+  addFavoriteShow?: Maybe<Show>;
   loginUser?: Maybe<Token>;
-  removeFavoriteMovie: Movie;
-  removeFavoriteShow: Show;
+  removeFavoriteMovie?: Maybe<Movie>;
+  removeFavoriteShow?: Maybe<Show>;
   signUpUser?: Maybe<Token>;
 };
 
@@ -240,11 +240,11 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId' | 'userId'>>;
-  addFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId' | 'userId'>>;
+  addFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId' | 'userId'>>;
+  addFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId' | 'userId'>>;
   loginUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
-  removeFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId' | 'userId'>>;
-  removeFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId' | 'userId'>>;
+  removeFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId' | 'userId'>>;
+  removeFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId' | 'userId'>>;
   signUpUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 
