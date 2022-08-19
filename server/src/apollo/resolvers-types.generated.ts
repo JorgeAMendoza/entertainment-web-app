@@ -44,13 +44,11 @@ export type Mutation = {
 
 export type MutationAddFavoriteMovieArgs = {
   movieId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
 export type MutationAddFavoriteShowArgs = {
   showId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
@@ -62,13 +60,11 @@ export type MutationLoginUserArgs = {
 
 export type MutationRemoveFavoriteMovieArgs = {
   movieId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
 export type MutationRemoveFavoriteShowArgs = {
   showId: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 
@@ -240,11 +236,11 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId' | 'userId'>>;
-  addFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId' | 'userId'>>;
+  addFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId'>>;
+  addFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId'>>;
   loginUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
-  removeFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId' | 'userId'>>;
-  removeFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId' | 'userId'>>;
+  removeFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
+  removeFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
   signUpUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 
