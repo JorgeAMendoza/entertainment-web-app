@@ -7,10 +7,10 @@ type Query {
 }
 
 type Mutation {
-  addFavoriteShow(userId: String!, showId: String!): Show
-  addFavoriteMovie(userId: String!, movieId: String!): Movie
-  removeFavoriteShow(userId: String!, showId: String!): Show
-  removeFavoriteMovie(userId: String!, movieId: String!): Movie
+  addFavoriteShow(showId: String!): Show
+  addFavoriteMovie(movieId: String!): Movie
+  removeFavoriteShow(showId: String!): Show
+  removeFavoriteMovie(movieId: String!): Movie
   loginUser(email: String!, password: String!): Token
   signUpUser(email: String!, password: String!, name: String!): Token
 }

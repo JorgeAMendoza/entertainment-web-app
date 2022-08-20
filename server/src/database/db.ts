@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 type MovieRatingTypes = 'G' | 'PG' | 'PG-13' | 'R' | 'NC-17';
 
@@ -11,15 +11,20 @@ type ShowRatingTypes =
   | 'TV-14'
   | 'TV-MA';
 
+export interface RefProperty {
+  _id: Types.ObjectId;
+}
+
 export interface DbUser extends Document {
   email: string;
   name: string;
   passwordHash: string;
-  bookmarkedShows: string[];
-  bookmarkedMovies: string[];
+  bookmarkedShows: RefProperty[];
+  bookmarkedMovies: RefProperty[];
 }
 
 export interface DbMovie extends Document {
+  _id: Types.ObjectId;
   id: string;
   title: string;
   images: {
@@ -32,6 +37,7 @@ export interface DbMovie extends Document {
 }
 
 export interface DbShow extends Document {
+  _id: Types.ObjectId;
   id: string;
   title: string;
   images: {

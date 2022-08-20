@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { DbShow, DbUser, DbMovie } from '../db';
 import showService from './show-service';
 import movieService from './movie-service';
+// import {Types} from 'mongoose'
 
 interface UserLogin {
   email: string;
@@ -45,7 +46,8 @@ const addFavoriteShow = async (
   const favoriteShow = await showService.getShowById(showId);
   if (favoriteShow === null) throw new Error('Show does not exist');
 
-  user.bookmarkedShows.push(favoriteShow.id);
+  user.bookmarkedShows.push({ _id: favoriteShow._id });
+  console.log(user.bookmarkedShows);
   await user.save();
   return favoriteShow;
 };
@@ -56,7 +58,7 @@ const addFavoriteMovie = async (
 ): Promise<DbMovie> => {
   const favoriteMovie = await movieService.getMovieById(movieId);
   if (favoriteMovie === null) throw new Error('Movie does not exist.');
-  user.bookmarkedMovies.push(favoriteMovie.id);
+  user.bookmarkedMovies.push({ _id: favoriteMovie._id });
   await user.save();
   return favoriteMovie;
 };
@@ -68,17 +70,20 @@ const removeFavoriteShow = async (
   const targetShow = await showService.getShowById(showId);
   if (targetShow === null) throw new Error('Show does not exist.');
   user.bookmarkedShows = user.bookmarkedShows.filter(
-    (show) => show !== targetShow.id
+    (showID) => showID._id.toString() !== targetShow.id
   );
   await user.save();
   return targetShow;
 };
 
-const removeFavoriteMovie = async (movieId: string, user: DbUser) => {
+const removeFavoriteMovie = async (
+  movieId: string,
+  user: DbUser
+): Promise<DbMovie> => {
   const targetMovie = await movieService.getMovieById(movieId);
   if (targetMovie === null) throw new Error('Movie does not exist.');
   user.bookmarkedMovies = user.bookmarkedMovies.filter(
-    (movie) => movie !== targetMovie.id
+    (movie) => movie._id.toString() !== targetMovie.id
   );
   await user.save();
   return targetMovie;
