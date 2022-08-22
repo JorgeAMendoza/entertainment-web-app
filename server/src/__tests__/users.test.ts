@@ -21,7 +21,7 @@ describe('User login', () => {
       .expect('Content-Type', /application\/json/)
       .expect(200);
   });
-  test('invalid user login, null returned', async () => {
+  test('invalid user login, error returned', async () => {
     const response = await baseURL
       .post('')
       .send({
@@ -36,7 +36,10 @@ describe('User login', () => {
       .expect('Content-Type', /application\/json/)
       .expect(400);
 
-    expect(response.body.data.loginUser.token).toBe(null);
+    expect(response.body.error[0].message).toBe(
+      'Username or password is not valid'
+    );
+    expect(response.body.error[0].extensions.code).toBe('UNAUTHENTICATED');
   });
 });
 
@@ -58,7 +61,7 @@ describe('User sign up', () => {
 
     expect(response.body.data.signUpUser.token).not.toBe(null);
   });
-  test('email already used, null returned', async () => {
+  test('email already used, error returned', async () => {
     const response = await baseURL
       .post('')
       .send({
@@ -73,9 +76,12 @@ describe('User sign up', () => {
       .expect('Content-Type', /application\/json/)
       .expect(400);
 
-    expect(response.body.data.signUpUser.token).toBe(null);
+    expect(response.body.error[0].message).toBe(
+      'Account already exists, please use another email address.'
+    );
+    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
   });
-  test('invalid password, null returned', async () => {
+  test('invalid password, error returned', async () => {
     const response = await baseURL
       .post('')
       .send({
@@ -90,7 +96,28 @@ describe('User sign up', () => {
       .expect('Content-Type', /application\/json/)
       .expect(400);
 
-    expect(response.body.data.signUpUser.token).toBe('null');
+    expect(response.body.error[0].message).toBe(
+      'Password does not comply to standards'
+    );
+    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+  });
+  test('invalid email, error returned', async () => {
+    const response = await baseURL
+      .post('')
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($email: String!, $password: String!) {  signUpUser(email: $email, password: $password) {token}}',
+        variables: {
+          password: 'badpassword',
+          email: 'bademail',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(400);
+
+    expect(response.body.error[0].message).toBe('Invalid email');
+    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
   });
 });
 
@@ -126,6 +153,82 @@ describe('user adding favorite content', () => {
     expect(user?.bookmarkedMovies.length).toBe(1);
   });
 
+  test('attempt to add movie that does not exist, error returned', async () => {
+    const loginResponse = await baseURL.post('').send({
+      operationName: 'Mutation',
+      query:
+        'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
+      variables: {
+        password: 'Chopper!?1998',
+        username: 'jorgemendoza2002@gmail.com',
+      },
+    });
+
+    const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const response = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
+        variables: {
+          movieID: 'badID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    expect(response.body.error[0].message).toBe('Movie does not exist');
+    expect(response.body.error.extensions.code).toBe('BAD_USER_INPUT');
+  });
+
+  test('attempt to add movie that is already bookmarked, error returned', async () => {
+    const loginResponse = await baseURL.post('').send({
+      operationName: 'Mutation',
+      query:
+        'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
+      variables: {
+        password: 'Chopper!?1998',
+        username: 'jorgemendoza2002@gmail.com',
+      },
+    });
+
+    const userToken = loginResponse.body.data.loginUser.token as string;
+
+    await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
+        variables: {
+          movieID: 'initalID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    const response = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
+        variables: {
+          movieID: 'existingID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    expect(response.body.error[0].message).toBe('Movie already favorited');
+    expect(response.body.error.extensions.code).toBe('BAD_USER_INPUT');
+  });
+
   test('user can save a favorite show', async () => {
     const loginResponse = await baseURL.post('').send({
       operationName: 'Mutation',
@@ -157,6 +260,82 @@ describe('user adding favorite content', () => {
     expect(user?.bookmarkedShows.length).toBe(1);
   });
 
+  test('attempt to add show that does not exist, error returned', async () => {
+    const loginResponse = await baseURL.post('').send({
+      operationName: 'Mutation',
+      query:
+        'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
+      variables: {
+        password: 'Chopper!?1998',
+        username: 'jorgemendoza2002@gmail.com',
+      },
+    });
+
+    const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const response = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
+        variables: {
+          showID: 'someID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    expect(response.body.error[0].message).toBe('Show does not exist');
+    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+  });
+
+  test('attempt to add show that is already bookmarked, error returned', async () => {
+    const loginResponse = await baseURL.post('').send({
+      operationName: 'Mutation',
+      query:
+        'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
+      variables: {
+        password: 'Chopper!?1998',
+        username: 'jorgemendoza2002@gmail.com',
+      },
+    });
+
+    const userToken = loginResponse.body.data.loginUser.token as string;
+
+    await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
+        variables: {
+          showID: 'someID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    const response = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
+        variables: {
+          showID: 'sameID',
+        },
+      })
+      .expect('Content-Type', /application\/json/)
+      .expect(200);
+
+    expect(response.body.error[0].message).toBe('Show already favorited');
+    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+  });
+
   test('invalid token passed', async () => {
     const response = await baseURL
       .post('')
@@ -172,7 +351,8 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/)
       .expect(400);
 
-    expect(response.body.error).toBe('Invalid token passed');
+    expect(response.body.error[0].message).toBe('Invalid token passed');
+    expect(response.body.error[0].extensions.code).toBe('UNAUTHENTICATED');
   });
 
   test('no token passed', async () => {
@@ -189,7 +369,8 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/)
       .expect(400);
 
-    expect(response.body.error).toBe('Invalid token passed');
+    expect(response.body.error[0].message).toBe('No token passed');
+    expect(response.body.error[0].extensions.code).toBe('UNATHENTICATED');
   });
 });
 

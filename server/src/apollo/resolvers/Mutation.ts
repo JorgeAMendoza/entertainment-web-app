@@ -9,14 +9,10 @@ import {
 
 const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
   async loginUser(_, args, __) {
-    try {
-      const token = await userService.loginUser(args);
-      return {
-        token,
-      };
-    } catch {
-      return null;
-    }
+    const token = await userService.loginUser(args);
+    return {
+      token,
+    };
   },
   async signUpUser(_, args, __) {
     try {

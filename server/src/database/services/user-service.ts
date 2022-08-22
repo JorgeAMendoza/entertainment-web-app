@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { DbShow, DbUser, DbMovie } from '../db';
 import showService from './show-service';
 import movieService from './movie-service';
-// import {Types} from 'mongoose'
+import { AuthenticationError } from 'apollo-server-core';
 
 interface UserLogin {
   email: string;
@@ -13,13 +13,14 @@ interface UserLogin {
 
 const loginUser = async ({ email, password }: UserLogin): Promise<string> => {
   const targetUser = await User.findOne({ email });
-  if (targetUser === null) throw new Error('User not found');
+  if (targetUser === null)
+    throw new AuthenticationError('Username or password is not valid');
 
   const correctPassword = await bcrypt.compare(
     password,
     targetUser.passwordHash
   );
-  if (!correctPassword) throw new Error('Incorrect password');
+  if (!correctPassword) throw new AuthenticationError('Incorrect password');
 
   const tokenForUser = {
     username: targetUser.email,
