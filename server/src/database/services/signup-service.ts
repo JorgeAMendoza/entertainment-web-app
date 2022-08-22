@@ -1,6 +1,7 @@
 import User from '../schemas/user';
 import * as jwt from 'jsonwebtoken';
 import { hashSync } from 'bcrypt';
+import { UserInputError } from 'apollo-server-core';
 
 interface SignUpUserArgs {
   email: string;
@@ -10,7 +11,7 @@ interface SignUpUserArgs {
 
 const signUpUser = async ({ email, password, name }: SignUpUserArgs) => {
   const user = await User.findOne({ email });
-  if (user !== null) throw new Error('Email is taken');
+  if (user !== null) throw new UserInputError('');
 
   const userPasswordHash = hashSync(password, 10);
 
