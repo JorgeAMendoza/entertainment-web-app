@@ -1,7 +1,7 @@
 import { hashSync } from 'bcrypt';
 
-const userOnePasswordHash = hashSync('chopper', 10);
-const userTwoPasswordHash = hashSync('luffy', 10);
+const userOnePasswordHash = hashSync('Chopper!?990', 10);
+const userTwoPasswordHash = hashSync('Luffy!?2020', 10);
 const userData = [
   {
     email: 'jorgemendoza2002@gmail.com',

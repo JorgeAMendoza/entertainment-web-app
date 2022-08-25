@@ -1,12 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line node/no-unpublished-import
 import supertest from 'supertest';
+import 'dotenv/config';
 import User from '../database/schemas/user';
+import Movie from '../database/schemas/movie';
+import Show from '../database/schemas/show';
+import userData from '../utils/user-data';
+import movieData from '../utils/movie-data';
+import showData from '../utils/show-data';
+import mongoose from 'mongoose';
+import { Movie as MovieType } from '../apollo/resolvers-types.generated';
+import { Show as ShowType } from '../apollo/resolvers-types.generated';
 
 const baseURL = supertest('http://localhost:4000/graphql');
 
+beforeEach(async () => {
+  await mongoose.connect(process.env.MONGO_URL_TEST as string);
+  await User.deleteMany({});
+  await Movie.deleteMany({});
+  await Show.deleteMany({});
+  await Movie.insertMany(movieData);
+  await Show.insertMany(showData);
+  await User.insertMany(userData);
+});
+
+afterEach(async () => {
+  await mongoose.connection.close();
+});
+
 describe('User login', () => {
-  test.only('valid user login sent, token returned', async () => {
+  test('valid user login sent, token returned', async () => {
     await baseURL
       .post('')
       .send({
@@ -14,8 +37,8 @@ describe('User login', () => {
         query:
           'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
         variables: {
-          password: 'Chopper!?1998',
-          username: 'jorgemendoza2002@gmail.com',
+          password: 'Chopper!?990',
+          email: 'jorgemendoza2002@gmail.com',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -33,13 +56,12 @@ describe('User login', () => {
           email: 'jorgemendoza2002@gmail.com',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe(
-      'Username or password is not valid'
+    expect(response.body.errors[0].message).toBe(
+      'email or password is not valid'
     );
-    expect(response.body.error[0].extensions.code).toBe('UNAUTHENTICATED');
+    expect(response.body.errors[0].extensions.code).toBe('UNAUTHENTICATED');
   });
 });
 
@@ -50,10 +72,11 @@ describe('User sign up', () => {
       .send({
         operationName: 'Mutation',
         query:
-          'mutation Mutation($email: String!, $password: String!) {  signUpUser(email: $email, password: $password) {token}}',
+          'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
           password: 'Zolo!?1998',
-          username: 'onepiecefan@gmail.com',
+          email: 'onepiecefan@gmail.com',
+          name: 'Zolo',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -67,19 +90,20 @@ describe('User sign up', () => {
       .send({
         operationName: 'Mutation',
         query:
-          'mutation Mutation($email: String!, $password: String!) {  signUpUser(email: $email, password: $password) {token}}',
+          'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
           password: 'randompassword',
           email: 'jorgemendoza2002@gmail.com',
+          name: 'Jorge Mendoza',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
+    console.log(response.body);
 
-    expect(response.body.error[0].message).toBe(
-      'Account already exists, please use another email address.'
+    expect(response.body.errors[0].message).toBe(
+      'Account already exists, please use another email address'
     );
-    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
   test('invalid password, error returned', async () => {
     const response = await baseURL
@@ -87,19 +111,19 @@ describe('User sign up', () => {
       .send({
         operationName: 'Mutation',
         query:
-          'mutation Mutation($email: String!, $password: String!) {  signUpUser(email: $email, password: $password) {token}}',
+          'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
           password: 'badpassword',
           email: 'onepiecefan@gmail.com',
+          name: 'Josh smith',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe(
+    expect(response.body.errors[0].message).toBe(
       'Password does not comply to standards'
     );
-    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
   test('invalid email, error returned', async () => {
     const response = await baseURL
@@ -107,17 +131,17 @@ describe('User sign up', () => {
       .send({
         operationName: 'Mutation',
         query:
-          'mutation Mutation($email: String!, $password: String!) {  signUpUser(email: $email, password: $password) {token}}',
+          'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
           password: 'badpassword',
           email: 'bademail',
+          name: 'josh smith',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe('Invalid email');
-    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].message).toBe('Invalid email');
+    expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
 });
 
@@ -129,11 +153,19 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const movieRequest = await baseURL
+      .post('')
+      .send({ query: '{movies {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const movieData = movieRequest.body.data.movies as MovieType[];
+    const firstMovieID = movieData[0] ? movieData[0].id : 'randomID';
 
     await baseURL
       .post('')
@@ -143,13 +175,12 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
         variables: {
-          movieID: 'someID',
+          movieID: `${firstMovieID}`,
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(200);
+      .expect('Content-Type', /application\/json/);
 
-    const user = await User.findOne({ username: 'jorgemendoza2002@gmail.com' });
+    const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
     expect(user?.bookmarkedMovies.length).toBe(1);
   });
 
@@ -160,7 +191,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
@@ -180,8 +211,8 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/)
       .expect(200);
 
-    expect(response.body.error[0].message).toBe('Movie does not exist');
-    expect(response.body.error.extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].message).toBe('Movie does not exist');
+    expect(response.body.errors.extensions.code).toBe('BAD_USER_INPUT');
   });
 
   test('attempt to add movie that is already bookmarked, error returned', async () => {
@@ -191,11 +222,19 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const movieRequest = await baseURL
+      .post('')
+      .send({ query: '{movies {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const movieData = movieRequest.body.data.movies as MovieType[];
+    const firstMovieID = movieData[0] ? movieData[0].id : 'randomID';
 
     await baseURL
       .post('')
@@ -205,7 +244,7 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
         variables: {
-          movieID: 'initalID',
+          movieID: `${firstMovieID}`,
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -219,14 +258,13 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
         variables: {
-          movieID: 'existingID',
+          movieID: `${firstMovieID}`,
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(200);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe('Movie already favorited');
-    expect(response.body.error.extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].message).toBe('Movie already favorited');
+    expect(response.body.errors.extensions.code).toBe('BAD_USER_INPUT');
   });
 
   test('user can save a favorite show', async () => {
@@ -236,11 +274,19 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const showRequest = await baseURL
+      .post('')
+      .send({ query: '{shows {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const showData = showRequest.body.data.movies as ShowType[];
+    const firstShowID = showData[0] ? showData[0].id : 'randomID';
 
     await baseURL
       .post('')
@@ -250,7 +296,7 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
         variables: {
-          showID: 'someID',
+          showID: `${firstShowID}`,
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -267,7 +313,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
@@ -281,14 +327,14 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
         variables: {
-          showID: 'someID',
+          showID: 'badID',
         },
       })
       .expect('Content-Type', /application\/json/)
       .expect(200);
 
-    expect(response.body.error[0].message).toBe('Show does not exist');
-    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].message).toBe('Show does not exist');
+    expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
 
   test('attempt to add show that is already bookmarked, error returned', async () => {
@@ -298,11 +344,19 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const showRequest = await baseURL
+      .post('')
+      .send({ query: '{shows {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const showData = showRequest.body.data.movies as ShowType[];
+    const firstShowID = showData[0] ? showData[0].id : 'randomID';
 
     await baseURL
       .post('')
@@ -312,7 +366,7 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
         variables: {
-          showID: 'someID',
+          showID: `${firstShowID}`,
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -326,14 +380,13 @@ describe('user adding favorite content', () => {
         query:
           'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
         variables: {
-          showID: 'sameID',
+          showID: `${firstShowID}`,
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(200);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe('Show already favorited');
-    expect(response.body.error[0].extensions.code).toBe('BAD_USER_INPUT');
+    expect(response.body.errors[0].message).toBe('Show already favorited');
+    expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
 
   test('invalid token passed', async () => {
@@ -348,11 +401,10 @@ describe('user adding favorite content', () => {
           movieID: 'someID',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe('Invalid token passed');
-    expect(response.body.error[0].extensions.code).toBe('UNAUTHENTICATED');
+    expect(response.body.errors[0].message).toBe('Invalid token passed');
+    expect(response.body.errors[0].extensions.code).toBe('UNAUTHENTICATED');
   });
 
   test('no token passed', async () => {
@@ -366,18 +418,14 @@ describe('user adding favorite content', () => {
           movieID: 'someID',
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(400);
+      .expect('Content-Type', /application\/json/);
 
-    expect(response.body.error[0].message).toBe('No token passed');
-    expect(response.body.error[0].extensions.code).toBe('UNATHENTICATED');
+    expect(response.body.errors[0].message).toBe('No token passed');
+    expect(response.body.errors[0].extensions.code).toBe('UNATHENTICATED');
   });
 });
 
 describe('user can remove favorite content', () => {
-  beforeEach(() => {
-    console.log('add a favorite movie and show to the user');
-  });
   test('user can remove a favorite movie', async () => {
     const loginResponse = await baseURL.post('').send({
       operationName: 'Mutation',
@@ -385,11 +433,33 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const movieRequest = await baseURL
+      .post('')
+      .send({ query: '{movies {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const movieData = movieRequest.body.data.movies as MovieType[];
+    const firstMovieID = movieData[0] ? movieData[0].id : 'randomID';
+
+    await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($movieID: String!) {  addFavoriteMovie(movieID: $movieID) {title, year}}',
+        variables: {
+          movieID: `${firstMovieID}`,
+        },
+      })
+      .expect('Content-Type', /application\/json/);
+
     const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
     expect(user?.bookmarkedMovies.length).toBe(1);
 
@@ -401,13 +471,15 @@ describe('user can remove favorite content', () => {
         query:
           'mutation Mutation($movieID: String!) {  removeFavoriteMovie(movieID: $movieID) {title year}}',
         variables: {
-          movieID: 'someID',
+          movieID: `${firstMovieID}`,
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(200);
+      .expect('Content-Type', /application\/json/);
 
-    expect(user?.bookmarkedMovies.length).toBe(0);
+    const updatedUser = await User.findOne({
+      email: 'jorgemendoza2002@gmail.com',
+    });
+    expect(updatedUser?.bookmarkedMovies.length).toBe(0);
   });
   test('user can remove a favorite show', async () => {
     const loginResponse = await baseURL.post('').send({
@@ -416,11 +488,33 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?1998',
-        username: 'jorgemendoza2002@gmail.com',
+        email: 'jorgemendoza2002@gmail.com',
       },
     });
 
     const userToken = loginResponse.body.data.loginUser.token as string;
+
+    const showRequest = await baseURL
+      .post('')
+      .send({ query: '{shows {id, title, year, contentType}}' })
+      .expect('Content-Type', /application\/json/);
+
+    const showData = showRequest.body.data.movies as ShowType[];
+    const firstShowID = showData[0] ? showData[0].id : 'randomID';
+
+    await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({
+        operationName: 'Mutation',
+        query:
+          'mutation Mutation($showID: String!) {  addFavoriteShow(showID: $showID) {title year}}',
+        variables: {
+          showID: `${firstShowID}`,
+        },
+      })
+      .expect('Content-Type', /application\/json/);
+
     const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
     expect(user?.bookmarkedShows.length).toBe(1);
 
@@ -432,18 +526,14 @@ describe('user can remove favorite content', () => {
         query:
           'mutation Mutation($showID: String!) {  removeFavoriteShow(showID: $showID) {title year}}',
         variables: {
-          showID: 'someID',
+          showID: `${firstShowID}`,
         },
       })
-      .expect('Content-Type', /application\/json/)
-      .expect(200);
+      .expect('Content-Type', /application\/json/);
 
-    expect(user?.bookmarkedShows.length).toBe(0);
-  });
-
-  afterEach(() => {
-    console.log(
-      'grab the user and set the bookmarked show and movies to a empty array'
-    );
+    const updatedUser = await User.findOne({
+      email: 'jorgemendoza2002@gmail.com',
+    });
+    expect(updatedUser?.bookmarkedShows.length).toBe(0);
   });
 });

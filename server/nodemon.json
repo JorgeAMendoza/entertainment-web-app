@@ -1,9 +1,9 @@
 {
     "verbose": true,
-    "ignore": ["src"],
+    "ignore": ["src/__tests__"],
     "execMap": {
       "js": "node"
     },
-    "watch": ["dist", "../shared/dist", "../schema.graphql"],
+    "watch": ["dist", "../shared/dist", "../schema.graphql", "src"],
     "ext": "ts,js,json,html"
   }

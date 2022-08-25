@@ -38,7 +38,7 @@ export type Mutation = {
   loginUser: Token;
   removeFavoriteMovie?: Maybe<Movie>;
   removeFavoriteShow?: Maybe<Show>;
-  signUpUser?: Maybe<Token>;
+  signUpUser: Token;
 };
 
 
@@ -241,7 +241,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   loginUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
   removeFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
   removeFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
-  signUpUser?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
+  signUpUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

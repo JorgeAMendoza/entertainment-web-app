@@ -5,7 +5,7 @@ import { createApolloServer } from './apollo/apollo-sever';
 import { createServer } from 'http';
 import { MONGO_URL } from './utils/constants';
 import mongoose from 'mongoose';
-import { seedDB, seedTestDB } from './utils/seed-database';
+import { seedDB } from './utils/seed-database';
 
 export const app = express();
 
@@ -23,9 +23,6 @@ async function main() {
       if (nodeENV !== 'test') {
         await seedDB();
         console.log('database seeded');
-      } else {
-        await seedTestDB();
-        console.log('test database seeded');
       }
     })
     .catch((e) => {
