@@ -15,14 +15,10 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
     };
   },
   async signUpUser(_, args, __) {
-    try {
-      const token = await signupService.signUpUser(args);
-      return {
-        token,
-      };
-    } catch {
-      return null;
-    }
+    const token = await signupService.signUpUser(args);
+    return {
+      token,
+    };
   },
   async addFavoriteShow(_, args, { currentUser }) {
     if (!currentUser) return null;

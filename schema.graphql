@@ -12,7 +12,7 @@ type Mutation {
   removeFavoriteShow(showId: String!): Show
   removeFavoriteMovie(movieId: String!): Movie
   loginUser(email: String!, password: String!): Token!
-  signUpUser(email: String!, password: String!, name: String!): Token
+  signUpUser(email: String!, password: String!, name: String!): Token!
 }
 
 type Movie {
