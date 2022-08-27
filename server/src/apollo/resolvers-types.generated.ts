@@ -33,11 +33,11 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addFavoriteMovie?: Maybe<Movie>;
-  addFavoriteShow?: Maybe<Show>;
+  addFavoriteMovie: Movie;
+  addFavoriteShow: Show;
   loginUser: Token;
-  removeFavoriteMovie?: Maybe<Movie>;
-  removeFavoriteShow?: Maybe<Show>;
+  removeFavoriteMovie: Movie;
+  removeFavoriteShow: Show;
   signUpUser: Token;
 };
 
@@ -236,11 +236,11 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId'>>;
-  addFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId'>>;
+  addFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId'>>;
+  addFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId'>>;
   loginUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
-  removeFavoriteMovie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
-  removeFavoriteShow?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
+  removeFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
+  removeFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
   signUpUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 

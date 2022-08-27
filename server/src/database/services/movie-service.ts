@@ -12,10 +12,10 @@ const getAllMovies = async (): Promise<DbMovie[]> => {
   return await Movie.find({});
 };
 
-const getMovieById = async (id: string): Promise<DbMovie> => {
+const getMovieById = async (id: string): Promise<DbMovie | null> => {
   const targetMovie = await Movie.findById(id);
   if (targetMovie !== null) return targetMovie;
-  else throw new Error('Movie not found');
+  else return null;
 };
 
 const insertMovie = async (movie: NewMovie): Promise<DbMovie> => {

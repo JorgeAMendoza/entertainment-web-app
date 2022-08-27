@@ -6,6 +6,7 @@ import {
   movieTransform,
   showTransform,
 } from '../../apollo/transform-resolvers';
+import { AuthenticationError } from 'apollo-server-core';
 
 const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
   async loginUser(_, args, __) {
@@ -21,25 +22,25 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
     };
   },
   async addFavoriteShow(_, args, { currentUser }) {
-    if (!currentUser) return null;
+    if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const show = await userService.addFavoriteShow(args.showId, user);
     return showTransform(show);
   },
   async addFavoriteMovie(_, args, { currentUser }) {
-    if (!currentUser) return null;
+    if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const movie = await userService.addFavoriteMovie(args.movieId, user);
     return movieTransform(movie);
   },
   async removeFavoriteShow(_, args, { currentUser }) {
-    if (!currentUser) return null;
+    if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const show = await userService.removeFavoriteShow(args.showId, user);
     return showTransform(show);
   },
   async removeFavoriteMovie(_, args, { currentUser }) {
-    if (!currentUser) return null;
+    if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const movie = await userService.removeFavoriteMovie(args.movieId, user);
     return movieTransform(movie);

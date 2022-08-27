@@ -55,7 +55,7 @@ const getUserMovies = async (movieIDs: RefProperty[]): Promise<Movie[]> => {
     const movie = await movieService.getMovieById(
       movieIDs[i]?.toString() as string
     );
-    userMovies.push(movieTransform(movie));
+    if (movie !== null) userMovies.push(movieTransform(movie));
   }
 
   return userMovies;
