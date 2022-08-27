@@ -26,7 +26,7 @@ afterEach(async () => {
   await mongoose.connection.close();
 });
 
-describe('movie content', () => {
+describe.skip('movie content', () => {
   test('movie data returned as JSON', async () => {
     await baseURL
       .post('')
@@ -49,7 +49,7 @@ describe('movie content', () => {
   });
 });
 
-describe('show content', () => {
+describe.skip('show content', () => {
   test('show data returned as JSON', async () => {
     await baseURL
       .post('')
@@ -73,7 +73,7 @@ describe('show content', () => {
   });
 });
 
-describe('recommend and trending', () => {
+describe.skip('recommend and trending', () => {
   test('recommened movies and shows returned as JSON', async () => {
     const response = await baseURL
       .post('')
@@ -83,7 +83,7 @@ describe('recommend and trending', () => {
     expect(response.body.data.recommended.content).toHaveLength(24);
   });
 
-  test('trending movies and shows returend as JSON', async () => {
+  test('trending movies and showws returend as JSON', async () => {
     const response = await baseURL
       .post('')
       .send({ query: '{trending {content {title, year, contentType}}}' })

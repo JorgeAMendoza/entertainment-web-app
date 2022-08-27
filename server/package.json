@@ -9,7 +9,7 @@
     }
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --watch",
+    "test": "cross-env NODE_ENV=test jest --watch -o",
     "codegen": "npx graphql-codegen",
     "server:test": "cross-env NODE_ENV=test nodemon src/index.ts"
   },
