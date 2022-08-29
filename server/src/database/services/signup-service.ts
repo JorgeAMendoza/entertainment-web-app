@@ -13,7 +13,7 @@ const signUpUser = async ({ email, password, name }: SignUpUserArgs) => {
   const user = await User.findOne({ email });
   if (user !== null)
     throw new UserInputError(
-      'Account already exists, please use another email address.'
+      'account already exists, please use another email address'
     );
 
   const userPasswordHash = hashSync(password, 10);

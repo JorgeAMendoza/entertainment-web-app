@@ -15,16 +15,16 @@ interface UserLogin {
 const loginUser = async ({ email, password }: UserLogin): Promise<string> => {
   const targetUser = await User.findOne({ email });
   if (targetUser === null)
-    throw new AuthenticationError('username or password is not valid');
+    throw new AuthenticationError('email or password is not valid');
 
   const correctPassword = await bcrypt.compare(
     password,
     targetUser.passwordHash
   );
-  if (!correctPassword) throw new AuthenticationError('incorrect password');
+  if (!correctPassword) throw new AuthenticationError('email or password is not valid');
 
   const tokenForUser = {
-    username: targetUser.email,
+    email: targetUser.email,
     id: targetUser._id,
   };
 

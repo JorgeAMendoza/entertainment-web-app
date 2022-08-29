@@ -28,7 +28,7 @@ afterEach(async () => {
   await mongoose.connection.close();
 });
 
-describe('User login', () => {
+describe.only('User login', () => {
   test('valid user login sent, token returned', async () => {
     await baseURL
       .post('')
@@ -65,7 +65,7 @@ describe('User login', () => {
   });
 });
 
-describe('User sign up', () => {
+describe.only('User sign up', () => {
   test('new user signs up, token is returned', async () => {
     const response = await baseURL
       .post('')
@@ -101,7 +101,7 @@ describe('User sign up', () => {
     console.log(response.body);
 
     expect(response.body.errors[0].message).toBe(
-      'Account already exists, please use another email address'
+      'account already exists, please use another email address'
     );
     expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
