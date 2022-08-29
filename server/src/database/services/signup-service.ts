@@ -1,6 +1,7 @@
 import User from '../schemas/user';
 import * as jwt from 'jsonwebtoken';
 import { hashSync } from 'bcrypt';
+import validator from 'validator';
 import { UserInputError } from 'apollo-server-core';
 
 interface SignUpUserArgs {
@@ -10,6 +11,13 @@ interface SignUpUserArgs {
 }
 
 const signUpUser = async ({ email, password, name }: SignUpUserArgs) => {
+  if (!validator.isEmail(email))
+    throw new UserInputError('invalid email format provided');
+  else if (!validator.isStrongPassword(password))
+    throw new UserInputError(
+      'invalid password, please provide a stronger password'
+    );
+
   const user = await User.findOne({ email });
   if (user !== null)
     throw new UserInputError(

@@ -28,7 +28,7 @@ afterEach(async () => {
   await mongoose.connection.close();
 });
 
-describe.only('User login', () => {
+describe('User login', () => {
   test('valid user login sent, token returned', async () => {
     await baseURL
       .post('')
@@ -65,7 +65,7 @@ describe.only('User login', () => {
   });
 });
 
-describe.only('User sign up', () => {
+describe('User sign up', () => {
   test('new user signs up, token is returned', async () => {
     const response = await baseURL
       .post('')
@@ -92,13 +92,12 @@ describe.only('User sign up', () => {
         query:
           'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
-          password: 'randompassword',
+          password: 'Randompassword!?1919',
           email: 'jorgemendoza2002@gmail.com',
           name: 'Jorge Mendoza',
         },
       })
       .expect('Content-Type', /application\/json/);
-    console.log(response.body);
 
     expect(response.body.errors[0].message).toBe(
       'account already exists, please use another email address'
@@ -121,7 +120,7 @@ describe.only('User sign up', () => {
       .expect('Content-Type', /application\/json/);
 
     expect(response.body.errors[0].message).toBe(
-      'Password does not comply to standards'
+      'invalid password, please provide a stronger password'
     );
     expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
@@ -140,7 +139,9 @@ describe.only('User sign up', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.errors[0].message).toBe('Invalid email');
+    expect(response.body.errors[0].message).toBe(
+      'invalid email format provided'
+    );
     expect(response.body.errors[0].extensions.code).toBe('BAD_USER_INPUT');
   });
 });
