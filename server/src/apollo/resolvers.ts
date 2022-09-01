@@ -1,4 +1,3 @@
-import { DbMovie, DbShow } from '../database/db';
 import { Resolvers } from './resolvers-types.generated';
 import Query from './resolvers/Query';
 import Movie from './resolvers/Movie';
@@ -7,12 +6,17 @@ import Mutation from './resolvers/Mutation';
 import { JwtPayload } from 'jsonwebtoken';
 
 export interface EntertainmentResolverContext {
-  dbMovieCache: Record<string, DbMovie>;
-  dbShowCache: Record<string, DbShow>;
   currentUser: JwtPayload | null;
 }
 
 const resolvers: Resolvers<EntertainmentResolverContext> = {
+  Content: {
+    __resolveType(obj, _, __) {
+      if (obj.type === 'movie') return 'Movie';
+      if (obj.type === 'show') return 'Show';
+      return null;
+    },
+  },
   Query,
   Movie,
   Show,

@@ -1,5 +1,5 @@
 import { EntertainmentResolverContext } from '../resolvers';
-import { QueryResolvers } from '../resolvers-types.generated';
+import { QueryResolvers, Show, Movie } from '../resolvers-types.generated';
 import showService from '../../database/services/show-service';
 import movieService from '../../database/services/movie-service';
 import {
@@ -7,44 +7,60 @@ import {
   showTransform,
   userTransform,
 } from '../../apollo/transform-resolvers';
-import { DbMovie, DbShow } from '../../database/db';
 import User from '../../database/schemas/user';
 
 const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
-  movies: async (_, __, { dbMovieCache }) => {
+  movies: async (_, __, ___) => {
     const allMovies = await movieService.getAllMovies();
-    allMovies.forEach((movie) => {
-      dbMovieCache[movie.id] = movie;
-    });
     return allMovies.map((movie) => movieTransform(movie));
   },
-  shows: async (_, __, { dbShowCache }) => {
+  shows: async (_, __, ___) => {
     const allShows = await showService.getAllShows();
-    allShows.forEach((show) => {
-      dbShowCache[show.id] = show;
-    });
     return allShows.map((show) => showTransform(show));
   },
-  recommended: (_, __, { dbMovieCache, dbShowCache }) => {
-    const showsArray: DbShow[] = [];
-    for (const show in dbShowCache) {
-      showsArray.push(dbShowCache[show] as DbShow);
-    }
-    const recommendedShows = showsArray
-      .slice(0, Math.floor(showsArray.length / 2))
+  recommended: async (_, __, ___) => {
+    const allMovies = await movieService.getAllMovies();
+    const allShows = await showService.getAllShows();
+
+    const recommendedShows = allShows
+      .slice(0, Math.floor(allShows.length / 2))
       .map((show) => showTransform(show));
 
-    const movieArray: DbMovie[] = [];
-    for (const movie in dbMovieCache) {
-      movieArray.push(dbMovieCache[movie] as DbMovie);
-    }
-    const recommendedMovies = movieArray
-      .slice(0, Math.floor(movieArray.length / 2))
+    const recommendedMovies = allMovies
+      .slice(0, Math.floor(allMovies.length / 2))
       .map((movie) => movieTransform(movie));
 
     return {
-      shows: recommendedShows,
-      movies: recommendedMovies,
+      content: [...recommendedMovies, ...recommendedShows],
+    };
+  },
+  trending: async (_, __, ___) => {
+    const allMovies = await movieService.getAllMovies();
+    const allShows = await showService.getAllShows();
+
+    let currentRandomNumber: number;
+    const trendingShows: Show[] = [];
+    const trendingMovies: Movie[] = [];
+    const showHash: Record<string, boolean> = {};
+    const movieHash: Record<string, boolean> = {};
+    while (trendingShows.length < 2) {
+      currentRandomNumber = Math.floor(Math.random() * allShows.length);
+      const show = allShows[currentRandomNumber];
+      if (show === undefined) continue;
+      if (show.title in showHash) continue;
+      trendingShows.push(showTransform(show));
+      showHash[show.title] = true;
+    }
+    while (trendingMovies.length < 3) {
+      currentRandomNumber = Math.floor(Math.random() * allMovies.length);
+      const movie = allMovies[currentRandomNumber];
+      if (movie === undefined) continue;
+      if (movie.title in movieHash) continue;
+      trendingMovies.push(movieTransform(movie));
+      movieHash[movie.title] = true;
+    }
+    return {
+      content: [...trendingShows, ...trendingMovies],
     };
   },
   user: async (_, __, { currentUser }) => {

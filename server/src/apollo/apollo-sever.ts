@@ -27,8 +27,6 @@ export async function createApolloServer(
   const server = new ApolloServer({
     schema: addResolversToSchema({ schema: SCHEMA, resolvers }),
     context: ({ req }): EntertainmentResolverContext => ({
-      dbMovieCache: {},
-      dbShowCache: {},
       currentUser: (() => {
         const auth = req ? req.headers.authorization : null;
         if (auth && auth.toLowerCase().startsWith('bearer')) {
