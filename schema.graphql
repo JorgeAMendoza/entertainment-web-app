@@ -46,13 +46,11 @@ type Token {
 }
 
 type Recommended {
-  shows: [Show!]!
-  movies: [Movie!]!
+  content: [Content!]!
 }
 
 type Trending {
-  shows: [Show!]!
-  movies: [Movie!]!
+  content: [Content!]!
 }
 
 type ImageLinks {
@@ -60,3 +58,5 @@ type ImageLinks {
   medium: String!
   large: String!
 }
+
+union Content = Movie | Show

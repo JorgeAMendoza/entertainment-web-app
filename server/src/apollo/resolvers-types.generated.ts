@@ -4,6 +4,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -13,6 +14,8 @@ export type Scalars = {
   Int: number;
   Float: number;
 };
+
+export type Content = Movie | Show;
 
 export type ImageLinks = {
   __typename?: 'ImageLinks';
@@ -85,8 +88,7 @@ export type Query = {
 
 export type Recommended = {
   __typename?: 'Recommended';
-  movies: Array<Movie>;
-  shows: Array<Show>;
+  content: Array<Content>;
 };
 
 export type Show = {
@@ -106,8 +108,7 @@ export type Token = {
 
 export type Trending = {
   __typename?: 'Trending';
-  movies: Array<Movie>;
-  shows: Array<Show>;
+  content: Array<Content>;
 };
 
 export type User = {
@@ -189,33 +190,39 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Content: ResolversTypes['Movie'] | ResolversTypes['Show'];
   ImageLinks: ResolverTypeWrapper<ImageLinks>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  Recommended: ResolverTypeWrapper<Recommended>;
+  Recommended: ResolverTypeWrapper<Omit<Recommended, 'content'> & { content: Array<ResolversTypes['Content']> }>;
   Show: ResolverTypeWrapper<Show>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Token: ResolverTypeWrapper<Token>;
-  Trending: ResolverTypeWrapper<Trending>;
+  Trending: ResolverTypeWrapper<Omit<Trending, 'content'> & { content: Array<ResolversTypes['Content']> }>;
   User: ResolverTypeWrapper<User>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Content: ResolversParentTypes['Movie'] | ResolversParentTypes['Show'];
   ImageLinks: ImageLinks;
   Int: Scalars['Int'];
   Movie: Movie;
   Mutation: {};
   Query: {};
-  Recommended: Recommended;
+  Recommended: Omit<Recommended, 'content'> & { content: Array<ResolversParentTypes['Content']> };
   Show: Show;
   String: Scalars['String'];
   Token: Token;
-  Trending: Trending;
+  Trending: Omit<Trending, 'content'> & { content: Array<ResolversParentTypes['Content']> };
   User: User;
+};
+
+export type ContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Content'] = ResolversParentTypes['Content']> = {
+  __resolveType: TypeResolveFn<'Movie' | 'Show', ParentType, ContextType>;
 };
 
 export type ImageLinksResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageLinks'] = ResolversParentTypes['ImageLinks']> = {
@@ -253,8 +260,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type RecommendedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recommended'] = ResolversParentTypes['Recommended']> = {
-  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
-  shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
+  content?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -274,8 +280,7 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type TrendingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trending'] = ResolversParentTypes['Trending']> = {
-  movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
-  shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
+  content?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -289,6 +294,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  Content?: ContentResolvers<ContextType>;
   ImageLinks?: ImageLinksResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
