@@ -16,9 +16,10 @@ const baseURL = supertest('http://localhost:4000/graphql');
 
 beforeEach(async () => {
   await mongoose.connect(process.env.MONGO_URL_TEST as string);
-  await User.deleteMany({});
-  await Movie.deleteMany({});
-  await Show.deleteMany({});
+  const collections = await mongoose.connection.db.collections();
+  for (const connection of collections) {
+    await connection.deleteMany({});
+  }
   await Movie.insertMany(movieData);
   await Show.insertMany(showData);
   await User.insertMany(userData);

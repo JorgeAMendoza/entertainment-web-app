@@ -12,13 +12,15 @@ const baseURL = supertest('http://localhost:4000/graphql');
 
 beforeEach(async () => {
   await mongoose.connect(process.env.MONGO_URL_TEST as string);
+  const collections = await mongoose.connection.db.collections();
+  for (const connection of collections) {
+    await connection.deleteMany({});
+  }
   await Movie.insertMany(movieData);
   await Show.insertMany(showData);
 });
 
 afterEach(async () => {
-  await Movie.deleteMany({});
-  await Show.deleteMany({});
   await mongoose.connection.close();
 });
 
@@ -83,6 +85,7 @@ describe('recommend and trending', () => {
         ... on Show {
           id,
           title,
+          type
         }
       }}}`,
       })
