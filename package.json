@@ -14,7 +14,8 @@
     "docker:mongo:dev": "docker-compose -f docker-compose.dev.yml up",
     "docker:mongo:test": "docker-compose -f docker-compose.test.yml up",
     "docker:mongo:dev:down": "docker-compose -f docker-compose.dev.yml down",
-    "docker:mongo:test:down": "docker-compose -f docker-compose.test.yml down"
+    "docker:mongo:test:down": "docker-compose -f docker-compose.test.yml down",
+    "lint:client": "cd client && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -39,8 +40,11 @@
     "@typescript-eslint/parser": "^5.30.4",
     "concurrently": "^7.2.2",
     "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react": "^7.31.6",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1"

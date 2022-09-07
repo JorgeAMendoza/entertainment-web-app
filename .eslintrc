@@ -30,14 +30,34 @@
   },
   "overrides": [
     {
-      "files": "client/**/*.tsx?",
-      "rules": { "react/prop-types": "off" },
-      "extends": ["plugin:react/recommended"],
-      "plugins": ["react", "@typescript-eslint"],
-      "parserOptions": {
-        "project": "./client/tsconfig.json"
+      "files": "./client/src/**/*.{ts,tsx}",
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/semi": ["error"],
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-unsafe-member-access": 0,
+        "@typescript-eslint/no-unused-vars": [
+            "warn", { "argsIgnorePattern": "^_" }
+        ],
+        "@typescript-eslint/no-explicit-any": 1,
+        "no-case-declarations": 0,
+        "react/prop-types": 0,
+         "react/react-in-jsx-scope": 0
       },
-      "env": { "browser": true }
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:cypress/recommended",
+        "prettier"
+      ],
+      "plugins": ["cypress"],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      },
+      "env": { "browser": true, "es6": true, "jest": true, "cypress/globals": true }
     },
     {
       "files": "server/**/*.ts",
