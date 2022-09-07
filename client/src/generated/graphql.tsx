@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -44,32 +50,26 @@ export type Mutation = {
   signUpUser: Token;
 };
 
-
 export type MutationAddFavoriteMovieArgs = {
   movieId: Scalars['String'];
 };
 
-
 export type MutationAddFavoriteShowArgs = {
   showId: Scalars['String'];
 };
-
 
 export type MutationLoginUserArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-
 export type MutationRemoveFavoriteMovieArgs = {
   movieId: Scalars['String'];
 };
 
-
 export type MutationRemoveFavoriteShowArgs = {
   showId: Scalars['String'];
 };
-
 
 export type MutationSignUpUserArgs = {
   email: Scalars['String'];
@@ -120,21 +120,27 @@ export type User = {
   name: Scalars['String'];
 };
 
-export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type GetAllMoviesQuery = { __typename?: 'Query', movies: Array<{ __typename?: 'Movie', id: string, title: string, type: string }> };
-
+export type GetAllMoviesQuery = {
+  __typename?: 'Query';
+  movies: Array<{
+    __typename?: 'Movie';
+    id: string;
+    title: string;
+    type: string;
+  }>;
+};
 
 export const GetAllMoviesDocument = gql`
-    query GetAllMovies {
-  movies {
-    id
-    title
-    type
+  query GetAllMovies {
+    movies {
+      id
+      title
+      type
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetAllMoviesQuery__
@@ -151,14 +157,37 @@ export const GetAllMoviesDocument = gql`
  *   },
  * });
  */
-export function useGetAllMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-      }
-export function useGetAllMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-        }
-export type GetAllMoviesQueryHookResult = ReturnType<typeof useGetAllMoviesQuery>;
-export type GetAllMoviesLazyQueryHookResult = ReturnType<typeof useGetAllMoviesLazyQuery>;
-export type GetAllMoviesQueryResult = Apollo.QueryResult<GetAllMoviesQuery, GetAllMoviesQueryVariables>;
+export function useGetAllMoviesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
+}
+export function useGetAllMoviesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
+}
+export type GetAllMoviesQueryHookResult = ReturnType<
+  typeof useGetAllMoviesQuery
+>;
+export type GetAllMoviesLazyQueryHookResult = ReturnType<
+  typeof useGetAllMoviesLazyQuery
+>;
+export type GetAllMoviesQueryResult = Apollo.QueryResult<
+  GetAllMoviesQuery,
+  GetAllMoviesQueryVariables
+>;
