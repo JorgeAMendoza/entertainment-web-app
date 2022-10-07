@@ -1,4 +1,4 @@
-import logoIcon from '../assets/icon.svg';
+import logoIcon from '../assets/logo.svg';
 import movieIcon from '../assets/icon-category-movie.svg';
 import tvIcon from '../assets/icon-category-tv.svg';
 import { Link } from 'react-router-dom';
@@ -82,12 +82,20 @@ const WelcomePage = () => {
         <p>Created by Jorge A. Mendoza</p>
         <p>
           Challenge by{' '}
-          <a href="https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X/hub/entertainment-web-app-Hyt48xvNq">
+          <a
+            href="https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X/hub/entertainment-web-app-Hyt48xvNq"
+            target="_blank"
+            rel="noreferrer"
+          >
             Front End Masters
           </a>
         </p>
         <p>
-          <a href="https://github.com/JorgeAMendoza/entertainment-web-app">
+          <a
+            href="https://github.com/JorgeAMendoza/entertainment-web-app"
+            target="_blank"
+            rel="noreferrer"
+          >
             Project Repository
           </a>
         </p>

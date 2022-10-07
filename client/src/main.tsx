@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { GRAPHQL_URI } from '../utils/config';
 import './index.css';
-import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import WelcomePage from './routes/welcome';
+import LoginRoute from './routes/LoginRoute';
+import SignUpRoute from './routes/SignUpRoute';
+import ErrorPage from './routes/ErrorPage/ErrorPage';
 
 const client = new ApolloClient({
   uri: GRAPHQL_URI as string,
@@ -11,7 +15,12 @@ const client = new ApolloClient({
 });
 
 const router = createBrowserRouter([
-  { path: '/', element: <div>Hello world, this is a movie app</div> },
+  { path: '/', element: <WelcomePage />, errorElement: <ErrorPage /> },
+  {
+    path: '/login',
+    element: <LoginRoute />,
+  },
+  { path: '/sign-up', element: <SignUpRoute /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
