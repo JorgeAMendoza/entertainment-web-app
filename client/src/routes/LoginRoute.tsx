@@ -1,10 +1,11 @@
-import entertainmentLogoIcon from '../../assets/logo.svg';
+import logoIcon from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
 const LoginRoute = () => {
   return (
     <main>
       <div>
-        <img src={entertainmentLogoIcon} alt="entertainment logo" />
+        <img src={logoIcon} alt="entertainment logo" />
       </div>
 
       <div>
@@ -22,7 +23,7 @@ const LoginRoute = () => {
       </div>
 
       <p>
-        Don&apos;t have an account? <a href="./"> Sign up</a>
+        Don&apos;t have an account? <Link to="/sign-up">Sign up</Link>
       </p>
     </main>
   );

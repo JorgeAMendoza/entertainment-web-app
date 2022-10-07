@@ -1,6 +1,7 @@
-import entertainmentLogoIcon from '../../assets/logo.svg';
+import entertainmentLogoIcon from '../assets/logo.svg';
+import { Link } from 'react-router-dom';
 
-const SignUpRoster = () => {
+const SignUpRoute = () => {
   return (
     <main>
       <div>
@@ -23,11 +24,11 @@ const SignUpRoster = () => {
           <button>create an account</button>
         </form>
         <p>
-          Already have an account? <a href="./">Login</a>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </div>
     </main>
   );
 };
 
-export default SignUpRoster;
+export default SignUpRoute;
