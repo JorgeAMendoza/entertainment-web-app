@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { GRAPHQL_URI } from '../utils/config';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import WelcomePage from './routes/welcome';
+import WelcomePage from './routes/Welcome';
 import LoginRoute from './routes/LoginRoute';
 import SignUpRoute from './routes/SignUpRoute';
 import ErrorPage from './routes/ErrorPage/ErrorPage';
