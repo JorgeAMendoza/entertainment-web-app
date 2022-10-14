@@ -1,6 +1,7 @@
 import { Formik, Form } from 'formik';
 import { LoginForm } from '../types/form-props';
 import TextField from '../components/TextField/TextField';
+import { loginFormValidation } from '../../utils/form-validation';
 import { Link } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
 
@@ -18,9 +19,10 @@ const LoginRoute = () => {
 
       <Formik
         initialValues={initialValues}
-        onSubmit={(values) => {
+        validationSchema={loginFormValidation}
+        onSubmit={(values, actions) => {
           console.log('Submitting form');
-          console.log('values');
+          actions.setFieldError('email', 'WRONG');
         }}
       >
         <Form>
