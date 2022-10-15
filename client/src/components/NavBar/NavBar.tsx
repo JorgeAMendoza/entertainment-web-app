@@ -37,9 +37,9 @@ const NavBar = () => {
 
       <button aria-label="click to open the account menu">
         <div data-show="hide">
-          <button aria-label="click to close the account menu">
+          <div aria-label="click to close the account menu">
             <img src={closeMenuIcon} alt="close menu icon" />
-          </button>
+          </div>
           <ul>
             <li>logout</li>
           </ul>
