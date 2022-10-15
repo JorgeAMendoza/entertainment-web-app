@@ -1,4 +1,5 @@
 import { Formik, Form } from 'formik';
+import { useLoginUserMutation } from '../generated/graphql';
 import { LoginForm } from '../types/form-props';
 import TextField from '../components/TextField/TextField';
 import { loginFormValidation } from '../../utils/form-validation';
@@ -11,18 +12,29 @@ const initialValues: LoginForm = {
 };
 
 const LoginRoute = () => {
+  const [loginUser, { loading, error }] = useLoginUserMutation();
+
   return (
     <main>
       <div>
         <img src={logoIcon} alt="entertainment logo" />
       </div>
 
+      {error && <p>{error.message}</p>}
+
       <Formik
         initialValues={initialValues}
         validationSchema={loginFormValidation}
-        onSubmit={(values, actions) => {
-          console.log('Submitting form');
-          actions.setFieldError('email', 'WRONG');
+        onSubmit={(values) => {
+          void loginUser({
+            variables: { email: values.email, password: values.password },
+          })
+            .then((data) => {
+              console.log(data.data?.loginUser.token);
+            })
+            .catch((e: unknown) => {
+              if (e instanceof Error) console.log(e);
+            });
         }}
       >
         <Form>
@@ -42,7 +54,9 @@ const LoginRoute = () => {
               placeholder="password"
             />
           </label>
-          <button type="submit">login to your account</button>
+          <button type="submit">
+            {loading ? '...loading' : 'log into your account'}
+          </button>
         </Form>
       </Formik>
 
