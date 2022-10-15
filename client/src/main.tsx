@@ -8,6 +8,8 @@ import WelcomePage from './routes/Welcome';
 import LoginRoute from './routes/LoginRoute';
 import SignUpRoute from './routes/SignUpRoute';
 import ErrorPage from './routes/ErrorPage/ErrorPage';
+import LoginProvider from './context/login-context';
+import Dashboard from './routes/Dashboard';
 
 const client = new ApolloClient({
   uri: GRAPHQL_URI as string,
@@ -21,12 +23,15 @@ const router = createBrowserRouter([
     element: <LoginRoute />,
   },
   { path: '/sign-up', element: <SignUpRoute /> },
+  { path: '/dashboard', element: <Dashboard /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+      <LoginProvider>
+        <RouterProvider router={router} />
+      </LoginProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
