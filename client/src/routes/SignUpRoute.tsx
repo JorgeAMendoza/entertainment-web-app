@@ -47,10 +47,20 @@ const SignUpRoute = () => {
             <label>
               <TextField
                 name="password"
-                type="text"
+                type="password"
                 id="password"
                 placeholder="password"
               />
+              <div>
+                <p>Password must meet the following criteria:</p>
+                <ul>
+                  <li>8 characters long</li>
+                  <li>1 lowercase letter</li>
+                  <li>1 uppercase letter</li>
+                  <li>1 number</li>
+                  <li>1 special character (!?&)</li>
+                </ul>
+              </div>
             </label>
 
             <label>
@@ -65,19 +75,6 @@ const SignUpRoute = () => {
             <button type="submit">create an account</button>
           </Form>
         </Formik>
-        {/* <form>
-          <label>
-            <input type="text" placeholder="Email address" />
-          </label>
-          <label>
-            <input type="Password" placeholder="Password" />
-          </label>
-          <label>
-            <input type="Password" placeholder="Repeat Password" />
-          </label>
-
-          <button>create an account</button>
-        </form> */}
         <p>
           Already have an account? <Link to="/login">Login</Link>
         </p>
