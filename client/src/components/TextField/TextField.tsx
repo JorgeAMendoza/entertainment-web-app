@@ -1,8 +1,8 @@
 import { useField } from 'formik';
-import { LoginForm } from '../../types/form-props';
+import { LoginForm, SignUpForm } from '../../types/form-props';
 
 interface TextFieldProps {
-  name: keyof LoginForm;
+  name: keyof LoginForm | keyof SignUpForm;
   type: 'text' | 'password';
   id: TextFieldProps['name'];
   placeholder: string;

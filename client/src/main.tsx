@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { GRAPHQL_URI } from '../utils/config';
+import { GRAPHQL_URI } from './utils/config';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import WelcomePage from './routes/Welcome';
