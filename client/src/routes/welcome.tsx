@@ -34,7 +34,9 @@ const WelcomePage = () => {
             All for one price.
           </p>
 
-          <Link to="/sign-up">Sign up</Link>
+          <Link to="/sign-up" data-testid="toSignUpPage">
+            Sign up
+          </Link>
         </section>
 
         <section>

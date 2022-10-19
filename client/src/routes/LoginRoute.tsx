@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import { useLoginUserMutation } from '../generated/graphql';
 import { LoginForm } from '../types/form-props';
 import TextField from '../components/TextField/TextField';
-import { loginFormValidation } from '../../utils/form-validation';
+import { loginFormValidation } from '../utils/form-validation';
 import { Link, useNavigate } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
 import { useLoginContext } from '../context/login-context';
