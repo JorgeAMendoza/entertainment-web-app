@@ -60,8 +60,8 @@ const SignUpRoute = () => {
               });
           }}
         >
-          <Form>
-            <label>
+          <Form data-testid="signUpForm">
+            <label data-testid="signUpEmail">
               <TextField
                 name="email"
                 type="text"
@@ -70,11 +70,11 @@ const SignUpRoute = () => {
               />
             </label>
 
-            <label>
+            <label data-testid="signUpName">
               <TextField name="name" type="text" id="name" placeholder="name" />
             </label>
 
-            <label>
+            <label data-testid="signUpPassword">
               <TextField
                 name="password"
                 type="password"
@@ -93,7 +93,7 @@ const SignUpRoute = () => {
               </div>
             </label>
 
-            <label>
+            <label data-testid="signUpRepeatPassword">
               <TextField
                 name="repeatPassword"
                 type="password"
@@ -102,13 +102,16 @@ const SignUpRoute = () => {
               />
             </label>
 
-            <button type="submit">
+            <button type="submit" data-testid="signUpButton">
               {loading ? 'loading...' : 'create an account'}
             </button>
           </Form>
         </Formik>
         <p>
-          Already have an account? <Link to="/login">Login</Link>
+          Already have an account?{' '}
+          <Link to="/login" data-testid="loginLink">
+            Login
+          </Link>
         </p>
       </div>
     </main>
