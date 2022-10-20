@@ -6,7 +6,7 @@ import {
   movieTransform,
   showTransform,
 } from '../../apollo/transform-resolvers';
-import { AuthenticationError } from 'apollo-server-core';
+import { AuthenticationError, ForbiddenError } from 'apollo-server-core';
 
 const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
   async loginUser(_, args, __) {
@@ -44,6 +44,13 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
     const user = await userService.getUser(currentUser.id);
     const movie = await userService.removeFavoriteMovie(args.movieId, user);
     return movieTransform(movie);
+  },
+  resetDb(_) {
+    if (process.env.NODE_ENV !== 'test') {
+      throw new ForbiddenError('not in test environment');
+    }
+    console.log(process.env.NODE_ENV);
+    return 'database sucessfully reset';
   },
 };
 
