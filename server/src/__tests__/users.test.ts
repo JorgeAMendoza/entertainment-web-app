@@ -12,7 +12,6 @@ beforeEach(async () => {
     operationName: 'Mutation',
     query: 'mutation Mutation {resetDb}',
   });
-  console.log('database reseeded');
 });
 
 describe('User login', () => {

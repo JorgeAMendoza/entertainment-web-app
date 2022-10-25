@@ -1,27 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line node/no-unpublished-import
 import supertest from 'supertest';
-import mongoose from 'mongoose';
 import 'dotenv/config';
-import Show from '../database/schemas/show';
-import Movie from '../database/schemas/movie';
-import movieData from '../utils/movie-data';
-import showData from '../utils/show-data';
 
 const baseURL = supertest('http://localhost:4000/graphql');
 
 beforeEach(async () => {
-  await mongoose.connect(process.env.MONGO_URL_TEST as string);
-  const collections = await mongoose.connection.db.collections();
-  for (const connection of collections) {
-    await connection.deleteMany({});
-  }
-  await Movie.insertMany(movieData);
-  await Show.insertMany(showData);
-});
-
-afterEach(async () => {
-  await mongoose.connection.close();
+  await baseURL.post('').send({
+    operationName: 'Mutation',
+    query: 'mutation Mutation {resetDb}',
+  });
 });
 
 describe('movie content', () => {
@@ -36,7 +24,7 @@ describe('movie content', () => {
     const response = await baseURL
       .post('')
       .send({ query: '{movies {title, year}}' });
-    expect(response.body.data.movies).toHaveLength(15);
+    expect(response.body.data.movies).toHaveLength(3);
     expect(response.body.data.movies).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -60,7 +48,7 @@ describe('show content', () => {
       .post('')
       .send({ query: '{shows {title, year, type}}' })
       .expect('Content-Type', /application\/json/);
-    expect(response.body.data.shows).toHaveLength(14);
+    expect(response.body.data.shows).toHaveLength(3);
     expect(response.body.data.shows).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -91,7 +79,7 @@ describe('recommend and trending', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.data.recommended.content).toHaveLength(14);
+    expect(response.body.data.recommended.content).toHaveLength(2);
   });
 
   test('trending movies and showws returend as JSON', async () => {
