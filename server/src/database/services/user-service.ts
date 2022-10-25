@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { DbShow, DbUser, DbMovie } from '../db';
 import showService from './show-service';
 import movieService from './movie-service';
-import { AuthenticationError, UserInputError } from 'apollo-server-core';
+import { AuthenticationError, UserInputError, } from 'apollo-server-core';
 
 interface UserLogin {
   email: string;

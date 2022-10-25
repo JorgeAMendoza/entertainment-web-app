@@ -2,31 +2,16 @@
 // eslint-disable-next-line node/no-unpublished-import
 import supertest from 'supertest';
 import 'dotenv/config';
-import User from '../database/schemas/user';
-import Movie from '../database/schemas/movie';
-import Show from '../database/schemas/show';
-import userData from '../utils/user-data';
-import movieData from '../utils/movie-data';
-import showData from '../utils/show-data';
-import mongoose from 'mongoose';
 import { Movie as MovieType } from '../apollo/resolvers-types.generated';
 import { Show as ShowType } from '../apollo/resolvers-types.generated';
 
 const baseURL = supertest('http://localhost:4000/graphql');
 
 beforeEach(async () => {
-  await mongoose.connect(process.env.MONGO_URL_TEST as string);
-  const collections = await mongoose.connection.db.collections();
-  for (const connection of collections) {
-    await connection.deleteMany({});
-  }
-  await Movie.insertMany(movieData);
-  await Show.insertMany(showData);
-  await User.insertMany(userData);
-});
-
-afterEach(async () => {
-  await mongoose.connection.close();
+  await baseURL.post('').send({
+    operationName: 'Mutation',
+    query: 'mutation Mutation {resetDb}',
+  });
 });
 
 describe('User login', () => {
@@ -182,8 +167,13 @@ describe('user adding favorite content', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
-    expect(user?.bookmarkedMovies.length).toBe(1);
+    const userData = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedMovies {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userData.body.data.user.bookmarkedMovies.length).toBe(1);
   });
 
   test('attempt to add movie that does not exist, error returned', async () => {
@@ -302,8 +292,13 @@ describe('user adding favorite content', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    const user = await User.findOne({ username: 'jorgemendoza2002@gmail.com' });
-    expect(user?.bookmarkedShows.length).toBe(1);
+    const userData = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedShows {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userData.body.data.user.bookmarkedShows.length).toBe(1);
   });
 
   test('attempt to add show that does not exist, error returned', async () => {
@@ -459,9 +454,6 @@ describe('user can remove favorite content', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
-    expect(user?.bookmarkedMovies.length).toBe(1);
-
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
@@ -474,11 +466,6 @@ describe('user can remove favorite content', () => {
         },
       })
       .expect('Content-Type', /application\/json/);
-
-    const updatedUser = await User.findOne({
-      email: 'jorgemendoza2002@gmail.com',
-    });
-    expect(updatedUser?.bookmarkedMovies.length).toBe(0);
   });
   test('user can remove a favorite show', async () => {
     const loginResponse = await baseURL.post('').send({
@@ -514,9 +501,6 @@ describe('user can remove favorite content', () => {
       })
       .expect('Content-Type', /application\/json/);
 
-    const user = await User.findOne({ email: 'jorgemendoza2002@gmail.com' });
-    expect(user?.bookmarkedShows.length).toBe(1);
-
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
@@ -529,11 +513,6 @@ describe('user can remove favorite content', () => {
         },
       })
       .expect('Content-Type', /application\/json/);
-
-    const updatedUser = await User.findOne({
-      email: 'jorgemendoza2002@gmail.com',
-    });
-    expect(updatedUser?.bookmarkedShows.length).toBe(0);
   });
 
   test('attempt to remove show that does not exist', async () => {

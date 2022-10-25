@@ -41,6 +41,7 @@ export type Mutation = {
   loginUser: Token;
   removeFavoriteMovie: Movie;
   removeFavoriteShow: Show;
+  resetDb: Scalars['String'];
   signUpUser: Token;
 };
 
@@ -248,6 +249,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   loginUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
   removeFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
   removeFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
+  resetDb?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   signUpUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
 };
 
