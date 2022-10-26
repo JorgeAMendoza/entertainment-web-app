@@ -3,7 +3,7 @@ import Homepage from './Homepage';
 
 export const Dashboard = () => {
   return (
-    <div data-testid="dashboard">
+    <div data-cy="dashboard">
       <NavBar />
       {/* this will be the routes part righ there */}
       <div>
