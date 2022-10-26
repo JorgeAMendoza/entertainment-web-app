@@ -14,7 +14,9 @@ const TextField = (props: TextFieldProps) => {
   return (
     <>
       <input {...field} {...props} />
-      {meta.touched && meta.error ? <p>{meta.error}</p> : null}
+      {meta.touched && meta.error ? (
+        <p data-cy="errorMessage">{meta.error}</p>
+      ) : null}
     </>
   );
 };

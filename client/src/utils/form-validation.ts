@@ -7,8 +7,8 @@ export const loginFormValidation = Yup.object({
 });
 
 export const signUpValidation = Yup.object({
-  email: Yup.string().required("can't be blank").email('invalid email'),
-  name: Yup.string().required("can't be blank"),
+  email: Yup.string().required("Can't be blank").email('invalid email'),
+  name: Yup.string().required("Can't be blank"),
   password: Yup.string()
     .test('valid', 'invalid password', (val) => {
       if (!val) return true;
@@ -18,6 +18,6 @@ export const signUpValidation = Yup.object({
     .required("can't be blank"),
   repeatPassword: Yup.string().oneOf(
     [Yup.ref('password'), null],
-    'password does not match'
+    'passwords do not match'
   ),
 });
