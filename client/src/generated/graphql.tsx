@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -44,32 +50,26 @@ export type Mutation = {
   signUpUser: Token;
 };
 
-
 export type MutationAddFavoriteMovieArgs = {
   movieId: Scalars['String'];
 };
 
-
 export type MutationAddFavoriteShowArgs = {
   showId: Scalars['String'];
 };
-
 
 export type MutationLoginUserArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-
 export type MutationRemoveFavoriteMovieArgs = {
   movieId: Scalars['String'];
 };
 
-
 export type MutationRemoveFavoriteShowArgs = {
   showId: Scalars['String'];
 };
-
 
 export type MutationSignUpUserArgs = {
   email: Scalars['String'];
@@ -125,8 +125,10 @@ export type LoginUserMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'Token', token: string } };
+export type LoginUserMutation = {
+  __typename?: 'Mutation';
+  loginUser: { __typename?: 'Token'; token: string };
+};
 
 export type SignUpUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -134,23 +136,34 @@ export type SignUpUserMutationVariables = Exact<{
   name: Scalars['String'];
 }>;
 
+export type SignUpUserMutation = {
+  __typename?: 'Mutation';
+  signUpUser: { __typename?: 'Token'; token: string };
+};
 
-export type SignUpUserMutation = { __typename?: 'Mutation', signUpUser: { __typename?: 'Token', token: string } };
+export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetAllMoviesQuery = { __typename?: 'Query', movies: Array<{ __typename?: 'Movie', id: string, title: string, type: string }> };
-
+export type GetAllMoviesQuery = {
+  __typename?: 'Query';
+  movies: Array<{
+    __typename?: 'Movie';
+    id: string;
+    title: string;
+    type: string;
+  }>;
+};
 
 export const LoginUserDocument = gql`
-    mutation loginUser($email: String!, $password: String!) {
-  loginUser(email: $email, password: $password) {
-    token
+  mutation loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      token
+    }
   }
-}
-    `;
-export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+`;
+export type LoginUserMutationFn = Apollo.MutationFunction<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
 
 /**
  * __useLoginUserMutation__
@@ -170,21 +183,37 @@ export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, Log
  *   },
  * });
  */
-export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, options);
-      }
-export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
-export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
-export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
-export const SignUpUserDocument = gql`
-    mutation signUpUser($email: String!, $password: String!, $name: String!) {
-  signUpUser(email: $email, password: $password, name: $name) {
-    token
-  }
+export function useLoginUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginUserMutation,
+    LoginUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(
+    LoginUserDocument,
+    options
+  );
 }
-    `;
-export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, SignUpUserMutationVariables>;
+export type LoginUserMutationHookResult = ReturnType<
+  typeof useLoginUserMutation
+>;
+export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
+export const SignUpUserDocument = gql`
+  mutation signUpUser($email: String!, $password: String!, $name: String!) {
+    signUpUser(email: $email, password: $password, name: $name) {
+      token
+    }
+  }
+`;
+export type SignUpUserMutationFn = Apollo.MutationFunction<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
 
 /**
  * __useSignUpUserMutation__
@@ -205,22 +234,36 @@ export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, S
  *   },
  * });
  */
-export function useSignUpUserMutation(baseOptions?: Apollo.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, options);
-      }
-export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
-export type SignUpUserMutationResult = Apollo.MutationResult<SignUpUserMutation>;
-export type SignUpUserMutationOptions = Apollo.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;
-export const GetAllMoviesDocument = gql`
-    query GetAllMovies {
-  movies {
-    id
-    title
-    type
-  }
+export function useSignUpUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SignUpUserMutation,
+    SignUpUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(
+    SignUpUserDocument,
+    options
+  );
 }
-    `;
+export type SignUpUserMutationHookResult = ReturnType<
+  typeof useSignUpUserMutation
+>;
+export type SignUpUserMutationResult =
+  Apollo.MutationResult<SignUpUserMutation>;
+export type SignUpUserMutationOptions = Apollo.BaseMutationOptions<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
+export const GetAllMoviesDocument = gql`
+  query GetAllMovies {
+    movies {
+      id
+      title
+      type
+    }
+  }
+`;
 
 /**
  * __useGetAllMoviesQuery__
@@ -237,14 +280,37 @@ export const GetAllMoviesDocument = gql`
  *   },
  * });
  */
-export function useGetAllMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-      }
-export function useGetAllMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-        }
-export type GetAllMoviesQueryHookResult = ReturnType<typeof useGetAllMoviesQuery>;
-export type GetAllMoviesLazyQueryHookResult = ReturnType<typeof useGetAllMoviesLazyQuery>;
-export type GetAllMoviesQueryResult = Apollo.QueryResult<GetAllMoviesQuery, GetAllMoviesQueryVariables>;
+export function useGetAllMoviesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
+}
+export function useGetAllMoviesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
+}
+export type GetAllMoviesQueryHookResult = ReturnType<
+  typeof useGetAllMoviesQuery
+>;
+export type GetAllMoviesLazyQueryHookResult = ReturnType<
+  typeof useGetAllMoviesLazyQuery
+>;
+export type GetAllMoviesQueryResult = Apollo.QueryResult<
+  GetAllMoviesQuery,
+  GetAllMoviesQueryVariables
+>;
