@@ -4,9 +4,9 @@ import logoIcon from '../assets/logo.svg';
 import { SignUpForm } from '../types/form-props';
 import TextField from '../components/TextField/TextField';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLoginContext } from '../context/login-context';
 import { signUpValidation } from '../utils/form-validation';
 import { ApolloError } from '@apollo/client';
+import saveToken from '../utils/save-token';
 
 const initialValues: SignUpForm = {
   email: '',
@@ -17,7 +17,6 @@ const initialValues: SignUpForm = {
 
 const SignUpRoute = () => {
   const [signUpUser, { loading, error }] = useSignUpUserMutation();
-  const { setToken } = useLoginContext();
   const navigate = useNavigate();
   return (
     <main>
@@ -33,6 +32,7 @@ const SignUpRoute = () => {
           initialValues={initialValues}
           validationSchema={signUpValidation}
           onSubmit={(values, actions) => {
+            actions.setSubmitting(false);
             void signUpUser({
               variables: {
                 email: values.email,
@@ -41,11 +41,12 @@ const SignUpRoute = () => {
               },
             })
               .then((data) => {
-                if (data.data) setToken(data.data.signUpUser.token);
-                else return;
+                if (!data.data) return;
 
-                navigate('/dashboard');
-                actions.setSubmitting(false);
+                saveToken(data.data.signUpUser.token);
+                navigate('/dashboard', {
+                  state: { token: data.data.signUpUser.token },
+                });
               })
               .catch((e: unknown) => {
                 if (e instanceof ApolloError) {
@@ -56,7 +57,6 @@ const SignUpRoute = () => {
                   else if (message.includes('password'))
                     actions.setFieldError('password', 'invalid password');
                 }
-                actions.setSubmitting(false);
               });
           }}
         >

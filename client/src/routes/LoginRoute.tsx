@@ -5,7 +5,7 @@ import TextField from '../components/TextField/TextField';
 import { loginFormValidation } from '../utils/form-validation';
 import { Link, useNavigate } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
-import { useLoginContext } from '../context/login-context';
+import saveToken from '../utils/save-token';
 
 const initialValues: LoginForm = {
   email: '',
@@ -14,7 +14,6 @@ const initialValues: LoginForm = {
 
 const LoginRoute = () => {
   const [loginUser, { loading, error }] = useLoginUserMutation();
-  const { setToken } = useLoginContext();
   const navigate = useNavigate();
 
   return (
@@ -28,15 +27,18 @@ const LoginRoute = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={loginFormValidation}
-        onSubmit={(values) => {
+        onSubmit={(values, actions) => {
+          actions.setSubmitting(false);
           void loginUser({
             variables: { email: values.email, password: values.password },
           })
             .then((data) => {
-              if (data.data) setToken(data.data.loginUser.token);
-              else return;
+              if (!data.data) return;
 
-              navigate('/dashboard');
+              saveToken(data.data.loginUser.token);
+              navigate('/dashboard', {
+                state: { token: data.data.loginUser.token },
+              });
             })
             .catch((e: unknown) => {
               if (e instanceof Error) console.log(e);
