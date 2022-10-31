@@ -42,6 +42,10 @@ const SignUpRoute = () => {
               .then((data) => {
                 if (!data.data) return;
 
+                localStorage.setItem(
+                  'token',
+                  JSON.stringify(data.data.signUpUser.token)
+                );
                 navigate('/dashboard', {
                   state: { token: data.data.signUpUser.token },
                 });

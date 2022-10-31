@@ -8,7 +8,8 @@ const Root = () => {
     if (!token) navigate('welcome');
     else {
       // verify the token later
-      navigate('/dashboard');
+      const parsedToken = JSON.parse(token) as string;
+      navigate('/dashboard', { state: { token: parsedToken } });
     }
   }, []);
 

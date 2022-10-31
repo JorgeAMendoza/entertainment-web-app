@@ -34,6 +34,10 @@ const LoginRoute = () => {
             .then((data) => {
               if (!data.data) return;
 
+              localStorage.setItem(
+                'token',
+                JSON.stringify(data.data.loginUser.token)
+              );
               navigate('/dashboard', {
                 state: { token: data.data.loginUser.token },
               });
