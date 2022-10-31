@@ -6,6 +6,7 @@ import TextField from '../components/TextField/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import { signUpValidation } from '../utils/form-validation';
 import { ApolloError } from '@apollo/client';
+import saveToken from '../utils/save-token';
 
 const initialValues: SignUpForm = {
   email: '',
@@ -42,10 +43,7 @@ const SignUpRoute = () => {
               .then((data) => {
                 if (!data.data) return;
 
-                localStorage.setItem(
-                  'token',
-                  JSON.stringify(data.data.signUpUser.token)
-                );
+                saveToken(data.data.signUpUser.token);
                 navigate('/dashboard', {
                   state: { token: data.data.signUpUser.token },
                 });

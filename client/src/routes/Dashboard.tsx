@@ -10,6 +10,7 @@ export const Dashboard = () => {
   const location = useLocation();
   const { token } = location.state as DashboardProps;
 
+  console.log(token);
   return (
     <div data-cy="dashboard">
       <NavBar />

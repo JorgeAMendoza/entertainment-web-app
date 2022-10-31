@@ -5,6 +5,7 @@ import TextField from '../components/TextField/TextField';
 import { loginFormValidation } from '../utils/form-validation';
 import { Link, useNavigate } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
+import saveToken from '../utils/save-token';
 
 const initialValues: LoginForm = {
   email: '',
@@ -34,10 +35,7 @@ const LoginRoute = () => {
             .then((data) => {
               if (!data.data) return;
 
-              localStorage.setItem(
-                'token',
-                JSON.stringify(data.data.loginUser.token)
-              );
+              saveToken(data.data.loginUser.token);
               navigate('/dashboard', {
                 state: { token: data.data.loginUser.token },
               });
