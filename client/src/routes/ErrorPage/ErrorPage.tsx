@@ -13,7 +13,7 @@ const ErrorPage = () => {
     );
   }
   {
-    return <div>Oops, all berries!</div>;
+    return <div>Error occured</div>;
   }
 };
 
