@@ -1,24 +1,35 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import LogOutModal from '../components/LogOutModal';
 import NavBar from '../components/NavBar/NavBar';
 import Homepage from './Homepage';
-import { useLocation } from 'react-router-dom';
 
-interface DashboardProps {
-  token: string;
-}
+type DashboardLocState = null | { token: string };
 
 export const Dashboard = () => {
+  const [token, setToken] = useState<null | string>(null);
   const location = useLocation();
-  const { token } = location.state as DashboardProps;
 
-  console.log(token);
+  const state = location.state as DashboardLocState;
+
+  useEffect(() => {
+    if (state === null) return;
+    else setToken(state.token);
+  }, [state]);
   return (
-    <div data-cy="dashboard">
-      <NavBar />
-      {/* this will be the routes part righ there */}
-      <div>
-        <Homepage />
-      </div>
-    </div>
+    <>
+      {!token ? (
+        <LogOutModal />
+      ) : (
+        <div data-cy="dashboard">
+          <NavBar />
+          {/* this will be the routes part righ there */}
+          <div>
+            <Homepage />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

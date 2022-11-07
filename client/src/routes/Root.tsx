@@ -10,7 +10,9 @@ const Root = () => {
     if (!token) {
       if (location.pathname === '/') navigate('/welcome');
       else navigate(location.pathname);
-    } else navigate('/dashboard', { state: { token } });
+    } else {
+      navigate('/dashboard', { state: { token } });
+    }
   }, []);
 
   return (
