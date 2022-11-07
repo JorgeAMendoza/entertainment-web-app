@@ -2,7 +2,7 @@
 
 describe('user login', () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.visit('/login');
     cy.get('[data-cy="loginForm"]').as('loginForm');
     cy.get('[data-cy="loginEmail"]').as('loginEmail');
     cy.get('[data-cy="loginPassword"]').as('loginPassword');
@@ -16,6 +16,7 @@ describe('user login', () => {
     cy.get('@loginButton').click();
 
     cy.get('@loginForm').should('not.exist');
+    cy.url().should('include', '/dashboard');
     cy.get('[data-cy="dashboard"]');
   });
 
@@ -24,7 +25,7 @@ describe('user login', () => {
     cy.get('@loginPassword').find('input').focus();
 
     cy.get('@loginEmail')
-      .get('[data-cy="errorMessage"]')
+      .get('[data-cy="loginMessage"]')
       .should('contain.text', "Can't Be Blank");
   });
 
@@ -45,7 +46,7 @@ describe('user login', () => {
     cy.get('@loginEmail').find('input').focus();
 
     cy.get('@loginPassword')
-      .get('[data-cy"errorMessage"]')
+      .get('[data-cy="loginMessage"]')
       .should('contain.text', "Can't Be Blank");
   });
 
