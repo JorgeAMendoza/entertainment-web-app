@@ -27,6 +27,7 @@ describe.only('user signup', () => {
     cy.get('@signUpName').find('input').type('Isabel Mendoza');
     cy.get('@signUpRepeatPassword').find('input').type('Luffy!?990');
     cy.get('@signUpButton').click();
+    cy.url().should('include', '/dashboard/home');
 
     cy.get('[data-cy="dashboard"]');
     cy.get('@signUpForm').should('not.exist');
