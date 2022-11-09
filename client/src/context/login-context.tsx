@@ -8,7 +8,7 @@ import {
 
 interface LoginContextProps {
   token: string | null;
-  setToken: Dispatch<string>;
+  setToken: Dispatch<string | null>;
 }
 
 interface LoginProviderProps {

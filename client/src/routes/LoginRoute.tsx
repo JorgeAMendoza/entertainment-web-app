@@ -3,7 +3,7 @@ import { useLoginUserMutation } from '../generated/graphql';
 import { LoginForm } from '../types/form-props';
 import TextField from '../components/TextField/TextField';
 import { loginFormValidation } from '../utils/form-validation';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
 import saveToken from '../utils/save-token';
 
@@ -14,7 +14,10 @@ const initialValues: LoginForm = {
 
 const LoginRoute = () => {
   const [loginUser, { loading, error }] = useLoginUserMutation();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  console.log(location);
 
   return (
     <main>
