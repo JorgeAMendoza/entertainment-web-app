@@ -8,7 +8,7 @@ import IconNavHome from '../icons/IconNavHome';
 import IconNavMovie from '../icons/IconNavMovie';
 import IconNavShow from '../icons/IconNavShow';
 import { useLoginContext } from '../../context/login-context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const { setToken } = useLoginContext();
@@ -30,24 +30,24 @@ const NavBar = () => {
 
       <ul>
         <li>
-          <a>
+          <Link to="/dashboard">
             <IconNavHome />
-          </a>
+          </Link>
         </li>
         <li>
-          <a>
+          <Link to="movies">
             <IconNavMovie />
-          </a>
+          </Link>
         </li>
         <li>
-          <a>
+          <Link to="shows">
             <IconNavShow />
-          </a>
+          </Link>
         </li>
         <li>
-          <a>
+          <Link to="my-stuff">
             <IconNavBookMark />
-          </a>
+          </Link>
         </li>
       </ul>
 
@@ -55,7 +55,11 @@ const NavBar = () => {
       <div>
         <button aria-label="click to open account menu">
           <div>
-            <img src={userProfilePic} alt="user profile picture" />
+            <img
+              src={userProfilePic}
+              alt="user profile picture"
+              style={{ width: '100px' }}
+            />
           </div>
         </button>
         <div aria-label="account sub menu">

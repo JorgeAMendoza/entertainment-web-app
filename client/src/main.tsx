@@ -41,20 +41,24 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
-            path: '/home',
-            element: <Homepage />,
-          },
-          {
-            path: '/movies',
-            element: <Movies />,
-          },
-          {
-            path: '/shows',
-            element: <TVShows />,
-          },
-          {
-            path: '/my-stuff',
-            element: <Bookmarked />,
+            children: [
+              {
+                index: true,
+                element: <Homepage />,
+              },
+              {
+                path: '/dashboard/movies',
+                element: <Movies />,
+              },
+              {
+                path: '/dashboard/shows',
+                element: <TVShows />,
+              },
+              {
+                path: '/dashboard/my-stuff',
+                element: <Bookmarked />,
+              },
+            ],
           },
         ],
       },

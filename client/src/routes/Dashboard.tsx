@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import LogOutModal from '../components/LogOutModal';
 import NavBar from '../components/NavBar/NavBar';
-import Homepage from './Homepage';
 
 type DashboardLocState = null | { token: string };
 
@@ -23,9 +22,8 @@ export const Dashboard = () => {
       ) : (
         <div data-cy="dashboard">
           <NavBar />
-          {/* this will be the routes part righ there */}
           <div>
-            <Homepage />
+            <Outlet />
           </div>
         </div>
       )}
