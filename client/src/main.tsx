@@ -11,6 +11,10 @@ import ErrorPage from './routes/ErrorPage/ErrorPage';
 import LoginProvider from './context/login-context';
 import Dashboard from './routes/Dashboard';
 import Root from './routes/Root';
+import Homepage from './routes/Homepage';
+import Movies from './routes/Movies';
+import TVShows from './routes/TVShows';
+import Bookmarked from './routes/Bookmarked';
 
 const client = new ApolloClient({
   uri: GRAPHQL_URI as string,
@@ -35,6 +39,24 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <Dashboard />,
+        children: [
+          {
+            path: '/home',
+            element: <Homepage />,
+          },
+          {
+            path: '/movies',
+            element: <Movies />,
+          },
+          {
+            path: '/shows',
+            element: <TVShows />,
+          },
+          {
+            path: '/my-stuff',
+            element: <Bookmarked />,
+          },
+        ],
       },
     ],
   },
