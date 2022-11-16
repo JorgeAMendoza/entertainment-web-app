@@ -47,6 +47,7 @@ export type Mutation = {
   loginUser: Token;
   removeFavoriteMovie: Movie;
   removeFavoriteShow: Show;
+  resetDb: Scalars['String'];
   signUpUser: Token;
 };
 
@@ -150,6 +151,14 @@ export type GetAllMoviesQuery = {
     id: string;
     title: string;
     type: string;
+    rating: string;
+    year: number;
+    images: {
+      __typename?: 'ImageLinks';
+      small: string;
+      medium: string;
+      large: string;
+    };
   }>;
 };
 
@@ -261,6 +270,13 @@ export const GetAllMoviesDocument = gql`
       id
       title
       type
+      rating
+      year
+      images {
+        small
+        medium
+        large
+      }
     }
   }
 `;

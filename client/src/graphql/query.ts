@@ -6,6 +6,13 @@ export const GET_ALL_MOVIES = gql`
       id
       title
       type
+      rating
+      year
+      images{
+        small
+        medium
+        large
+      }
     }
   }
 `;
