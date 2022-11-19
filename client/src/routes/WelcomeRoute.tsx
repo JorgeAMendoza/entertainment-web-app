@@ -85,7 +85,7 @@ const WelcomePage = () => {
         <p>
           Challenge by{' '}
           <a
-            href="https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X/hub/entertainment-web-app-Hyt48xvNq"
+            href="https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X"
             target="_blank"
             rel="noreferrer"
           >
