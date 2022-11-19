@@ -13,7 +13,6 @@ interface SmallContentProps {
 }
 
 const SmallContentCard = ({
-  images,
   rating,
   title,
   type,
