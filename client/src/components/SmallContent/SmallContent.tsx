@@ -2,20 +2,23 @@ import bookmarkIcon from '../../assets/icon-bookmark-empty.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import { Movie } from '../../generated/graphql';
+import { ImageLinks } from '../../generated/graphql';
 
-type SmallContentCardProps = Pick<
-  Movie,
-  'id' | 'images' | 'rating' | 'title' | 'type' | 'year'
->;
+interface SmallContentProps {
+  images: ImageLinks;
+  rating: string;
+  title: string;
+  type: string;
+  year: number;
+}
 
 const SmallContentCard = ({
-  title,
-  year,
-  rating,
-  type,
   images,
-}: SmallContentCardProps) => {
+  rating,
+  title,
+  type,
+  year,
+}: SmallContentProps) => {
   return (
     <figure>
       {/* this first div will have the image as the background, with the button inside placed absoluteley.  */}
@@ -43,7 +46,7 @@ const SmallContentCard = ({
             )}
             <p>{type}</p>
           </div>{' '}
-          &bull; <span>content rating</span>
+          &bull; <span>{rating}</span>
         </div>
         <div>
           <h4>{title}</h4>
