@@ -182,6 +182,45 @@ export type GetAllShowsQuery = {
   }>;
 };
 
+export type GetTrendingContentQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetTrendingContentQuery = {
+  __typename?: 'Query';
+  trending: {
+    __typename?: 'Trending';
+    content: Array<
+      | {
+          __typename?: 'Movie';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+      | {
+          __typename?: 'Show';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+    >;
+  };
+};
+
 export const LoginUserDocument = gql`
   mutation loginUser($email: String!, $password: String!) {
     loginUser(email: $email, password: $password) {
@@ -413,4 +452,86 @@ export type GetAllShowsLazyQueryHookResult = ReturnType<
 export type GetAllShowsQueryResult = Apollo.QueryResult<
   GetAllShowsQuery,
   GetAllShowsQueryVariables
+>;
+export const GetTrendingContentDocument = gql`
+  query GetTrendingContent {
+    trending {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetTrendingContentQuery__
+ *
+ * To run a query within a React component, call `useGetTrendingContentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTrendingContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTrendingContentQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetTrendingContentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >(GetTrendingContentDocument, options);
+}
+export function useGetTrendingContentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >(GetTrendingContentDocument, options);
+}
+export type GetTrendingContentQueryHookResult = ReturnType<
+  typeof useGetTrendingContentQuery
+>;
+export type GetTrendingContentLazyQueryHookResult = ReturnType<
+  typeof useGetTrendingContentLazyQuery
+>;
+export type GetTrendingContentQueryResult = Apollo.QueryResult<
+  GetTrendingContentQuery,
+  GetTrendingContentQueryVariables
 >;

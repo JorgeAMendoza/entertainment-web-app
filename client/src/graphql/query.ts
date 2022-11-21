@@ -33,3 +33,37 @@ export const GET_ALL_SHOWS = gql`
     }
   }
 `;
+
+export const GET_TRENDING_CONTENT = gql`
+  query GetTrendingContent {
+    trending {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+      }
+    }
+  }
+`;

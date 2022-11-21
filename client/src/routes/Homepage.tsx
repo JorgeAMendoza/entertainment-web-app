@@ -1,8 +1,11 @@
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import LargeContent from '../components/LargeContent/LargeContent';
 import SmallContent from '../components/SmallContent/SmallContent';
+import { useGetTrendingContentQuery } from '../generated/graphql';
 
 const Homepage = () => {
+  const { loading, data } = useGetTrendingContentQuery();
+
   return (
     <main>
       <DashboardSearch />
@@ -18,7 +21,7 @@ const Homepage = () => {
       <section>
         <h2>Recommended for you</h2>
         <div>
-          <SmallContent />
+          {/* <SmallContent /> */}
           {/* 24 pieces of small content */}
         </div>
       </section>
