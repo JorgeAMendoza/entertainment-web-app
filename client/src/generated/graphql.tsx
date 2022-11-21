@@ -221,6 +221,47 @@ export type GetTrendingContentQuery = {
   };
 };
 
+export type GetRecommendedContentQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetRecommendedContentQuery = {
+  __typename?: 'Query';
+  recommended: {
+    __typename?: 'Recommended';
+    content: Array<
+      | {
+          __typename?: 'Movie';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+      | {
+          __typename?: 'Show';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+    >;
+  };
+};
+
 export const LoginUserDocument = gql`
   mutation loginUser($email: String!, $password: String!) {
     loginUser(email: $email, password: $password) {
@@ -534,4 +575,86 @@ export type GetTrendingContentLazyQueryHookResult = ReturnType<
 export type GetTrendingContentQueryResult = Apollo.QueryResult<
   GetTrendingContentQuery,
   GetTrendingContentQueryVariables
+>;
+export const GetRecommendedContentDocument = gql`
+  query GetRecommendedContent {
+    recommended {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetRecommendedContentQuery__
+ *
+ * To run a query within a React component, call `useGetRecommendedContentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRecommendedContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRecommendedContentQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetRecommendedContentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >(GetRecommendedContentDocument, options);
+}
+export function useGetRecommendedContentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >(GetRecommendedContentDocument, options);
+}
+export type GetRecommendedContentQueryHookResult = ReturnType<
+  typeof useGetRecommendedContentQuery
+>;
+export type GetRecommendedContentLazyQueryHookResult = ReturnType<
+  typeof useGetRecommendedContentLazyQuery
+>;
+export type GetRecommendedContentQueryResult = Apollo.QueryResult<
+  GetRecommendedContentQuery,
+  GetRecommendedContentQueryVariables
 >;

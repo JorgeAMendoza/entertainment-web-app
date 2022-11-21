@@ -67,3 +67,36 @@ export const GET_TRENDING_CONTENT = gql`
     }
   }
 `;
+
+export const GET_RECOMMENDED_CONTENT = gql`
+  query GetRecommendedContent {
+    recommended {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+        }
+      }
+    }
+  }
+`;

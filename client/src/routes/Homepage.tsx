@@ -1,10 +1,16 @@
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import LargeContent from '../components/LargeContent/LargeContent';
 import SmallContent from '../components/SmallContent/SmallContent';
-import { useGetTrendingContentQuery } from '../generated/graphql';
+import {
+  useGetRecommendedContentQuery,
+  useGetTrendingContentQuery,
+} from '../generated/graphql';
 
 const Homepage = () => {
-  const { loading, data } = useGetTrendingContentQuery();
+  const { loading: loadingTrending, data: trendingData } =
+    useGetTrendingContentQuery();
+  const { loading: loadingRecommended, data: recommendeData } =
+    useGetRecommendedContentQuery();
 
   return (
     <main>
@@ -12,13 +18,9 @@ const Homepage = () => {
 
       <section>
         <h2>Trending</h2>
-        {/* <div>
-          <LargeContent />
-          
-        </div> */}
-        {loading && <p>loading trending content</p>}
-        {data &&
-          data.trending.content.map((content) => (
+        {loadingTrending && <p>loading trending content</p>}
+        {trendingData &&
+          trendingData.trending.content.map((content) => (
             <LargeContent
               key={content.id}
               title={content.title}
@@ -33,8 +35,18 @@ const Homepage = () => {
       <section>
         <h2>Recommended for you</h2>
         <div>
-          {/* <SmallContent /> */}
-          {/* 24 pieces of small content */}
+          {loadingRecommended && <p>Loading Recommended Content</p>}
+          {recommendeData &&
+            recommendeData.recommended.content.map((content) => (
+              <SmallContent
+                key={content.id}
+                title={content.title}
+                year={content.year}
+                type={content.type}
+                rating={content.rating}
+                images={content.images}
+              />
+            ))}
         </div>
       </section>
     </main>
