@@ -12,10 +12,22 @@ const Homepage = () => {
 
       <section>
         <h2>Trending</h2>
-        <div>
+        {/* <div>
           <LargeContent />
-          {/* Five pieces of trending content */}
-        </div>
+          
+        </div> */}
+        {loading && <p>loading trending content</p>}
+        {data &&
+          data.trending.content.map((content) => (
+            <LargeContent
+              key={content.id}
+              title={content.title}
+              type={content.type}
+              rating={content.rating}
+              year={content.year}
+              image={content.images.large}
+            />
+          ))}
       </section>
 
       <section>
