@@ -38,7 +38,7 @@ const SmallContentCard = ({
         <div>
           <p aria-label="content release year">{year} &bull; </p>
           <div>
-            {type === 'Movie' ? (
+            {type === 'movie' ? (
               <img src={movieCategoryIcon} alt="movie category icon" />
             ) : (
               <img src={showCategoryIcon} alt="tv series category icon" />
