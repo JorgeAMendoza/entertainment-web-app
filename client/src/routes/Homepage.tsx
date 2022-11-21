@@ -44,7 +44,7 @@ const Homepage = () => {
                 year={content.year}
                 type={content.type}
                 rating={content.rating}
-                images={content.images}
+                image={content.images.medium}
               />
             ))}
         </div>

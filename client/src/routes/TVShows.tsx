@@ -17,7 +17,7 @@ const TVShows = () => {
             ? data.shows.map((show) => (
                 <SmallContent
                   key={show.id}
-                  images={show.images}
+                  image={show.images.medium}
                   rating={show.rating}
                   title={show.title}
                   type={show.type}

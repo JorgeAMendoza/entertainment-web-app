@@ -18,7 +18,7 @@ const Movies = () => {
             ? data.movies.map((movie) => (
                 <SmallContentCard
                   key={movie.id}
-                  images={movie.images}
+                  image={movie.images.medium}
                   rating={movie.rating}
                   title={movie.title}
                   type={movie.type}

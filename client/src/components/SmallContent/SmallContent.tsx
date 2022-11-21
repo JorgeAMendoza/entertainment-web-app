@@ -2,10 +2,9 @@ import bookmarkIcon from '../../assets/icon-bookmark-empty.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import { ImageLinks } from '../../generated/graphql';
 
 interface SmallContentProps {
-  images: ImageLinks;
+  image: string;
   rating: string;
   title: string;
   type: string;
