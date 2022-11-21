@@ -14,10 +14,8 @@ const initialValues: LoginForm = {
 
 const LoginRoute = () => {
   const [loginUser, { loading, error }] = useLoginUserMutation();
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
-
-  console.log(location);
 
   return (
     <main>
