@@ -262,6 +262,52 @@ export type GetRecommendedContentQuery = {
   };
 };
 
+export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetBookmarkedMoviesQuery = {
+  __typename?: 'Query';
+  user?: {
+    __typename?: 'User';
+    bookmarkedMovies?: Array<{
+      __typename?: 'Movie';
+      id: string;
+      title: string;
+      type: string;
+      rating: string;
+      year: number;
+      images: {
+        __typename?: 'ImageLinks';
+        small: string;
+        medium: string;
+        large: string;
+      };
+    }> | null;
+  } | null;
+};
+
+export type GetBookmarkedShowsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetBookmarkedShowsQuery = {
+  __typename?: 'Query';
+  user?: {
+    __typename?: 'User';
+    bookmarkedShows?: Array<{
+      __typename?: 'Show';
+      id: string;
+      title: string;
+      type: string;
+      rating: string;
+      year: number;
+      images: {
+        __typename?: 'ImageLinks';
+        small: string;
+        medium: string;
+        large: string;
+      };
+    }> | null;
+  } | null;
+};
+
 export const LoginUserDocument = gql`
   mutation loginUser($email: String!, $password: String!) {
     loginUser(email: $email, password: $password) {
@@ -657,4 +703,140 @@ export type GetRecommendedContentLazyQueryHookResult = ReturnType<
 export type GetRecommendedContentQueryResult = Apollo.QueryResult<
   GetRecommendedContentQuery,
   GetRecommendedContentQueryVariables
+>;
+export const GetBookmarkedMoviesDocument = gql`
+  query GetBookmarkedMovies {
+    user {
+      bookmarkedMovies {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetBookmarkedMoviesQuery__
+ *
+ * To run a query within a React component, call `useGetBookmarkedMoviesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookmarkedMoviesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookmarkedMoviesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBookmarkedMoviesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetBookmarkedMoviesQuery,
+    GetBookmarkedMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetBookmarkedMoviesQuery,
+    GetBookmarkedMoviesQueryVariables
+  >(GetBookmarkedMoviesDocument, options);
+}
+export function useGetBookmarkedMoviesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBookmarkedMoviesQuery,
+    GetBookmarkedMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetBookmarkedMoviesQuery,
+    GetBookmarkedMoviesQueryVariables
+  >(GetBookmarkedMoviesDocument, options);
+}
+export type GetBookmarkedMoviesQueryHookResult = ReturnType<
+  typeof useGetBookmarkedMoviesQuery
+>;
+export type GetBookmarkedMoviesLazyQueryHookResult = ReturnType<
+  typeof useGetBookmarkedMoviesLazyQuery
+>;
+export type GetBookmarkedMoviesQueryResult = Apollo.QueryResult<
+  GetBookmarkedMoviesQuery,
+  GetBookmarkedMoviesQueryVariables
+>;
+export const GetBookmarkedShowsDocument = gql`
+  query GetBookmarkedShows {
+    user {
+      bookmarkedShows {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetBookmarkedShowsQuery__
+ *
+ * To run a query within a React component, call `useGetBookmarkedShowsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookmarkedShowsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetBookmarkedShowsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetBookmarkedShowsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetBookmarkedShowsQuery,
+    GetBookmarkedShowsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetBookmarkedShowsQuery,
+    GetBookmarkedShowsQueryVariables
+  >(GetBookmarkedShowsDocument, options);
+}
+export function useGetBookmarkedShowsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBookmarkedShowsQuery,
+    GetBookmarkedShowsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetBookmarkedShowsQuery,
+    GetBookmarkedShowsQueryVariables
+  >(GetBookmarkedShowsDocument, options);
+}
+export type GetBookmarkedShowsQueryHookResult = ReturnType<
+  typeof useGetBookmarkedShowsQuery
+>;
+export type GetBookmarkedShowsLazyQueryHookResult = ReturnType<
+  typeof useGetBookmarkedShowsLazyQuery
+>;
+export type GetBookmarkedShowsQueryResult = Apollo.QueryResult<
+  GetBookmarkedShowsQuery,
+  GetBookmarkedShowsQueryVariables
 >;

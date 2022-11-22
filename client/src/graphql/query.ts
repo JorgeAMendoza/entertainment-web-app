@@ -100,3 +100,41 @@ export const GET_RECOMMENDED_CONTENT = gql`
     }
   }
 `;
+
+export const GET_BOOKMARKED_MOVIES = gql`
+  query GetBookmarkedMovies {
+    user {
+      bookmarkedMovies {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
+        }
+      }
+    }
+  }
+`;
+
+export const GET_BOOKMARKED_SHOWS = gql`
+  query GetBookmarkedShows {
+    user {
+      bookmarkedShows {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
+        }
+      }
+    }
+  }
+`;
