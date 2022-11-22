@@ -11,7 +11,7 @@ const Bookmarked = () => {
   const { loading: loadingBookmarkedShows, data: bookmarkedShowData } =
     useGetBookmarkedShowsQuery();
 
-  if (loadingBookmarkedMovies && loadingBookmarkedShows) {
+  if (loadingBookmarkedMovies || loadingBookmarkedShows) {
     return (
       <main>
         <DashboardSearch />
