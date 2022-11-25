@@ -23,6 +23,7 @@ type Movie {
   rating: String!
   images: ImageLinks!
   type: String!
+  bookmarked: Boolean!
 }
 
 type Show {
