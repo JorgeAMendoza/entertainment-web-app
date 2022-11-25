@@ -4,7 +4,7 @@ import movieService from '../database/services/movie-service';
 import showService from '../database/services/show-service';
 import { RefProperty } from '../database/db';
 
-export const movieTransform = (movie: DbMovie): Movie => {
+export const movieTransform = (movie: DbMovie, bookmarked: boolean): Movie => {
   return {
     id: movie.id,
     title: movie.title,
@@ -16,6 +16,7 @@ export const movieTransform = (movie: DbMovie): Movie => {
     },
     year: movie.year,
     type: 'movie',
+    bookmarked
   };
 };
 
@@ -55,7 +56,7 @@ const getUserMovies = async (movieIDs: RefProperty[]): Promise<Movie[]> => {
     const movie = await movieService.getMovieById(
       movieIDs[i]?.toString() as string
     );
-    if (movie !== null) userMovies.push(movieTransform(movie));
+    if (movie !== null) userMovies.push(movieTransform(movie, true));
   }
 
   return userMovies;

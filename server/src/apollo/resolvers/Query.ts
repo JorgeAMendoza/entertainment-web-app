@@ -8,11 +8,23 @@ import {
   userTransform,
 } from '../../apollo/transform-resolvers';
 import User from '../../database/schemas/user';
+import { AuthenticationError } from 'apollo-server-core';
+import userService from '../../database/services/user-service';
 
 const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
-  movies: async (_, __, ___) => {
+  movies: async (_, __, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    // next get ids of all bookmarked content,
+    const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
+      id._id.toString()
+    );
     const allMovies = await movieService.getAllMovies();
-    return allMovies.map((movie) => movieTransform(movie));
+    return allMovies.map((movie) => {
+      const bookmarked = bookmarkedMovies.includes(movie.id);
+      if (bookmarked) return movieTransform(movie, true);
+      else return movieTransform(movie, false);
+    });
   },
   shows: async (_, __, ___) => {
     const allShows = await showService.getAllShows();
@@ -26,14 +38,16 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       .slice(0, Math.floor(allShows.length / 2))
       .map((show) => showTransform(show));
 
+      // need to change movie transform to properly reflect bookmarked
     const recommendedMovies = allMovies
       .slice(0, Math.floor(allMovies.length / 2))
-      .map((movie) => movieTransform(movie));
+      .map((movie) => movieTransform(movie, false));
 
     return {
       content: [...recommendedMovies, ...recommendedShows],
     };
   },
+  // need to change trending to properly reflect bookmarked status
   trending: async (_, __, ___) => {
     const allMovies = await movieService.getAllMovies();
     const allShows = await showService.getAllShows();
@@ -56,7 +70,7 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       const movie = allMovies[currentRandomNumber];
       if (movie === undefined) continue;
       if (movie.title in movieHash) continue;
-      trendingMovies.push(movieTransform(movie));
+      trendingMovies.push(movieTransform(movie, false));
       movieHash[movie.title] = true;
     }
     return {

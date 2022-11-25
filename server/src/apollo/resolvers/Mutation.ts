@@ -32,7 +32,7 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const movie = await userService.addFavoriteMovie(args.movieId, user);
-    return movieTransform(movie);
+    return movieTransform(movie, true);
   },
   async removeFavoriteShow(_, args, { currentUser }) {
     if (!currentUser) throw new AuthenticationError('invalid token');
@@ -44,7 +44,7 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const movie = await userService.removeFavoriteMovie(args.movieId, user);
-    return movieTransform(movie);
+    return movieTransform(movie, false);
   },
   async resetDb(_) {
     if (process.env.NODE_ENV !== 'test') {

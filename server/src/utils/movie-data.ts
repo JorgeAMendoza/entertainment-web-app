@@ -1,6 +1,6 @@
 import { Movie } from '../apollo/resolvers-types.generated';
 
-const movieData: Omit<Movie, 'id' | '__typename'>[] = [
+const movieData: Omit<Movie, 'id' | '__typename' | 'bookmarked'>[] = [
   {
     title: 'Beyond Earth',
     images: {

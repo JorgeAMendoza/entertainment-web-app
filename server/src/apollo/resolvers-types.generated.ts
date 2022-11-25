@@ -26,6 +26,7 @@ export type ImageLinks = {
 
 export type Movie = {
   __typename?: 'Movie';
+  bookmarked: Scalars['Boolean'];
   id: Scalars['String'];
   images: ImageLinks;
   rating: Scalars['String'];
@@ -234,6 +235,7 @@ export type ImageLinksResolvers<ContextType = any, ParentType extends ResolversP
 };
 
 export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  bookmarked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
