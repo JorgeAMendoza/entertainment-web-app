@@ -1,6 +1,6 @@
 import { Show } from '../apollo/resolvers-types.generated';
 
-const showData: Omit<Show, 'id' | '__typename'>[] = [
+const showData: Omit<Show, 'id' | '__typename' | 'bookmarked'>[] = [
   {
     title: 'Undiscovered Cities',
     images: {

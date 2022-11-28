@@ -15,7 +15,6 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
   movies: async (_, __, { currentUser }) => {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
-    // next get ids of all bookmarked content,
     const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
       id._id.toString()
     );
@@ -26,9 +25,16 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       else return movieTransform(movie, false);
     });
   },
-  shows: async (_, __, ___) => {
+  shows: async (_, __, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
     const allShows = await showService.getAllShows();
-    return allShows.map((show) => showTransform(show));
+    return allShows.map((show) => {
+      const bookmarked = bookmarkedShows.includes(show.id)
+      if(bookmarked) return showTransform(show, true)
+      else return showTransform(show, false)
+    })
   },
   recommended: async (_, __, ___) => {
     const allMovies = await movieService.getAllMovies();
@@ -36,9 +42,9 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
 
     const recommendedShows = allShows
       .slice(0, Math.floor(allShows.length / 2))
-      .map((show) => showTransform(show));
+      .map((show) => showTransform(show, false));
 
-      // need to change movie transform to properly reflect bookmarked
+    // need to change movie transform to properly reflect bookmarked
     const recommendedMovies = allMovies
       .slice(0, Math.floor(allMovies.length / 2))
       .map((movie) => movieTransform(movie, false));
@@ -62,7 +68,7 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       const show = allShows[currentRandomNumber];
       if (show === undefined) continue;
       if (show.title in showHash) continue;
-      trendingShows.push(showTransform(show));
+      trendingShows.push(showTransform(show, false));
       showHash[show.title] = true;
     }
     while (trendingMovies.length < 3) {

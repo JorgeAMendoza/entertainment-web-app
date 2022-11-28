@@ -16,11 +16,11 @@ export const movieTransform = (movie: DbMovie, bookmarked: boolean): Movie => {
     },
     year: movie.year,
     type: 'movie',
-    bookmarked
+    bookmarked,
   };
 };
 
-export const showTransform = (show: DbShow): Show => {
+export const showTransform = (show: DbShow, bookmarked: boolean): Show => {
   return {
     id: show.id,
     title: show.title,
@@ -32,6 +32,7 @@ export const showTransform = (show: DbShow): Show => {
     },
     year: show.year,
     type: 'show',
+    bookmarked,
   };
 };
 
@@ -70,7 +71,7 @@ const getUserShows = async (showIDs: RefProperty[]): Promise<Show[]> => {
     const show = await showService.getShowById(
       showIDs[i]?.toString() as string
     );
-    userShows.push(showTransform(show));
+    userShows.push(showTransform(show, true));
   }
 
   return userShows;

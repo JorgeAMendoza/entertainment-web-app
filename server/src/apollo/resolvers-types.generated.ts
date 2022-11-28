@@ -95,6 +95,7 @@ export type Recommended = {
 
 export type Show = {
   __typename?: 'Show';
+  bookmarked: Scalars['Boolean'];
   id: Scalars['String'];
   images: ImageLinks;
   rating: Scalars['String'];
@@ -269,6 +270,7 @@ export type RecommendedResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type ShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = {
+  bookmarked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   images?: Resolver<ResolversTypes['ImageLinks'], ParentType, ContextType>;
   rating?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -33,6 +33,7 @@ type Show {
   rating: String!
   images: ImageLinks!
   type: String!
+  bookmarked: Boolean!
 }
 
 type User {
