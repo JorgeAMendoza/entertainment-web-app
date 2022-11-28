@@ -25,35 +25,51 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       else return movieTransform(movie, false);
     });
   },
+
   shows: async (_, __, { currentUser }) => {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
     const allShows = await showService.getAllShows();
     return allShows.map((show) => {
-      const bookmarked = bookmarkedShows.includes(show.id)
-      if(bookmarked) return showTransform(show, true)
-      else return showTransform(show, false)
-    })
+      const bookmarked = bookmarkedShows.includes(show.id);
+      if (bookmarked) return showTransform(show, true);
+      else return showTransform(show, false);
+    });
   },
-  recommended: async (_, __, ___) => {
+
+  recommended: async (_, __, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
+    const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
+      id._id.toString()
+    );
     const allMovies = await movieService.getAllMovies();
     const allShows = await showService.getAllShows();
 
     const recommendedShows = allShows
       .slice(0, Math.floor(allShows.length / 2))
-      .map((show) => showTransform(show, false));
+      .map((show) => {
+        const bookmarked = bookmarkedShows.includes(show.id);
+        if (bookmarked) return showTransform(show, true);
+        else return showTransform(show, false);
+      });
 
     // need to change movie transform to properly reflect bookmarked
     const recommendedMovies = allMovies
       .slice(0, Math.floor(allMovies.length / 2))
-      .map((movie) => movieTransform(movie, false));
+      .map((movie) => {
+        const bookmarked = bookmarkedMovies.includes(movie.id);
+        if (bookmarked) return movieTransform(movie, true);
+        else return movieTransform(movie, false);
+      });
 
     return {
       content: [...recommendedMovies, ...recommendedShows],
     };
   },
-  // need to change trending to properly reflect bookmarked status
+
   trending: async (_, __, ___) => {
     const allMovies = await movieService.getAllMovies();
     const allShows = await showService.getAllShows();
@@ -83,6 +99,7 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       content: [...trendingShows, ...trendingMovies],
     };
   },
+
   user: async (_, __, { currentUser }) => {
     if (!currentUser) return null;
     const user = await User.findById(currentUser.id);
