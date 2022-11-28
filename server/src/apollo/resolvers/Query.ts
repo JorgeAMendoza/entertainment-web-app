@@ -56,7 +56,6 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
         else return showTransform(show, false);
       });
 
-    // need to change movie transform to properly reflect bookmarked
     const recommendedMovies = allMovies
       .slice(0, Math.floor(allMovies.length / 2))
       .map((movie) => {
@@ -70,9 +69,15 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
     };
   },
 
-  trending: async (_, __, ___) => {
+  trending: async (_, __, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
     const allMovies = await movieService.getAllMovies();
     const allShows = await showService.getAllShows();
+    const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
+      id._id.toString()
+    );
+    const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
 
     let currentRandomNumber: number;
     const trendingShows: Show[] = [];
@@ -84,7 +89,9 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       const show = allShows[currentRandomNumber];
       if (show === undefined) continue;
       if (show.title in showHash) continue;
-      trendingShows.push(showTransform(show, false));
+      const bookmarked = bookmarkedShows.includes(show.id);
+      if (bookmarked) trendingShows.push(showTransform(show, true));
+      else trendingShows.push(showTransform(show, false));
       showHash[show.title] = true;
     }
     while (trendingMovies.length < 3) {
@@ -92,7 +99,9 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       const movie = allMovies[currentRandomNumber];
       if (movie === undefined) continue;
       if (movie.title in movieHash) continue;
-      trendingMovies.push(movieTransform(movie, false));
+      const bookmarked = bookmarkedMovies.includes(movie.id);
+      if (bookmarked) trendingMovies.push(movieTransform(movie, true));
+      else trendingMovies.push(movieTransform(movie, false));
       movieHash[movie.title] = true;
     }
     return {
