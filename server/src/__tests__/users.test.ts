@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line node/no-unpublished-import
-import supertest from 'supertest';
+import request from 'supertest';
 import 'dotenv/config';
 import { Movie as MovieType } from '../apollo/resolvers-types.generated';
 import { Show as ShowType } from '../apollo/resolvers-types.generated';
 
-const baseURL = supertest('http://localhost:4000/graphql');
+const baseURL = request('http://localhost:4000/graphql');
 
 beforeEach(async () => {
   await baseURL.post('').send({
@@ -148,6 +148,7 @@ describe('user adding favorite content', () => {
 
     const movieRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{movies {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -221,6 +222,7 @@ describe('user adding favorite content', () => {
 
     const movieRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{movies {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -273,6 +275,7 @@ describe('user adding favorite content', () => {
 
     const showRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{shows {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -346,6 +349,7 @@ describe('user adding favorite content', () => {
 
     const showRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{shows {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -435,6 +439,7 @@ describe('user can remove favorite content', () => {
 
     const movieRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{movies {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -482,6 +487,7 @@ describe('user can remove favorite content', () => {
 
     const showRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{shows {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -530,6 +536,7 @@ describe('user can remove favorite content', () => {
 
     const movieRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{movies {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
@@ -569,6 +576,7 @@ describe('user can remove favorite content', () => {
 
     const showRequest = await baseURL
       .post('')
+      .set({ authorization: `bearer ${userToken}` })
       .send({ query: '{shows {id, title, year, type}}' })
       .expect('Content-Type', /application\/json/);
 
