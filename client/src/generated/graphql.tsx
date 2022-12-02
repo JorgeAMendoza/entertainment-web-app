@@ -32,6 +32,7 @@ export type ImageLinks = {
 
 export type Movie = {
   __typename?: 'Movie';
+  bookmarked: Scalars['Boolean'];
   id: Scalars['String'];
   images: ImageLinks;
   rating: Scalars['String'];
@@ -94,6 +95,7 @@ export type Recommended = {
 
 export type Show = {
   __typename?: 'Show';
+  bookmarked: Scalars['Boolean'];
   id: Scalars['String'];
   images: ImageLinks;
   rating: Scalars['String'];
@@ -153,6 +155,7 @@ export type GetAllMoviesQuery = {
     type: string;
     rating: string;
     year: number;
+    bookmarked: boolean;
     images: {
       __typename?: 'ImageLinks';
       small: string;
@@ -170,9 +173,9 @@ export type GetAllShowsQuery = {
     __typename?: 'Show';
     id: string;
     title: string;
+    type: string;
     year: number;
     rating: string;
-    type: string;
     images: {
       __typename?: 'ImageLinks';
       small: string;
@@ -196,6 +199,7 @@ export type GetTrendingContentQuery = {
           year: number;
           rating: string;
           type: string;
+          bookmarked: boolean;
           images: {
             __typename?: 'ImageLinks';
             small: string;
@@ -210,6 +214,7 @@ export type GetTrendingContentQuery = {
           year: number;
           rating: string;
           type: string;
+          bookmarked: boolean;
           images: {
             __typename?: 'ImageLinks';
             small: string;
@@ -237,6 +242,7 @@ export type GetRecommendedContentQuery = {
           year: number;
           rating: string;
           type: string;
+          bookmarked: boolean;
           images: {
             __typename?: 'ImageLinks';
             small: string;
@@ -251,6 +257,7 @@ export type GetRecommendedContentQuery = {
           year: number;
           rating: string;
           type: string;
+          bookmarked: boolean;
           images: {
             __typename?: 'ImageLinks';
             small: string;
@@ -275,6 +282,7 @@ export type GetBookmarkedMoviesQuery = {
       type: string;
       rating: string;
       year: number;
+      bookmarked: boolean;
       images: {
         __typename?: 'ImageLinks';
         small: string;
@@ -298,6 +306,7 @@ export type GetBookmarkedShowsQuery = {
       type: string;
       rating: string;
       year: number;
+      bookmarked: boolean;
       images: {
         __typename?: 'ImageLinks';
         small: string;
@@ -423,6 +432,7 @@ export const GetAllMoviesDocument = gql`
         medium
         large
       }
+      bookmarked
     }
   }
 `;
@@ -481,6 +491,7 @@ export const GetAllShowsDocument = gql`
     shows {
       id
       title
+      type
       year
       rating
       images {
@@ -488,7 +499,6 @@ export const GetAllShowsDocument = gql`
         medium
         large
       }
-      type
     }
   }
 `;
@@ -555,6 +565,7 @@ export const GetTrendingContentDocument = gql`
             large
           }
           type
+          bookmarked
         }
         ... on Show {
           id
@@ -567,6 +578,7 @@ export const GetTrendingContentDocument = gql`
             large
           }
           type
+          bookmarked
         }
       }
     }
@@ -637,6 +649,7 @@ export const GetRecommendedContentDocument = gql`
             large
           }
           type
+          bookmarked
         }
         ... on Show {
           id
@@ -649,6 +662,7 @@ export const GetRecommendedContentDocument = gql`
             large
           }
           type
+          bookmarked
         }
       }
     }
@@ -718,6 +732,7 @@ export const GetBookmarkedMoviesDocument = gql`
           medium
           large
         }
+        bookmarked
       }
     }
   }
@@ -786,6 +801,7 @@ export const GetBookmarkedShowsDocument = gql`
           medium
           large
         }
+        bookmarked
       }
     }
   }

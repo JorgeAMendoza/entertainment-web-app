@@ -1,4 +1,5 @@
-import bookmarkIcon from '../../assets/icon-bookmark-empty.svg';
+import bookmarkIconEmpty from '../../assets/icon-bookmark-empty.svg';
+import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
@@ -9,6 +10,7 @@ interface SmallContentProps {
   title: string;
   type: string;
   year: number;
+  bookmarked: boolean;
 }
 
 const SmallContentCard = ({
@@ -16,13 +18,23 @@ const SmallContentCard = ({
   title,
   type,
   year,
+  bookmarked,
 }: SmallContentProps) => {
   return (
     <figure>
       {/* this first div will have the image as the background, with the button inside placed absoluteley.  */}
       <div>
-        <button aria-label="click to bookmark(current content name here)">
-          <img src={bookmarkIcon} alt="bookmark content icon" />
+        <button
+          aria-label={
+            bookmarked
+              ? `click to bookmark ${title}`
+              : `click to un-bookmark ${title}`
+          }
+        >
+          <img
+            src={bookmarked ? bookmarkIconFull : bookmarkIconEmpty}
+            alt="bookmark content icon"
+          />
         </button>
 
         <button aria-label="click to play (current content name here)">

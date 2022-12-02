@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 import { GRAPHQL_URI } from './utils/config';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { setContext } from '@apollo/client/link/context';
 import WelcomeRoute from './routes/WelcomeRoute';
 import LoginRoute from './routes/LoginRoute';
 import SignUpRoute from './routes/SignUpRoute';
@@ -16,8 +22,23 @@ import Movies from './routes/Movies';
 import TVShows from './routes/TVShows';
 import Bookmarked from './routes/Bookmarked';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: GRAPHQL_URI as string,
+});
+
+export const authLink = setContext((_, { headers }: Response) => {
+  const token = localStorage.getItem('ent-token');
+  const parsedToken = token ? (JSON.parse(token) as string) : '';
+  return {
+    headers: {
+      ...headers,
+      Authorization: token ? `bearer ${parsedToken}` : 'hello',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 

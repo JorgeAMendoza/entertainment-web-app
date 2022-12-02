@@ -5,6 +5,8 @@ import { useGetAllMoviesQuery } from '../generated/graphql';
 const Movies = () => {
   const { loading, error, data } = useGetAllMoviesQuery();
 
+  console.log(data);
+
   return (
     <main>
       <DashboardSearch />
@@ -23,6 +25,7 @@ const Movies = () => {
                   title={movie.title}
                   type={movie.type}
                   year={movie.year}
+                  bookmarked={movie.bookmarked}
                 />
               ))
             : null}

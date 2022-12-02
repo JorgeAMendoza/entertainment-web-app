@@ -13,6 +13,7 @@ export const GET_ALL_MOVIES = gql`
         medium
         large
       }
+      bookmarked
     }
   }
 `;
@@ -22,6 +23,7 @@ export const GET_ALL_SHOWS = gql`
     shows {
       id
       title
+      type
       year
       rating
       images {
@@ -29,7 +31,6 @@ export const GET_ALL_SHOWS = gql`
         medium
         large
       }
-      type
     }
   }
 `;
@@ -49,6 +50,7 @@ export const GET_TRENDING_CONTENT = gql`
             large
           }
           type
+          bookmarked
         }
 
         ... on Show {
@@ -62,6 +64,7 @@ export const GET_TRENDING_CONTENT = gql`
             large
           }
           type
+          bookmarked
         }
       }
     }
@@ -83,6 +86,7 @@ export const GET_RECOMMENDED_CONTENT = gql`
             large
           }
           type
+          bookmarked
         }
         ... on Show {
           id
@@ -95,6 +99,7 @@ export const GET_RECOMMENDED_CONTENT = gql`
             large
           }
           type
+          bookmarked
         }
       }
     }
@@ -115,6 +120,7 @@ export const GET_BOOKMARKED_MOVIES = gql`
           medium
           large
         }
+        bookmarked
       }
     }
   }
@@ -134,6 +140,7 @@ export const GET_BOOKMARKED_SHOWS = gql`
           medium
           large
         }
+        bookmarked
       }
     }
   }
