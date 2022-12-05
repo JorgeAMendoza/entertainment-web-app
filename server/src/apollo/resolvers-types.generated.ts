@@ -37,23 +37,17 @@ export type Movie = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addFavoriteMovie: Movie;
-  addFavoriteShow: Show;
+  bookmarkContent: Content;
   loginUser: Token;
-  removeFavoriteMovie: Movie;
-  removeFavoriteShow: Show;
   resetDb: Scalars['String'];
   signUpUser: Token;
+  unbookmarkContent: Content;
 };
 
 
-export type MutationAddFavoriteMovieArgs = {
-  movieId: Scalars['String'];
-};
-
-
-export type MutationAddFavoriteShowArgs = {
-  showId: Scalars['String'];
+export type MutationBookmarkContentArgs = {
+  contentId: Scalars['String'];
+  contentType: Scalars['String'];
 };
 
 
@@ -63,20 +57,16 @@ export type MutationLoginUserArgs = {
 };
 
 
-export type MutationRemoveFavoriteMovieArgs = {
-  movieId: Scalars['String'];
-};
-
-
-export type MutationRemoveFavoriteShowArgs = {
-  showId: Scalars['String'];
-};
-
-
 export type MutationSignUpUserArgs = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationUnbookmarkContentArgs = {
+  contentId: Scalars['String'];
+  contentType: Scalars['String'];
 };
 
 export type Query = {
@@ -247,13 +237,11 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  addFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationAddFavoriteMovieArgs, 'movieId'>>;
-  addFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationAddFavoriteShowArgs, 'showId'>>;
+  bookmarkContent?: Resolver<ResolversTypes['Content'], ParentType, ContextType, RequireFields<MutationBookmarkContentArgs, 'contentId' | 'contentType'>>;
   loginUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginUserArgs, 'email' | 'password'>>;
-  removeFavoriteMovie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteMovieArgs, 'movieId'>>;
-  removeFavoriteShow?: Resolver<ResolversTypes['Show'], ParentType, ContextType, RequireFields<MutationRemoveFavoriteShowArgs, 'showId'>>;
   resetDb?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   signUpUser?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'name' | 'password'>>;
+  unbookmarkContent?: Resolver<ResolversTypes['Content'], ParentType, ContextType, RequireFields<MutationUnbookmarkContentArgs, 'contentId' | 'contentType'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

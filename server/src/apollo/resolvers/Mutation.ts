@@ -6,7 +6,11 @@ import {
   movieTransform,
   showTransform,
 } from '../../apollo/transform-resolvers';
-import { AuthenticationError, ForbiddenError } from 'apollo-server-core';
+import {
+  AuthenticationError,
+  ForbiddenError,
+  UserInputError,
+} from 'apollo-server-core';
 import { seedTestDB } from '../../utils/seed-database';
 
 const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
@@ -22,30 +26,31 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
       token,
     };
   },
-  async addFavoriteShow(_, args, { currentUser }) {
+  async bookmarkContent(_, args, { currentUser }) {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
-    const show = await userService.addFavoriteShow(args.showId, user);
-    return showTransform(show, true);
+    if (args.contentType === 'show') {
+      const show = await userService.addFavoriteShow(args.contentId, user);
+      return showTransform(show, true);
+    } else if (args.contentType === 'movie') {
+      const movie = await userService.addFavoriteMovie(args.contentId, user);
+      return movieTransform(movie, true);
+    } else {
+      throw new UserInputError('bad content type provided');
+    }
   },
-  async addFavoriteMovie(_, args, { currentUser }) {
-    if (!currentUser) throw new AuthenticationError('invalid token');
-    const user = await userService.getUser(currentUser.id);
-    const movie = await userService.addFavoriteMovie(args.movieId, user);
-    return movieTransform(movie, true);
-  },
-  async removeFavoriteShow(_, args, { currentUser }) {
-    if (!currentUser) throw new AuthenticationError('invalid token');
-    const user = await userService.getUser(currentUser.id);
-    const show = await userService.removeFavoriteShow(args.showId, user);
-    return showTransform(show, false);
-  },
-  async removeFavoriteMovie(_, args, { currentUser }) {
-    if (!currentUser) throw new AuthenticationError('invalid token');
-    const user = await userService.getUser(currentUser.id);
-    const movie = await userService.removeFavoriteMovie(args.movieId, user);
-    return movieTransform(movie, false);
-  },
+  // async removeFavoriteShow(_, args, { currentUser }) {
+  //   if (!currentUser) throw new AuthenticationError('invalid token');
+  //   const user = await userService.getUser(currentUser.id);
+  //   const show = await userService.removeFavoriteShow(args.showId, user);
+  //   return showTransform(show, false);
+  // },
+  // async removeFavoriteMovie(_, args, { currentUser }) {
+  //   if (!currentUser) throw new AuthenticationError('invalid token');
+  //   const user = await userService.getUser(currentUser.id);
+  //   const movie = await userService.removeFavoriteMovie(args.movieId, user);
+  //   return movieTransform(movie, false);
+  // },
   async resetDb(_) {
     if (process.env.NODE_ENV !== 'test') {
       throw new ForbiddenError('not in test environment');
