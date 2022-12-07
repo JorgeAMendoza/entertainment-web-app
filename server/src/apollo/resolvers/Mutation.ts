@@ -39,18 +39,19 @@ const mutationResolver: MutationResolvers<EntertainmentResolverContext> = {
       throw new UserInputError('bad content type provided');
     }
   },
-  // async removeFavoriteShow(_, args, { currentUser }) {
-  //   if (!currentUser) throw new AuthenticationError('invalid token');
-  //   const user = await userService.getUser(currentUser.id);
-  //   const show = await userService.removeFavoriteShow(args.showId, user);
-  //   return showTransform(show, false);
-  // },
-  // async removeFavoriteMovie(_, args, { currentUser }) {
-  //   if (!currentUser) throw new AuthenticationError('invalid token');
-  //   const user = await userService.getUser(currentUser.id);
-  //   const movie = await userService.removeFavoriteMovie(args.movieId, user);
-  //   return movieTransform(movie, false);
-  // },
+  async unbookmarkContent(_, args, { currentUser }) {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    if (args.contentType === 'show') {
+      const show = await userService.removeFavoriteShow(args.contentId, user);
+      return showTransform(show, false);
+    } else if (args.contentType === 'movie') {
+      const movie = await userService.removeFavoriteMovie(args.contentId, user);
+      return movieTransform(movie, false);
+    } else {
+      throw new UserInputError('bad content type provided');
+    }
+  },
   async resetDb(_) {
     if (process.env.NODE_ENV !== 'test') {
       throw new ForbiddenError('not in test environment');

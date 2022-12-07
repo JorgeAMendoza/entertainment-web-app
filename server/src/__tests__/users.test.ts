@@ -153,17 +153,23 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const movieData = movieRequest.body.data.movies as MovieType[];
-    const firstmovieId = movieData[0] ? movieData[0].id : 'randomID';
+    const contentId = movieData[0] ? movieData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+            ... on Movie{
+              title,
+              id,
+              bookmarked
+            }
+          }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: `${contentId}`,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -195,10 +201,16 @@ describe('user adding favorite content', () => {
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: 'asdfghjklwqersc',
+          contentId: `badmovieId`,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -227,17 +239,23 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const movieData = movieRequest.body.data.movies as MovieType[];
-    const firstmovieId = movieData[0] ? movieData[0].id : 'randomID';
+    const firstMovieId = movieData[0] ? movieData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: firstMovieId,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -248,10 +266,16 @@ describe('user adding favorite content', () => {
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: firstMovieId,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -280,17 +304,23 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const showData = showRequest.body.data.shows as ShowType[];
-    const firstshowId = showData[0] ? showData[0].id : 'randomID';
+    const firstShowId = showData[0] ? showData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  addFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstshowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -322,10 +352,16 @@ describe('user adding favorite content', () => {
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  addFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: 'badID',
+          contentId: 'badID',
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -354,17 +390,23 @@ describe('user adding favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const showData = showRequest.body.data.shows as ShowType[];
-    const firstshowId = showData[0] ? showData[0].id : 'randomID';
+    const firstShowId = showData[0] ? showData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  addFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstshowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -375,10 +417,16 @@ describe('user adding favorite content', () => {
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  addFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstshowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -393,10 +441,16 @@ describe('user adding favorite content', () => {
       .set({ authorization: `bearer badtoken` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: 'someID',
+          contentId: 'someid',
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -410,10 +464,16 @@ describe('user adding favorite content', () => {
       .post('')
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: 'someID',
+          contentId: 'someID',
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -444,34 +504,63 @@ describe('user can remove favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const movieData = movieRequest.body.data.movies as MovieType[];
-    const firstmovieId = movieData[0] ? movieData[0].id : 'randomID';
+    const firstMovieId = movieData[0] ? movieData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  addFavoriteMovie(movieId: $movieId) {title, year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: firstMovieId,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/);
+
+    const userData = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedMovies {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userData.body.data.user.bookmarkedMovies.length).toBe(1);
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  removeFavoriteMovie(movieId: $movieId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  unbookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: firstMovieId,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/);
+
+    const userDataTwo = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedMovies {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userDataTwo.body.data.user.bookmarkedMovies.length).toBe(0);
   });
+
   test('user can remove a favorite show', async () => {
     const loginResponse = await baseURL.post('').send({
       operationName: 'Mutation',
@@ -492,33 +581,61 @@ describe('user can remove favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const showData = showRequest.body.data.shows as ShowType[];
-    const firstshowId = showData[0] ? showData[0].id : 'randomID';
+    const firstShowId = showData[0] ? showData[0].id : 'randomID';
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  addFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  bookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstshowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
+
+    const userData = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedShows {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userData.body.data.user.bookmarkedShows.length).toBe(1);
 
     await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  removeFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  unbookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstshowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/);
+
+    const userDataTwo = await baseURL
+      .post('')
+      .set({ authorization: `bearer ${userToken}` })
+      .send({ query: '{user {bookmarkedShows {title}}}' })
+      .expect('Content-Type', /application\/json/);
+
+    expect(userDataTwo.body.data.user.bookmarkedShows.length).toBe(0);
   });
 
   test('attempt to remove show that does not exist', async () => {
@@ -541,17 +658,23 @@ describe('user can remove favorite content', () => {
       .expect('Content-Type', /application\/json/);
 
     const movieData = movieRequest.body.data.movies as MovieType[];
-    const firstmovieId = movieData[0] ? movieData[0].id : 'randomID';
+    const firstMovieId = movieData[0] ? movieData[0].id : 'randomID';
 
     const response = await baseURL
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($movieId: String!) {  removeFavoriteMovie(movieId: $movieId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  unbookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Movie{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          movieId: `${firstmovieId}`,
+          contentId: firstMovieId,
+          contentType: 'movie',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -588,10 +711,16 @@ describe('user can remove favorite content', () => {
       .set({ authorization: `bearer ${userToken}` })
       .send({
         operationName: 'Mutation',
-        query:
-          'mutation Mutation($showId: String!) {  removeFavoriteShow(showId: $showId) {title year}}',
+        query: `mutation Mutation($contentId: String!, $contentType: String!) {  unbookmarkContent(contentId: $contentId, contentType: $contentType) {
+          ... on Show{
+            title,
+            id,
+            bookmarked
+          }
+        }}`,
         variables: {
-          showId: `${firstShowId}`,
+          contentId: firstShowId,
+          contentType: 'show',
         },
       })
       .expect('Content-Type', /application\/json/)
