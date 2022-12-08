@@ -22,6 +22,8 @@ const TVShows = () => {
                   title={show.title}
                   type={show.type}
                   year={show.year}
+                  id={show.id}
+                  bookmarked={show.bookmarked}
                 />
               ))
             : null}

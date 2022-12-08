@@ -3,8 +3,10 @@ import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
+import { useBookmarkContentMutation } from '../../generated/graphql';
 
 interface SmallContentProps {
+  id: string;
   image: string;
   rating: string;
   title: string;
@@ -19,12 +21,26 @@ const SmallContentCard = ({
   type,
   year,
   bookmarked,
+  id,
 }: SmallContentProps) => {
+  const [bookmarkContent, { loading }] = useBookmarkContentMutation();
+  // now create the mutation, and first steps
+  // see if the content can be bookmarked, it can be removed, for now check that it works from the apollo UI
+
+  // bookmark first
+
+  const bookmark = () => {
+    if (!bookmarked)
+      void bookmarkContent({
+        variables: { contentId: id, contentType: type },
+      });
+  };
   return (
     <figure>
       {/* this first div will have the image as the background, with the button inside placed absoluteley.  */}
       <div>
         <button
+          onClick={bookmark}
           aria-label={
             bookmarked
               ? `click to bookmark ${title}`

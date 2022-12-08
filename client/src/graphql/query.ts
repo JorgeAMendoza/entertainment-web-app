@@ -31,6 +31,7 @@ export const GET_ALL_SHOWS = gql`
         medium
         large
       }
+      bookmarked
     }
   }
 `;

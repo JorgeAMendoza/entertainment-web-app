@@ -45,6 +45,8 @@ const Homepage = () => {
                 type={content.type}
                 rating={content.rating}
                 image={content.images.medium}
+                id={content.id}
+                bookmarked={content.bookmarked}
               />
             ))}
         </div>
