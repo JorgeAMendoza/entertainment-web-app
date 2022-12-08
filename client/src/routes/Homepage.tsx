@@ -23,11 +23,13 @@ const Homepage = () => {
           trendingData.trending.content.map((content) => (
             <LargeContent
               key={content.id}
+              id={content.id}
               title={content.title}
               type={content.type}
               rating={content.rating}
               year={content.year}
               image={content.images.large}
+              bookmarked={content.bookmarked}
             />
           ))}
       </section>

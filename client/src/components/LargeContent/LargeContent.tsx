@@ -1,25 +1,52 @@
-import bookmarkIcon from '../../assets/icon-bookmark-empty.svg';
+import bookmarkIconEmpty from '../../assets/icon-bookmark-empty.svg';
+import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
+import { useBookmarkContentMutation } from '../../generated/graphql';
 
 // logic required to choose between movie or show icon
 // so the image is the entire background of the component, meaning it will need to be passed into the styled component like that.
 interface LargeContentProps {
+  id: string;
   title: string;
   year: number;
   type: string;
   rating: string;
   image: string;
+  bookmarked: boolean;
 }
 
-const LargeContent = ({ title, year, type, rating }: LargeContentProps) => {
+const LargeContent = ({
+  id,
+  title,
+  year,
+  type,
+  rating,
+  bookmarked,
+}: LargeContentProps) => {
+  const [bookmarkContent] = useBookmarkContentMutation();
+
+  const bookmark = () => {
+    if (!bookmarked)
+      void bookmarkContent({
+        variables: { contentId: id, contentType: type },
+      });
+  };
+
   return (
     <figure>
-      <button>
+      <button
+        onClick={bookmark}
+        aria-label={
+          bookmarked
+            ? `click to bookmark ${title}`
+            : `click to un-bookmark ${title}`
+        }
+      >
         <img
-          src={bookmarkIcon}
-          alt="bookmark the contnet (content name placed here)"
+          src={bookmarked ? bookmarkIconFull : bookmarkIconEmpty}
+          alt="bookmark content icon"
         />
       </button>
 

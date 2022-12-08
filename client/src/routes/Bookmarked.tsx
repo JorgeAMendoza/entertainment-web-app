@@ -51,11 +51,13 @@ const Bookmarked = () => {
             {bookmarkedMovieData.user.bookmarkedMovies.map((movie) => (
               <SmallContent
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 year={movie.year}
                 rating={movie.rating}
                 type={movie.type}
                 image={movie.images.medium}
+                bookmarked={movie.bookmarked}
               />
             ))}
           </div>
@@ -69,11 +71,13 @@ const Bookmarked = () => {
             ? bookmarkedShowData.user.bookmarkedShows.map((show) => (
                 <SmallContent
                   key={show.id}
+                  id={show.id}
                   title={show.title}
                   year={show.year}
                   rating={show.rating}
                   type={show.type}
                   image={show.images.medium}
+                  bookmarked={show.bookmarked}
                 />
               ))
             : null}
