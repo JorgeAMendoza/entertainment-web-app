@@ -49,3 +49,37 @@ export const BOOKMARK_CONTENT = gql`
     }
   }
 `;
+
+export const UNBOOKMARK_CONTENT = gql`
+  mutation unbookmarkContent($contentId: String!, $contentType: String!) {
+    unbookmarkContent(contentId: $contentId, contentType: $contentType) {
+      ... on Movie {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
+      }
+
+      ... on Show {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
+      }
+    }
+  }
+`;

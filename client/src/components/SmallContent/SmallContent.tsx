@@ -3,7 +3,10 @@ import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import { useBookmarkContentMutation } from '../../generated/graphql';
+import {
+  useBookmarkContentMutation,
+  useUnbookmarkContentMutation,
+} from '../../generated/graphql';
 
 interface SmallContentProps {
   id: string;
@@ -23,17 +26,24 @@ const SmallContentCard = ({
   bookmarked,
   id,
 }: SmallContentProps) => {
-  const [bookmarkContent, { loading }] = useBookmarkContentMutation();
-  // now create the mutation, and first steps
-  // see if the content can be bookmarked, it can be removed, for now check that it works from the apollo UI
+  const [bookmarkContent, { loading: bookmarkLoading }] =
+    useBookmarkContentMutation();
+  const [unbookmarkContent, { loading: unbookmarkLoading }] =
+    useUnbookmarkContentMutation();
+  // the small content is based on the query on the route for which the props were passed in, small content can be based on shows, movies, bookmarked and recommended, so when we do either, we need to modify the cache for all, or poll of them again, (we can avoid movie/show based on type at least)
 
-  // bookmark first
+  // lets start off with doing the bookmarked query,
 
   const bookmark = () => {
     if (!bookmarked)
       void bookmarkContent({
         variables: { contentId: id, contentType: type },
       });
+    else {
+      void unbookmarkContent({
+        variables: { contentId: id, contentType: type },
+      });
+    }
   };
   return (
     <figure>

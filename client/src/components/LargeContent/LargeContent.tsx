@@ -3,7 +3,10 @@ import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import { useBookmarkContentMutation } from '../../generated/graphql';
+import {
+  useBookmarkContentMutation,
+  useUnbookmarkContentMutation,
+} from '../../generated/graphql';
 
 // logic required to choose between movie or show icon
 // so the image is the entire background of the component, meaning it will need to be passed into the styled component like that.
@@ -26,12 +29,18 @@ const LargeContent = ({
   bookmarked,
 }: LargeContentProps) => {
   const [bookmarkContent] = useBookmarkContentMutation();
+  const [unbookmarkContent] = useUnbookmarkContentMutation();
 
   const bookmark = () => {
     if (!bookmarked)
       void bookmarkContent({
         variables: { contentId: id, contentType: type },
       });
+    else {
+      void unbookmarkContent({
+        variables: { contentId: id, contentType: type },
+      });
+    }
   };
 
   return (
