@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -44,25 +50,21 @@ export type Mutation = {
   unbookmarkContent: Content;
 };
 
-
 export type MutationBookmarkContentArgs = {
   contentId: Scalars['String'];
   contentType: Scalars['String'];
 };
-
 
 export type MutationLoginUserArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
 };
 
-
 export type MutationSignUpUserArgs = {
   email: Scalars['String'];
   name: Scalars['String'];
   password: Scalars['String'];
 };
-
 
 export type MutationUnbookmarkContentArgs = {
   contentId: Scalars['String'];
@@ -118,8 +120,10 @@ export type LoginUserMutationVariables = Exact<{
   password: Scalars['String'];
 }>;
 
-
-export type LoginUserMutation = { __typename?: 'Mutation', loginUser: { __typename?: 'Token', token: string } };
+export type LoginUserMutation = {
+  __typename?: 'Mutation';
+  loginUser: { __typename?: 'Token'; token: string };
+};
 
 export type SignUpUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -127,56 +131,229 @@ export type SignUpUserMutationVariables = Exact<{
   name: Scalars['String'];
 }>;
 
-
-export type SignUpUserMutation = { __typename?: 'Mutation', signUpUser: { __typename?: 'Token', token: string } };
+export type SignUpUserMutation = {
+  __typename?: 'Mutation';
+  signUpUser: { __typename?: 'Token'; token: string };
+};
 
 export type BookmarkContentMutationVariables = Exact<{
   contentId: Scalars['String'];
   contentType: Scalars['String'];
 }>;
 
+export type BookmarkContentMutation = {
+  __typename?: 'Mutation';
+  bookmarkContent:
+    | {
+        __typename?: 'Movie';
+        id: string;
+        title: string;
+        year: number;
+        rating: string;
+        type: string;
+        bookmarked: boolean;
+        images: {
+          __typename?: 'ImageLinks';
+          small: string;
+          medium: string;
+          large: string;
+        };
+      }
+    | {
+        __typename?: 'Show';
+        id: string;
+        title: string;
+        year: number;
+        rating: string;
+        type: string;
+        bookmarked: boolean;
+        images: {
+          __typename?: 'ImageLinks';
+          small: string;
+          medium: string;
+          large: string;
+        };
+      };
+};
 
-export type BookmarkContentMutation = { __typename?: 'Mutation', bookmarkContent: { __typename?: 'Movie', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } | { __typename?: 'Show', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } };
+export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllMoviesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllMoviesQuery = {
+  __typename?: 'Query';
+  movies: Array<{
+    __typename?: 'Movie';
+    id: string;
+    title: string;
+    type: string;
+    rating: string;
+    year: number;
+    bookmarked: boolean;
+    images: {
+      __typename?: 'ImageLinks';
+      small: string;
+      medium: string;
+      large: string;
+    };
+  }>;
+};
 
+export type GetAllShowsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetAllMoviesQuery = { __typename?: 'Query', movies: Array<{ __typename?: 'Movie', id: string, title: string, type: string, rating: string, year: number, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> };
+export type GetAllShowsQuery = {
+  __typename?: 'Query';
+  shows: Array<{
+    __typename?: 'Show';
+    id: string;
+    title: string;
+    type: string;
+    year: number;
+    rating: string;
+    bookmarked: boolean;
+    images: {
+      __typename?: 'ImageLinks';
+      small: string;
+      medium: string;
+      large: string;
+    };
+  }>;
+};
 
-export type GetAllShowsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetTrendingContentQueryVariables = Exact<{ [key: string]: never }>;
 
+export type GetTrendingContentQuery = {
+  __typename?: 'Query';
+  trending: {
+    __typename?: 'Trending';
+    content: Array<
+      | {
+          __typename?: 'Movie';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          bookmarked: boolean;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+      | {
+          __typename?: 'Show';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          bookmarked: boolean;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+    >;
+  };
+};
 
-export type GetAllShowsQuery = { __typename?: 'Query', shows: Array<{ __typename?: 'Show', id: string, title: string, type: string, year: number, rating: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> };
+export type GetRecommendedContentQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type GetTrendingContentQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetRecommendedContentQuery = {
+  __typename?: 'Query';
+  recommended: {
+    __typename?: 'Recommended';
+    content: Array<
+      | {
+          __typename?: 'Movie';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          bookmarked: boolean;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+      | {
+          __typename?: 'Show';
+          id: string;
+          title: string;
+          year: number;
+          rating: string;
+          type: string;
+          bookmarked: boolean;
+          images: {
+            __typename?: 'ImageLinks';
+            small: string;
+            medium: string;
+            large: string;
+          };
+        }
+    >;
+  };
+};
 
+export type GetBookmarkedContentQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type GetTrendingContentQuery = { __typename?: 'Query', trending: { __typename?: 'Trending', content: Array<{ __typename?: 'Movie', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } | { __typename?: 'Show', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> } };
-
-export type GetRecommendedContentQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetRecommendedContentQuery = { __typename?: 'Query', recommended: { __typename?: 'Recommended', content: Array<{ __typename?: 'Movie', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } | { __typename?: 'Show', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> } };
-
-export type GetBookmarkedMoviesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetBookmarkedMoviesQuery = { __typename?: 'Query', user?: { __typename?: 'User', bookmarkedMovies?: Array<{ __typename?: 'Movie', id: string, title: string, type: string, rating: string, year: number, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> | null } | null };
-
-export type GetBookmarkedShowsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetBookmarkedShowsQuery = { __typename?: 'Query', user?: { __typename?: 'User', bookmarkedShows?: Array<{ __typename?: 'Show', id: string, title: string, type: string, rating: string, year: number, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> | null } | null };
-
+export type GetBookmarkedContentQuery = {
+  __typename?: 'Query';
+  user?: {
+    __typename?: 'User';
+    bookmarkedMovies?: Array<{
+      __typename?: 'Movie';
+      id: string;
+      title: string;
+      type: string;
+      rating: string;
+      year: number;
+      bookmarked: boolean;
+      images: {
+        __typename?: 'ImageLinks';
+        small: string;
+        medium: string;
+        large: string;
+      };
+    }> | null;
+    bookmarkedShows?: Array<{
+      __typename?: 'Show';
+      id: string;
+      title: string;
+      type: string;
+      rating: string;
+      year: number;
+      bookmarked: boolean;
+      images: {
+        __typename?: 'ImageLinks';
+        small: string;
+        medium: string;
+        large: string;
+      };
+    }> | null;
+  } | null;
+};
 
 export const LoginUserDocument = gql`
-    mutation loginUser($email: String!, $password: String!) {
-  loginUser(email: $email, password: $password) {
-    token
+  mutation loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      token
+    }
   }
-}
-    `;
-export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, LoginUserMutationVariables>;
+`;
+export type LoginUserMutationFn = Apollo.MutationFunction<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
 
 /**
  * __useLoginUserMutation__
@@ -196,21 +373,37 @@ export type LoginUserMutationFn = Apollo.MutationFunction<LoginUserMutation, Log
  *   },
  * });
  */
-export function useLoginUserMutation(baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, options);
-      }
-export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>;
-export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
-export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>;
-export const SignUpUserDocument = gql`
-    mutation signUpUser($email: String!, $password: String!, $name: String!) {
-  signUpUser(email: $email, password: $password, name: $name) {
-    token
-  }
+export function useLoginUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    LoginUserMutation,
+    LoginUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(
+    LoginUserDocument,
+    options
+  );
 }
-    `;
-export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, SignUpUserMutationVariables>;
+export type LoginUserMutationHookResult = ReturnType<
+  typeof useLoginUserMutation
+>;
+export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>;
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<
+  LoginUserMutation,
+  LoginUserMutationVariables
+>;
+export const SignUpUserDocument = gql`
+  mutation signUpUser($email: String!, $password: String!, $name: String!) {
+    signUpUser(email: $email, password: $password, name: $name) {
+      token
+    }
+  }
+`;
+export type SignUpUserMutationFn = Apollo.MutationFunction<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
 
 /**
  * __useSignUpUserMutation__
@@ -231,46 +424,63 @@ export type SignUpUserMutationFn = Apollo.MutationFunction<SignUpUserMutation, S
  *   },
  * });
  */
-export function useSignUpUserMutation(baseOptions?: Apollo.MutationHookOptions<SignUpUserMutation, SignUpUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(SignUpUserDocument, options);
-      }
-export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
-export type SignUpUserMutationResult = Apollo.MutationResult<SignUpUserMutation>;
-export type SignUpUserMutationOptions = Apollo.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;
+export function useSignUpUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SignUpUserMutation,
+    SignUpUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SignUpUserMutation, SignUpUserMutationVariables>(
+    SignUpUserDocument,
+    options
+  );
+}
+export type SignUpUserMutationHookResult = ReturnType<
+  typeof useSignUpUserMutation
+>;
+export type SignUpUserMutationResult =
+  Apollo.MutationResult<SignUpUserMutation>;
+export type SignUpUserMutationOptions = Apollo.BaseMutationOptions<
+  SignUpUserMutation,
+  SignUpUserMutationVariables
+>;
 export const BookmarkContentDocument = gql`
-    mutation bookmarkContent($contentId: String!, $contentType: String!) {
-  bookmarkContent(contentId: $contentId, contentType: $contentType) {
-    ... on Movie {
-      id
-      title
-      year
-      rating
-      images {
-        small
-        medium
-        large
+  mutation bookmarkContent($contentId: String!, $contentType: String!) {
+    bookmarkContent(contentId: $contentId, contentType: $contentType) {
+      ... on Movie {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
       }
-      type
-      bookmarked
-    }
-    ... on Show {
-      id
-      title
-      year
-      rating
-      images {
-        small
-        medium
-        large
+      ... on Show {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
       }
-      type
-      bookmarked
     }
   }
-}
-    `;
-export type BookmarkContentMutationFn = Apollo.MutationFunction<BookmarkContentMutation, BookmarkContentMutationVariables>;
+`;
+export type BookmarkContentMutationFn = Apollo.MutationFunction<
+  BookmarkContentMutation,
+  BookmarkContentMutationVariables
+>;
 
 /**
  * __useBookmarkContentMutation__
@@ -290,30 +500,44 @@ export type BookmarkContentMutationFn = Apollo.MutationFunction<BookmarkContentM
  *   },
  * });
  */
-export function useBookmarkContentMutation(baseOptions?: Apollo.MutationHookOptions<BookmarkContentMutation, BookmarkContentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<BookmarkContentMutation, BookmarkContentMutationVariables>(BookmarkContentDocument, options);
-      }
-export type BookmarkContentMutationHookResult = ReturnType<typeof useBookmarkContentMutation>;
-export type BookmarkContentMutationResult = Apollo.MutationResult<BookmarkContentMutation>;
-export type BookmarkContentMutationOptions = Apollo.BaseMutationOptions<BookmarkContentMutation, BookmarkContentMutationVariables>;
-export const GetAllMoviesDocument = gql`
-    query GetAllMovies {
-  movies {
-    id
-    title
-    type
-    rating
-    year
-    images {
-      small
-      medium
-      large
-    }
-    bookmarked
-  }
+export function useBookmarkContentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    BookmarkContentMutation,
+    BookmarkContentMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    BookmarkContentMutation,
+    BookmarkContentMutationVariables
+  >(BookmarkContentDocument, options);
 }
-    `;
+export type BookmarkContentMutationHookResult = ReturnType<
+  typeof useBookmarkContentMutation
+>;
+export type BookmarkContentMutationResult =
+  Apollo.MutationResult<BookmarkContentMutation>;
+export type BookmarkContentMutationOptions = Apollo.BaseMutationOptions<
+  BookmarkContentMutation,
+  BookmarkContentMutationVariables
+>;
+export const GetAllMoviesDocument = gql`
+  query GetAllMovies {
+    movies {
+      id
+      title
+      type
+      rating
+      year
+      images {
+        small
+        medium
+        large
+      }
+      bookmarked
+    }
+  }
+`;
 
 /**
  * __useGetAllMoviesQuery__
@@ -330,34 +554,57 @@ export const GetAllMoviesDocument = gql`
  *   },
  * });
  */
-export function useGetAllMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-      }
-export function useGetAllMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMoviesQuery, GetAllMoviesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(GetAllMoviesDocument, options);
-        }
-export type GetAllMoviesQueryHookResult = ReturnType<typeof useGetAllMoviesQuery>;
-export type GetAllMoviesLazyQueryHookResult = ReturnType<typeof useGetAllMoviesLazyQuery>;
-export type GetAllMoviesQueryResult = Apollo.QueryResult<GetAllMoviesQuery, GetAllMoviesQueryVariables>;
-export const GetAllShowsDocument = gql`
-    query GetAllShows {
-  shows {
-    id
-    title
-    type
-    year
-    rating
-    images {
-      small
-      medium
-      large
-    }
-    bookmarked
-  }
+export function useGetAllMoviesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
 }
-    `;
+export function useGetAllMoviesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllMoviesQuery,
+    GetAllMoviesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllMoviesQuery, GetAllMoviesQueryVariables>(
+    GetAllMoviesDocument,
+    options
+  );
+}
+export type GetAllMoviesQueryHookResult = ReturnType<
+  typeof useGetAllMoviesQuery
+>;
+export type GetAllMoviesLazyQueryHookResult = ReturnType<
+  typeof useGetAllMoviesLazyQuery
+>;
+export type GetAllMoviesQueryResult = Apollo.QueryResult<
+  GetAllMoviesQuery,
+  GetAllMoviesQueryVariables
+>;
+export const GetAllShowsDocument = gql`
+  query GetAllShows {
+    shows {
+      id
+      title
+      type
+      year
+      rating
+      images {
+        small
+        medium
+        large
+      }
+      bookmarked
+    }
+  }
+`;
 
 /**
  * __useGetAllShowsQuery__
@@ -374,51 +621,72 @@ export const GetAllShowsDocument = gql`
  *   },
  * });
  */
-export function useGetAllShowsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllShowsQuery, GetAllShowsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllShowsQuery, GetAllShowsQueryVariables>(GetAllShowsDocument, options);
-      }
-export function useGetAllShowsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllShowsQuery, GetAllShowsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllShowsQuery, GetAllShowsQueryVariables>(GetAllShowsDocument, options);
-        }
+export function useGetAllShowsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetAllShowsQuery,
+    GetAllShowsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetAllShowsQuery, GetAllShowsQueryVariables>(
+    GetAllShowsDocument,
+    options
+  );
+}
+export function useGetAllShowsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAllShowsQuery,
+    GetAllShowsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetAllShowsQuery, GetAllShowsQueryVariables>(
+    GetAllShowsDocument,
+    options
+  );
+}
 export type GetAllShowsQueryHookResult = ReturnType<typeof useGetAllShowsQuery>;
-export type GetAllShowsLazyQueryHookResult = ReturnType<typeof useGetAllShowsLazyQuery>;
-export type GetAllShowsQueryResult = Apollo.QueryResult<GetAllShowsQuery, GetAllShowsQueryVariables>;
+export type GetAllShowsLazyQueryHookResult = ReturnType<
+  typeof useGetAllShowsLazyQuery
+>;
+export type GetAllShowsQueryResult = Apollo.QueryResult<
+  GetAllShowsQuery,
+  GetAllShowsQueryVariables
+>;
 export const GetTrendingContentDocument = gql`
-    query GetTrendingContent {
-  trending {
-    content {
-      ... on Movie {
-        id
-        title
-        year
-        rating
-        images {
-          small
-          medium
-          large
+  query GetTrendingContent {
+    trending {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+          bookmarked
         }
-        type
-        bookmarked
-      }
-      ... on Show {
-        id
-        title
-        year
-        rating
-        images {
-          small
-          medium
-          large
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+          bookmarked
         }
-        type
-        bookmarked
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetTrendingContentQuery__
@@ -435,51 +703,74 @@ export const GetTrendingContentDocument = gql`
  *   },
  * });
  */
-export function useGetTrendingContentQuery(baseOptions?: Apollo.QueryHookOptions<GetTrendingContentQuery, GetTrendingContentQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTrendingContentQuery, GetTrendingContentQueryVariables>(GetTrendingContentDocument, options);
-      }
-export function useGetTrendingContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrendingContentQuery, GetTrendingContentQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTrendingContentQuery, GetTrendingContentQueryVariables>(GetTrendingContentDocument, options);
-        }
-export type GetTrendingContentQueryHookResult = ReturnType<typeof useGetTrendingContentQuery>;
-export type GetTrendingContentLazyQueryHookResult = ReturnType<typeof useGetTrendingContentLazyQuery>;
-export type GetTrendingContentQueryResult = Apollo.QueryResult<GetTrendingContentQuery, GetTrendingContentQueryVariables>;
+export function useGetTrendingContentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >(GetTrendingContentDocument, options);
+}
+export function useGetTrendingContentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetTrendingContentQuery,
+    GetTrendingContentQueryVariables
+  >(GetTrendingContentDocument, options);
+}
+export type GetTrendingContentQueryHookResult = ReturnType<
+  typeof useGetTrendingContentQuery
+>;
+export type GetTrendingContentLazyQueryHookResult = ReturnType<
+  typeof useGetTrendingContentLazyQuery
+>;
+export type GetTrendingContentQueryResult = Apollo.QueryResult<
+  GetTrendingContentQuery,
+  GetTrendingContentQueryVariables
+>;
 export const GetRecommendedContentDocument = gql`
-    query GetRecommendedContent {
-  recommended {
-    content {
-      ... on Movie {
-        id
-        title
-        year
-        rating
-        images {
-          small
-          medium
-          large
+  query GetRecommendedContent {
+    recommended {
+      content {
+        ... on Movie {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+          bookmarked
         }
-        type
-        bookmarked
-      }
-      ... on Show {
-        id
-        title
-        year
-        rating
-        images {
-          small
-          medium
-          large
+        ... on Show {
+          id
+          title
+          year
+          rating
+          images {
+            small
+            medium
+            large
+          }
+          type
+          bookmarked
         }
-        type
-        bookmarked
       }
     }
   }
-}
-    `;
+`;
 
 /**
  * __useGetRecommendedContentQuery__
@@ -496,106 +787,119 @@ export const GetRecommendedContentDocument = gql`
  *   },
  * });
  */
-export function useGetRecommendedContentQuery(baseOptions?: Apollo.QueryHookOptions<GetRecommendedContentQuery, GetRecommendedContentQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRecommendedContentQuery, GetRecommendedContentQueryVariables>(GetRecommendedContentDocument, options);
-      }
-export function useGetRecommendedContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRecommendedContentQuery, GetRecommendedContentQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRecommendedContentQuery, GetRecommendedContentQueryVariables>(GetRecommendedContentDocument, options);
+export function useGetRecommendedContentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >(GetRecommendedContentDocument, options);
+}
+export function useGetRecommendedContentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetRecommendedContentQuery,
+    GetRecommendedContentQueryVariables
+  >(GetRecommendedContentDocument, options);
+}
+export type GetRecommendedContentQueryHookResult = ReturnType<
+  typeof useGetRecommendedContentQuery
+>;
+export type GetRecommendedContentLazyQueryHookResult = ReturnType<
+  typeof useGetRecommendedContentLazyQuery
+>;
+export type GetRecommendedContentQueryResult = Apollo.QueryResult<
+  GetRecommendedContentQuery,
+  GetRecommendedContentQueryVariables
+>;
+export const GetBookmarkedContentDocument = gql`
+  query GetBookmarkedContent {
+    user {
+      bookmarkedMovies {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
         }
-export type GetRecommendedContentQueryHookResult = ReturnType<typeof useGetRecommendedContentQuery>;
-export type GetRecommendedContentLazyQueryHookResult = ReturnType<typeof useGetRecommendedContentLazyQuery>;
-export type GetRecommendedContentQueryResult = Apollo.QueryResult<GetRecommendedContentQuery, GetRecommendedContentQueryVariables>;
-export const GetBookmarkedMoviesDocument = gql`
-    query GetBookmarkedMovies {
-  user {
-    bookmarkedMovies {
-      id
-      title
-      type
-      rating
-      year
-      images {
-        small
-        medium
-        large
+        bookmarked
       }
-      bookmarked
+      bookmarkedShows {
+        id
+        title
+        type
+        rating
+        year
+        images {
+          small
+          medium
+          large
+        }
+        bookmarked
+      }
     }
   }
-}
-    `;
+`;
 
 /**
- * __useGetBookmarkedMoviesQuery__
+ * __useGetBookmarkedContentQuery__
  *
- * To run a query within a React component, call `useGetBookmarkedMoviesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetBookmarkedMoviesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetBookmarkedContentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetBookmarkedContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetBookmarkedMoviesQuery({
+ * const { data, loading, error } = useGetBookmarkedContentQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetBookmarkedMoviesQuery(baseOptions?: Apollo.QueryHookOptions<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>(GetBookmarkedMoviesDocument, options);
-      }
-export function useGetBookmarkedMoviesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>(GetBookmarkedMoviesDocument, options);
-        }
-export type GetBookmarkedMoviesQueryHookResult = ReturnType<typeof useGetBookmarkedMoviesQuery>;
-export type GetBookmarkedMoviesLazyQueryHookResult = ReturnType<typeof useGetBookmarkedMoviesLazyQuery>;
-export type GetBookmarkedMoviesQueryResult = Apollo.QueryResult<GetBookmarkedMoviesQuery, GetBookmarkedMoviesQueryVariables>;
-export const GetBookmarkedShowsDocument = gql`
-    query GetBookmarkedShows {
-  user {
-    bookmarkedShows {
-      id
-      title
-      type
-      rating
-      year
-      images {
-        small
-        medium
-        large
-      }
-      bookmarked
-    }
-  }
+export function useGetBookmarkedContentQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetBookmarkedContentQuery,
+    GetBookmarkedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetBookmarkedContentQuery,
+    GetBookmarkedContentQueryVariables
+  >(GetBookmarkedContentDocument, options);
 }
-    `;
-
-/**
- * __useGetBookmarkedShowsQuery__
- *
- * To run a query within a React component, call `useGetBookmarkedShowsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetBookmarkedShowsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetBookmarkedShowsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetBookmarkedShowsQuery(baseOptions?: Apollo.QueryHookOptions<GetBookmarkedShowsQuery, GetBookmarkedShowsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBookmarkedShowsQuery, GetBookmarkedShowsQueryVariables>(GetBookmarkedShowsDocument, options);
-      }
-export function useGetBookmarkedShowsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBookmarkedShowsQuery, GetBookmarkedShowsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBookmarkedShowsQuery, GetBookmarkedShowsQueryVariables>(GetBookmarkedShowsDocument, options);
-        }
-export type GetBookmarkedShowsQueryHookResult = ReturnType<typeof useGetBookmarkedShowsQuery>;
-export type GetBookmarkedShowsLazyQueryHookResult = ReturnType<typeof useGetBookmarkedShowsLazyQuery>;
-export type GetBookmarkedShowsQueryResult = Apollo.QueryResult<GetBookmarkedShowsQuery, GetBookmarkedShowsQueryVariables>;
+export function useGetBookmarkedContentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBookmarkedContentQuery,
+    GetBookmarkedContentQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetBookmarkedContentQuery,
+    GetBookmarkedContentQueryVariables
+  >(GetBookmarkedContentDocument, options);
+}
+export type GetBookmarkedContentQueryHookResult = ReturnType<
+  typeof useGetBookmarkedContentQuery
+>;
+export type GetBookmarkedContentLazyQueryHookResult = ReturnType<
+  typeof useGetBookmarkedContentLazyQuery
+>;
+export type GetBookmarkedContentQueryResult = Apollo.QueryResult<
+  GetBookmarkedContentQuery,
+  GetBookmarkedContentQueryVariables
+>;

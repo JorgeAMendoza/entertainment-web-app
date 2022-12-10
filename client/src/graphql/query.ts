@@ -107,8 +107,8 @@ export const GET_RECOMMENDED_CONTENT = gql`
   }
 `;
 
-export const GET_BOOKMARKED_MOVIES = gql`
-  query GetBookmarkedMovies {
+export const GET_BOOKMARKED_CONTENT = gql`
+  query GetBookmarkedContent {
     user {
       bookmarkedMovies {
         id
@@ -123,13 +123,6 @@ export const GET_BOOKMARKED_MOVIES = gql`
         }
         bookmarked
       }
-    }
-  }
-`;
-
-export const GET_BOOKMARKED_SHOWS = gql`
-  query GetBookmarkedShows {
-    user {
       bookmarkedShows {
         id
         title

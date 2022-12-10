@@ -1,17 +1,11 @@
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContent from '../components/SmallContent/SmallContent';
-import {
-  useGetBookmarkedMoviesQuery,
-  useGetBookmarkedShowsQuery,
-} from '../generated/graphql';
+import { useGetBookmarkedContentQuery } from '../generated/graphql';
 
 const Bookmarked = () => {
-  const { loading: loadingBookmarkedMovies, data: bookmarkedMovieData } =
-    useGetBookmarkedMoviesQuery();
-  const { loading: loadingBookmarkedShows, data: bookmarkedShowData } =
-    useGetBookmarkedShowsQuery();
+  const { loading, error, data } = useGetBookmarkedContentQuery();
 
-  if (loadingBookmarkedMovies || loadingBookmarkedShows) {
+  if (loading) {
     return (
       <main>
         <DashboardSearch />
@@ -25,8 +19,9 @@ const Bookmarked = () => {
   }
 
   if (
-    !bookmarkedMovieData?.user?.bookmarkedMovies &&
-    !bookmarkedShowData?.user?.bookmarkedShows
+    data &&
+    data.user?.bookmarkedMovies?.length === 0 &&
+    data.user.bookmarkedShows?.length === 0
   ) {
     return (
       <main>
@@ -44,11 +39,11 @@ const Bookmarked = () => {
     <main>
       <DashboardSearch />
 
-      {bookmarkedMovieData?.user?.bookmarkedMovies ? (
+      {data?.user?.bookmarkedMovies ? (
         <section>
           <h2>Bookmarked movies</h2>
           <div>
-            {bookmarkedMovieData.user.bookmarkedMovies.map((movie) => (
+            {data.user.bookmarkedMovies.map((movie) => (
               <SmallContent
                 key={movie.id}
                 id={movie.id}
@@ -67,8 +62,8 @@ const Bookmarked = () => {
       <section>
         <h2>Bookmarked TV Series</h2>
         <div>
-          {bookmarkedShowData?.user?.bookmarkedShows
-            ? bookmarkedShowData.user.bookmarkedShows.map((show) => (
+          {data?.user?.bookmarkedShows
+            ? data.user.bookmarkedShows.map((show) => (
                 <SmallContent
                   key={show.id}
                   id={show.id}
