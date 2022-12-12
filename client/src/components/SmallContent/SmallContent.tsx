@@ -7,6 +7,9 @@ import {
   useBookmarkContentMutation,
   useUnbookmarkContentMutation,
 } from '../../generated/graphql';
+import { GET_BOOKMARKED_CONTENT } from '../../graphql/query';
+import { GetBookmarkedContentQuery, User } from '../../generated/graphql';
+import { ApolloCache } from '@apollo/client';
 
 interface SmallContentProps {
   id: string;
@@ -27,7 +30,18 @@ const SmallContentCard = ({
   id,
 }: SmallContentProps) => {
   const [bookmarkContent, { loading: bookmarkLoading }] =
-    useBookmarkContentMutation();
+    useBookmarkContentMutation({
+      update: (cache: ApolloCache<User>) => {
+        cache.updateQuery(
+          { query: GET_BOOKMARKED_CONTENT },
+          (data: { user: User } | null) => {
+            if (!data) return undefined;
+            console.log(data);
+            console.log(data.user.bookmarkedMovies);
+          }
+        );
+      },
+    });
   const [unbookmarkContent, { loading: unbookmarkLoading }] =
     useUnbookmarkContentMutation();
   // the small content is based on the query on the route for which the props were passed in, small content can be based on shows, movies, bookmarked and recommended, so when we do either, we need to modify the cache for all, or poll of them again, (we can avoid movie/show based on type at least)
