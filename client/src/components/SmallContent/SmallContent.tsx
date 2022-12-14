@@ -3,15 +3,8 @@ import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import {
-  useBookmarkContentMutation,
-  useUnbookmarkContentMutation,
-  User,
-  Movie,
-  Show,
-} from '../../generated/graphql';
-import { GET_BOOKMARKED_CONTENT } from '../../graphql/query';
-import { ApolloCache } from '@apollo/client';
+import useBookmarkMutation from '../../hooks/bookmarkMutation';
+import { useUnbookmarkContentMutation } from '../../generated/graphql';
 
 interface SmallContentProps {
   id: string;
@@ -31,36 +24,7 @@ const SmallContentCard = ({
   bookmarked,
   id,
 }: SmallContentProps) => {
-  const [bookmarkContent, { loading: bookmarkLoading }] =
-    useBookmarkContentMutation({
-      update: (cache: ApolloCache<User>, { data: addBookmark }) => {
-        cache.updateQuery(
-          { query: GET_BOOKMARKED_CONTENT },
-          (cached: { user: User } | null) => {
-            if (!cached) return undefined;
-            const user = cached.user;
-
-            let bookmarkedMovies = user.bookmarkedMovies as Movie[];
-            let bookmarkedShows = user.bookmarkedShows as Show[];
-            const content = addBookmark?.bookmarkContent;
-
-            if (content && content.type === 'movie') {
-              const movieContent = content as Movie;
-              bookmarkedMovies = bookmarkedMovies.concat(movieContent);
-            }
-
-            if (content && content.type === 'show') {
-              const showContent = content as Show;
-              bookmarkedShows = bookmarkedShows.concat(showContent);
-            }
-
-            return {
-              user: { ...user, bookmarkedMovies, bookmarkedShows },
-            };
-          }
-        );
-      },
-    });
+  const { bookmarkContent } = useBookmarkMutation();
   const [unbookmarkContent, { loading: unbookmarkLoading }] =
     useUnbookmarkContentMutation();
 

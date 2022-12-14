@@ -3,15 +3,8 @@ import bookmarkIconFull from '../../assets/icon-bookmark-full.svg';
 import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
-import {
-  useBookmarkContentMutation,
-  useUnbookmarkContentMutation,
-  User,
-  Movie,
-  Show,
-} from '../../generated/graphql';
-import { GET_BOOKMARKED_CONTENT } from '../../graphql/query';
-import { ApolloCache } from '@apollo/client';
+import { useUnbookmarkContentMutation } from '../../generated/graphql';
+import useBookmarkMutation from '../../hooks/bookmarkMutation';
 
 // logic required to choose between movie or show icon
 // so the image is the entire background of the component, meaning it will need to be passed into the styled component like that.
@@ -33,36 +26,7 @@ const LargeContent = ({
   rating,
   bookmarked,
 }: LargeContentProps) => {
-  const [bookmarkContent, { loading: bookmarkLoading }] =
-    useBookmarkContentMutation({
-      update: (cache: ApolloCache<User>, { data: addBookmark }) => {
-        cache.updateQuery(
-          { query: GET_BOOKMARKED_CONTENT },
-          (cached: { user: User } | null) => {
-            if (!cached) return undefined;
-            const user = cached.user;
-
-            let bookmarkedMovies = user.bookmarkedMovies as Movie[];
-            let bookmarkedShows = user.bookmarkedShows as Show[];
-            const content = addBookmark?.bookmarkContent;
-
-            if (content && content.type === 'movie') {
-              const movieContent = content as Movie;
-              bookmarkedMovies = bookmarkedMovies.concat(movieContent);
-            }
-
-            if (content && content.type === 'show') {
-              const showContent = content as Show;
-              bookmarkedShows = bookmarkedShows.concat(showContent);
-            }
-
-            return {
-              user: { ...user, bookmarkedMovies, bookmarkedShows },
-            };
-          }
-        );
-      },
-    });
+  const { bookmarkContent } = useBookmarkMutation();
   const [unbookmarkContent] = useUnbookmarkContentMutation();
 
   const bookmark = () => {
