@@ -41,7 +41,7 @@ const SmallContentCard = ({
             const user = cached.user;
 
             let bookmarkedMovies = user.bookmarkedMovies as Movie[];
-            const bookmarkedShows = user.bookmarkedShows as Show[];
+            let bookmarkedShows = user.bookmarkedShows as Show[];
             const content = addBookmark?.bookmarkContent;
 
             if (content && content.type === 'movie') {
@@ -49,7 +49,10 @@ const SmallContentCard = ({
               bookmarkedMovies = bookmarkedMovies.concat(movieContent);
             }
 
-            // show implementation next
+            if (content && content.type === 'show') {
+              const showContent = content as Show;
+              bookmarkedShows = bookmarkedShows.concat(showContent);
+            }
 
             return {
               user: { ...user, bookmarkedMovies, bookmarkedShows },
