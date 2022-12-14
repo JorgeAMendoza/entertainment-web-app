@@ -6,9 +6,11 @@ import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import {
   useBookmarkContentMutation,
   useUnbookmarkContentMutation,
+  User,
+  Movie,
+  Show,
 } from '../../generated/graphql';
 import { GET_BOOKMARKED_CONTENT } from '../../graphql/query';
-import { GetBookmarkedContentQuery, User } from '../../generated/graphql';
 import { ApolloCache } from '@apollo/client';
 
 interface SmallContentProps {
@@ -31,22 +33,33 @@ const SmallContentCard = ({
 }: SmallContentProps) => {
   const [bookmarkContent, { loading: bookmarkLoading }] =
     useBookmarkContentMutation({
-      update: (cache: ApolloCache<User>) => {
+      update: (cache: ApolloCache<User>, { data: addBookmark }) => {
         cache.updateQuery(
           { query: GET_BOOKMARKED_CONTENT },
-          (data: { user: User } | null) => {
-            if (!data) return undefined;
-            console.log(data);
-            console.log(data.user.bookmarkedMovies);
+          (cached: { user: User } | null) => {
+            if (!cached) return undefined;
+            const user = cached.user;
+
+            let bookmarkedMovies = user.bookmarkedMovies as Movie[];
+            const bookmarkedShows = user.bookmarkedShows as Show[];
+            const content = addBookmark?.bookmarkContent;
+
+            if (content && content.type === 'movie') {
+              const movieContent = content as Movie;
+              bookmarkedMovies = bookmarkedMovies.concat(movieContent);
+            }
+
+            // show implementation next
+
+            return {
+              user: { ...user, bookmarkedMovies, bookmarkedShows },
+            };
           }
         );
       },
     });
   const [unbookmarkContent, { loading: unbookmarkLoading }] =
     useUnbookmarkContentMutation();
-  // the small content is based on the query on the route for which the props were passed in, small content can be based on shows, movies, bookmarked and recommended, so when we do either, we need to modify the cache for all, or poll of them again, (we can avoid movie/show based on type at least)
-
-  // lets start off with doing the bookmarked query,
 
   const bookmark = () => {
     if (!bookmarked)

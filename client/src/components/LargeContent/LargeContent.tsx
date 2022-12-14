@@ -6,7 +6,12 @@ import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import {
   useBookmarkContentMutation,
   useUnbookmarkContentMutation,
+  User,
+  Movie,
+  Show,
 } from '../../generated/graphql';
+import { GET_BOOKMARKED_CONTENT } from '../../graphql/query';
+import { ApolloCache } from '@apollo/client';
 
 // logic required to choose between movie or show icon
 // so the image is the entire background of the component, meaning it will need to be passed into the styled component like that.
@@ -28,7 +33,33 @@ const LargeContent = ({
   rating,
   bookmarked,
 }: LargeContentProps) => {
-  const [bookmarkContent] = useBookmarkContentMutation();
+  const [bookmarkContent, { loading: bookmarkLoading }] =
+    useBookmarkContentMutation({
+      update: (cache: ApolloCache<User>, { data: addBookmark }) => {
+        cache.updateQuery(
+          { query: GET_BOOKMARKED_CONTENT },
+          (cached: { user: User } | null) => {
+            if (!cached) return undefined;
+            const user = cached.user;
+
+            let bookmarkedMovies = user.bookmarkedMovies as Movie[];
+            const bookmarkedShows = user.bookmarkedShows as Show[];
+            const content = addBookmark?.bookmarkContent;
+
+            if (content && content.type === 'movie') {
+              const movieContent = content as Movie;
+              bookmarkedMovies = bookmarkedMovies.concat(movieContent);
+            }
+
+            // show implementation next
+
+            return {
+              user: { ...user, bookmarkedMovies, bookmarkedShows },
+            };
+          }
+        );
+      },
+    });
   const [unbookmarkContent] = useUnbookmarkContentMutation();
 
   const bookmark = () => {
