@@ -4,7 +4,7 @@ import playIcon from '../../assets/icon-play.svg';
 import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import useBookmarkMutation from '../../hooks/bookmarkMutation';
-import { useUnbookmarkContentMutation } from '../../generated/graphql';
+import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
 
 interface SmallContentProps {
   id: string;
@@ -25,8 +25,7 @@ const SmallContentCard = ({
   id,
 }: SmallContentProps) => {
   const { bookmarkContent } = useBookmarkMutation();
-  const [unbookmarkContent, { loading: unbookmarkLoading }] =
-    useUnbookmarkContentMutation();
+  const { unbookmarkContent } = useUnbookmarkMutation();
 
   const bookmark = () => {
     if (!bookmarked)
