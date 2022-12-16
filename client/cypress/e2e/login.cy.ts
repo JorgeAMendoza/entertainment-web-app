@@ -11,8 +11,8 @@ describe('user login', () => {
   });
 
   it('valid login, redirected to home page', () => {
-    cy.get('@loginEmail').type('jorgemendoza2002@gmail');
-    cy.get('@loginPassword').type('Chopper!?1990');
+    cy.get('@loginEmail').type('jorgemendoza2002@gmail.com');
+    cy.get('@loginPassword').type('Chopper!?990');
     cy.get('@loginButton').click();
 
     cy.get('@loginForm').should('not.exist');
@@ -25,8 +25,8 @@ describe('user login', () => {
     cy.get('@loginPassword').find('input').focus();
 
     cy.get('@loginEmail')
-      .get('[data-cy="loginMessage"]')
-      .should('contain.text', "Can't Be Blank");
+      .get('[data-cy="errorMessage"]')
+      .should('contain.text', "Can't be blank");
   });
 
   it('invalid login, invalid login', () => {
@@ -36,7 +36,7 @@ describe('user login', () => {
 
     cy.get('[data-cy="loginError"]').should(
       'contain.text',
-      'Invalid Email or Password'
+      'email or password is not valid'
     );
   });
 
@@ -46,8 +46,8 @@ describe('user login', () => {
     cy.get('@loginEmail').find('input').focus();
 
     cy.get('@loginPassword')
-      .get('[data-cy="loginMessage"]')
-      .should('contain.text', "Can't Be Blank");
+      .get('[data-cy="errorMessage"]')
+      .should('contain.text', "Can't be blank");
   });
 
   it('invalid login, incorrect password', () => {
@@ -57,7 +57,15 @@ describe('user login', () => {
 
     cy.get('[data-cy="loginError"]').should(
       'contain.text',
-      'Invalid email or password'
+      'email or password is not valid'
     );
+  });
+
+  it('navigate to signup page', () => {
+    cy.get('@signUpLink').click();
+
+    cy.get('@loginForm').should('not.exist');
+    cy.url().should('include', '/sign-up');
+    cy.get('[data-cy="signUpForm"]');
   });
 });
