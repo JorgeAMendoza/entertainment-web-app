@@ -2,22 +2,22 @@ import * as Yup from 'yup';
 import validator from 'validator';
 
 export const loginFormValidation = Yup.object({
-  email: Yup.string().required("can't be blank").email('invalid email'),
-  password: Yup.string().required("can't be blank"),
+  email: Yup.string().required("Can't be blank").email('Invalid email'),
+  password: Yup.string().required("Can't be blank"),
 });
 
 export const signUpValidation = Yup.object({
-  email: Yup.string().required("Can't be blank").email('invalid email'),
+  email: Yup.string().required("Can't be blank").email('Invalid email'),
   name: Yup.string().required("Can't be blank"),
   password: Yup.string()
-    .test('valid', 'invalid password', (val) => {
+    .test('valid', 'Invalid password', (val) => {
       if (!val) return true;
       if (validator.isStrongPassword(val)) return true;
       else return false;
     })
-    .required("can't be blank"),
+    .required("Can't be blank"),
   repeatPassword: Yup.string().oneOf(
     [Yup.ref('password'), null],
-    'passwords do not match'
+    'Passwords do not match'
   ),
 });

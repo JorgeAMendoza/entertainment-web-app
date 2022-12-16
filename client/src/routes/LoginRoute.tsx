@@ -46,7 +46,7 @@ const LoginRoute = () => {
             });
         }}
       >
-        <Form>
+        <Form data-cy="loginForm">
           <label>
             <TextField
               name="email"
