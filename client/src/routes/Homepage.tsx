@@ -19,24 +19,26 @@ const Homepage = () => {
       <section>
         <h2>Trending</h2>
         {loadingTrending && <p>loading trending content</p>}
-        {trendingData &&
-          trendingData.trending.content.map((content) => (
-            <LargeContent
-              key={content.id}
-              id={content.id}
-              title={content.title}
-              type={content.type}
-              rating={content.rating}
-              year={content.year}
-              image={content.images.large}
-              bookmarked={content.bookmarked}
-            />
-          ))}
+        <div data-cy="trendingContent">
+          {trendingData &&
+            trendingData.trending.content.map((content) => (
+              <LargeContent
+                key={content.id}
+                id={content.id}
+                title={content.title}
+                type={content.type}
+                rating={content.rating}
+                year={content.year}
+                image={content.images.large}
+                bookmarked={content.bookmarked}
+              />
+            ))}
+        </div>
       </section>
 
       <section>
         <h2>Recommended for you</h2>
-        <div>
+        <div data-cy="recommendedContent">
           {loadingRecommended && <p>Loading Recommended Content</p>}
           {recommendeData &&
             recommendeData.recommended.content.map((content) => (

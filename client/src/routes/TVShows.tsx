@@ -5,14 +5,14 @@ import { useGetAllShowsQuery } from '../generated/graphql';
 const TVShows = () => {
   const { loading, error, data } = useGetAllShowsQuery();
   return (
-    <main>
+    <main data-cy="showPage">
       <DashboardSearch />
 
       <section>
-        <h2>Tv Series</h2>
+        <h1>TV Series</h1>
 
         <div>{loading ? <p>loading shows</p> : null}</div>
-        <div>
+        <div data-cy="showList">
           {data
             ? data.shows.map((show) => (
                 <SmallContent

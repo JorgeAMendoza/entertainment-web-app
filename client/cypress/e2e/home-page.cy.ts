@@ -3,10 +3,18 @@
 describe('homepage interactivity', () => {
   beforeEach(() => {
     cy.visit('/login');
+    cy.request({
+      method: 'POST',
+      url: 'http://localhost:4000/graphql',
+      body: {
+        operationName: 'Mutation',
+        query: 'mutation Mutation {resetDb}',
+      },
+    });
     cy.get('[data-cy="loginEmail"]').type('jorgemendoza2002@gmail.com');
-    cy.get('[data-cy="loginPassword"]').type('Chopper!?1990');
+    cy.get('[data-cy="loginPassword"]').type('Chopper!?990');
     cy.get('[data-cy="loginButton"]').click();
-    cy.url().should('include', '/dashboard/home');
+    cy.url().should('include', '/dashboard');
 
     cy.get('[data-cy="homepageTab"]').as('homepageTab');
     cy.get('[data-cy="movieTab"]').as('movieTab');
@@ -23,7 +31,7 @@ describe('homepage interactivity', () => {
   it('recommended content contains 24 pieces of content', () => {
     cy.get('[data-cy="recommendedContent"]')
       .children()
-      .should('have.length', 24);
+      .should('have.length', 2);
   });
 
   it('search bar movies and shows', () => {
@@ -44,7 +52,7 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="homePage"]').should('not.exist');
   });
 
-  it.only('search for only movies', () => {
+  it('search for only movies', () => {
     cy.get('@movieTab').click();
     cy.get('@searchBar').should(
       'have.attr',
@@ -97,36 +105,89 @@ describe('homepage interactivity', () => {
   });
 
   it('switch to bookmarked tab', () => {
-    cy.get('@bookmarkTab').click();
-    cy.url().should('include', '/dashboard/bookmarks');
-    cy.get('@bookmarkTab')
-      .find('h1')
-      .should('contain.text', 'No bookmarked content');
+    cy.get('@bookmarkedTab').click();
+    cy.url().should('include', '/dashboard/my-stuff');
+    cy.get('[data-cy="bookmarkPage"]')
+      .find('p')
+      .should('contain.text', 'No bookmarked movies or shows');
   });
 
-  it('bookmark content', () => {
-    let contentTitle = '';
-
+  it('bookmark movie content', () => {
     cy.get('@movieTab').click();
 
     cy.get('[data-cy="moviesList"]')
-      .children()
-      .then(($el) => {
-        cy.wrap($el[0]).find('button').click();
-        cy.wrap($el[0])
-          .find('h1')
-          .then(($el) => {
-            contentTitle = $el.text();
-          });
-      });
+      .find('figure:first-child')
+      .find('button:first-of-type')
+      .click();
 
     cy.get('@bookmarkedTab').click();
-    cy.get('[data-cy="bookMarkedMovies"]').children().should('have.length', 1);
-    cy.get('[data-cy="bookMarkedMovies"]')
-      .children()
-      .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', contentTitle);
-      });
+    cy.get('[data-cy="bookmarkedMovies"]').children().should('have.length', 1);
+    cy.get('[data-cy="bookmarkedMovies"]')
+      .find('figure:first-of-type')
+      .find('h4')
+      .should('contain.text', 'Beyond Earth');
+  });
+
+  it('bookmark show content', () => {
+    cy.get('@showTab').click();
+
+    cy.get('[data-cy="showList"]')
+      .find('figure:first-child')
+      .find('button:first-of-type')
+      .click();
+
+    cy.get('@bookmarkedTab').click();
+    cy.get('[data-cy="bookmarkedShows"]').children().should('have.length', 1);
+    cy.get('[data-cy="bookmarkedShows"]')
+      .find('figure:first-of-type')
+      .find('h4')
+      .should('contain.text', 'Undiscovered Cities');
+  });
+
+  it('unbookmark movie content', () => {
+    cy.get('@movieTab').click();
+
+    cy.get('[data-cy="moviesList"]')
+      .find('figure:first-child')
+      .find('button:first-of-type')
+      .click();
+
+    cy.get('@bookmarkedTab').click();
+    cy.get('[data-cy="bookmarkedMovies"]').children().should('have.length', 1);
+    cy.get('[data-cy="bookmarkedMovies"]')
+      .find('figure:first-of-type')
+      .find('h4')
+      .should('contain.text', 'Beyond Earth');
+
+    cy.get('[data-cy="bookmarkedMovies"]')
+      .find('figure:first-of-type')
+      .find('button:first-of-type')
+      .click();
+
+    cy.get('[data-cy="bookmarkedMovies"]').should('not.exist');
+  });
+
+  it('unbookmark show content', () => {
+    cy.get('@showTab').click();
+
+    cy.get('[data-cy="showList"]')
+      .find('figure:first-child')
+      .find('button:first-of-type')
+      .click();
+
+    cy.get('@bookmarkedTab').click();
+    cy.get('[data-cy="bookmarkedShows"]').children().should('have.length', 1);
+    cy.get('[data-cy="bookmarkedShows"]')
+      .find('figure:first-of-type')
+      .find('h4')
+      .should('contain.text', 'Undiscovered Cities');
+
+    cy.get('[data-cy="bookmarkedShows"]')
+      .find('figure:first-of-type')
+      .find('button:first-of-type')
+      .click();
+
+    cy.get('[data-cy="bookmarkedShows"]').should('not.exist');
   });
 
   it('search for only bookmarked content', () => {
@@ -189,12 +250,12 @@ describe('homepage interactivity', () => {
 
 describe('login bypass', () => {
   beforeEach(() => {
-    cy.visit('/dashboard/homepage');
-    cy.get('[data-cy="loginModal"]').as('loginModal');
+    cy.visit('/dashboard');
+    cy.get('[data-cy="logoutModal"]').as('logoutModal');
     cy.get('[data-cy="loginLink"]').as('loginLink');
   });
 
-  it('navigate to dashboard without being authenticated', () => {
+  it.only('navigate to dashboard without being authenticated', () => {
     cy.get('@logoutModal')
       .find('h3')
       .should('contain.text', 'You are not signed in');

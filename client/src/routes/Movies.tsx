@@ -6,14 +6,14 @@ const Movies = () => {
   const { loading, error, data } = useGetAllMoviesQuery();
 
   return (
-    <main>
+    <main data-cy="moviePage">
       <DashboardSearch />
 
       <section>
-        <h2>Movies</h2>
+        <h1>Movies</h1>
 
         <div>{loading ? <p>loading movies</p> : null}</div>
-        <div>
+        <div data-cy="moviesList">
           {data
             ? data.movies.map((movie) => (
                 <SmallContentCard
