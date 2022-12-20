@@ -30,22 +30,22 @@ const NavBar = () => {
 
       <ul>
         <li>
-          <Link to="/dashboard">
+          <Link to="/dashboard" data-cy="homepageTab">
             <IconNavHome />
           </Link>
         </li>
         <li>
-          <Link to="movies">
+          <Link to="movies" data-cy="movieTab">
             <IconNavMovie />
           </Link>
         </li>
         <li>
-          <Link to="shows">
+          <Link to="shows" data-cy="showTab">
             <IconNavShow />
           </Link>
         </li>
         <li>
-          <Link to="my-stuff">
+          <Link to="my-stuff" data-cy="bookmarkedTab">
             <IconNavBookMark />
           </Link>
         </li>
@@ -53,7 +53,7 @@ const NavBar = () => {
 
       {/* Give own styled compoent.  */}
       <div>
-        <button aria-label="click to open account menu">
+        <button aria-label="click to open account menu" data-cy="userProfile">
           <div>
             <img
               src={userProfilePic}

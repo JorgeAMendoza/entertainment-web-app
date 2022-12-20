@@ -24,7 +24,7 @@ const SignUpRoute = () => {
         <img src={logoIcon} alt="entertainment logo" />
       </div>
 
-      {error && <p>{error.message}</p>}
+      {error && <p data-cy="signUpError">{error.message}</p>}
 
       <div>
         <h1>Sign Up</h1>
@@ -53,9 +53,9 @@ const SignUpRoute = () => {
                   const message = e.message;
 
                   if (message.includes('email'))
-                    actions.setFieldError('email', 'invalid email');
+                    actions.setFieldError('email', 'Invalid email');
                   else if (message.includes('password'))
-                    actions.setFieldError('password', 'invalid password');
+                    actions.setFieldError('password', 'Invalid password');
                 }
               });
           }}

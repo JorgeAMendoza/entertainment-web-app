@@ -23,7 +23,7 @@ const LoginRoute = () => {
         <img src={logoIcon} alt="entertainment logo" />
       </div>
 
-      {error && <p>{error.message}</p>}
+      {error && <p data-cy="loginError">{error.message}</p>}
 
       <Formik
         initialValues={initialValues}
@@ -46,8 +46,8 @@ const LoginRoute = () => {
             });
         }}
       >
-        <Form>
-          <label>
+        <Form data-cy="loginForm">
+          <label data-cy="loginEmail">
             <TextField
               name="email"
               type="text"
@@ -55,7 +55,7 @@ const LoginRoute = () => {
               placeholder="email address"
             />
           </label>
-          <label>
+          <label data-cy="loginPassword">
             <TextField
               name="password"
               type="password"
@@ -63,14 +63,17 @@ const LoginRoute = () => {
               placeholder="password"
             />
           </label>
-          <button type="submit">
+          <button type="submit" data-cy="loginButton">
             {loading ? '...loading' : 'log into your account'}
           </button>
         </Form>
       </Formik>
 
       <p>
-        Don&apos;t have an account? <Link to="/sign-up">Sign up</Link>
+        Don&apos;t have an account?{' '}
+        <Link to="/sign-up" data-cy="signUpLink">
+          Sign up
+        </Link>
       </p>
     </main>
   );

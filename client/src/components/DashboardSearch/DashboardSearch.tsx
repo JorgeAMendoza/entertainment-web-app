@@ -2,10 +2,10 @@ import searchIcon from '../../assets/icon-search.svg';
 
 const DashboardSearch = () => {
   return (
-    <label>
-      <div>
+    <label data-cy="searchBar">
+      <span>
         <img src={searchIcon} alt="Search icon" />
-      </div>
+      </span>
       <input
         type="text"
         name="searchContent"

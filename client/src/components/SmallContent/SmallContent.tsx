@@ -43,6 +43,7 @@ const SmallContentCard = ({
       {/* this first div will have the image as the background, with the button inside placed absoluteley.  */}
       <div>
         <button
+          data-cy="bookmarkButton"
           onClick={bookmark}
           aria-label={
             bookmarked

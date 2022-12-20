@@ -24,7 +24,7 @@ const Bookmarked = () => {
     data.user.bookmarkedShows?.length === 0
   ) {
     return (
-      <main>
+      <main data-cy="bookmarkPage">
         <DashboardSearch />
 
         <div>
@@ -42,7 +42,7 @@ const Bookmarked = () => {
       {data?.user?.bookmarkedMovies ? (
         <section>
           <h2>Bookmarked movies</h2>
-          <div>
+          <div data-cy="bookmarkedMovies">
             {data.user.bookmarkedMovies.map((movie) => (
               <SmallContent
                 key={movie.id}
@@ -61,7 +61,7 @@ const Bookmarked = () => {
 
       <section>
         <h2>Bookmarked TV Series</h2>
-        <div>
+        <div data-cy="bookmarkedShows">
           {data?.user?.bookmarkedShows
             ? data.user.bookmarkedShows.map((show) => (
                 <SmallContent
