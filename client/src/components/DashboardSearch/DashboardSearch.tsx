@@ -1,6 +1,11 @@
 import searchIcon from '../../assets/icon-search.svg';
 
-const DashboardSearch = () => {
+interface DashboardSearchProps {
+  search: string;
+  setSearch: React.Dispatch<string>;
+}
+
+const DashboardSearch = ({ search, setSearch }: DashboardSearchProps) => {
   return (
     <label data-cy="searchBar">
       <span>
@@ -11,6 +16,9 @@ const DashboardSearch = () => {
         name="searchContent"
         placeholder="Search for content"
         id="searchContent"
+        onChange={({ target }) => setSearch(target.value)}
+        onBlur={({ target }) => setSearch(target.value)}
+        value={search}
       />
     </label>
   );
