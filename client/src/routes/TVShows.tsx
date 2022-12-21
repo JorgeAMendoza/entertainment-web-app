@@ -1,20 +1,39 @@
+import { useState, useMemo } from 'react';
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContent from '../components/SmallContent/SmallContent';
+import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
 
 const TVShows = () => {
-  const { loading, error, data } = useGetAllShowsQuery();
+  const { loading, data: content } = useGetAllShowsQuery();
+  const [search, setSearch] = useState('');
+
+  const searchedContent = useMemo(() => {
+    return content?.shows.filter((show) =>
+      show.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search, content]);
+
+  if (search !== '' && searchedContent) {
+    return (
+      <main>
+        <DashboardSearch search={search} setSearch={setSearch} />
+        <SearchResults query={search} searchedData={searchedContent} />
+      </main>
+    );
+  }
+
   return (
     <main data-cy="showPage">
-      <DashboardSearch />
+      <DashboardSearch search={search} setSearch={setSearch} />
 
       <section>
         <h1>TV Series</h1>
 
         <div>{loading ? <p>loading shows</p> : null}</div>
         <div data-cy="showList">
-          {data
-            ? data.shows.map((show) => (
+          {content
+            ? content.shows.map((show) => (
                 <SmallContent
                   key={show.id}
                   image={show.images.medium}
