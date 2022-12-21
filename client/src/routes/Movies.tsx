@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContentCard from '../components/SmallContent/SmallContent';
 import { useGetAllMoviesQuery } from '../generated/graphql';
+import SearchResults from '../components/SearchResults/SearchResults';
 
 const Movies = () => {
   const { loading, data: content } = useGetAllMoviesQuery();
@@ -9,16 +10,15 @@ const Movies = () => {
 
   const searchedContent = useMemo(() => {
     return content?.movies.filter((movie) =>
-      movie.title.toLowerCase().includes(search)
+      movie.title.toLowerCase().includes(search.toLowerCase())
     );
-  }, [search]);
+  }, [search, content]);
 
   if (search !== '' && searchedContent) {
-    console.log(searchedContent);
     return (
       <main>
         <DashboardSearch search={search} setSearch={setSearch} />
-        <p>we are searching</p>
+        <SearchResults query={search} searchedData={searchedContent} />
       </main>
     );
   }
