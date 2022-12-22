@@ -5,8 +5,8 @@ import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
 
 const TVShows = () => {
-  const { loading, data: content } = useGetAllShowsQuery();
   const [search, setSearch] = useState('');
+  const { loading, data: content } = useGetAllShowsQuery();
 
   const searchedContent = useMemo(() => {
     return content?.shows.filter((show) =>

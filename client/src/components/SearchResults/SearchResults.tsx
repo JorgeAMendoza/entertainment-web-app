@@ -4,7 +4,7 @@ import { Movie, Show } from '../../generated/graphql';
 // need the serach result and the data.
 interface SearchResultsProps {
   query: string;
-  searchedData: Movie[] | Show[];
+  searchedData: (Movie | Show)[];
 }
 
 const SearchResults = ({ query, searchedData }: SearchResultsProps) => {
