@@ -1,27 +1,49 @@
+import { useMemo, useState } from 'react';
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import LargeContent from '../components/LargeContent/LargeContent';
 import SmallContent from '../components/SmallContent/SmallContent';
 import {
+  Movie,
+  Show,
   useGetRecommendedContentQuery,
   useGetTrendingContentQuery,
 } from '../generated/graphql';
+import SearchResults from '../components/SearchResults/SearchResults';
 
 const Homepage = () => {
-  const { loading: loadingTrending, data: trendingData } =
+  const [search, setSearch] = useState('');
+  const { loading: loadingTrending, data: trendingContent } =
     useGetTrendingContentQuery();
-  const { loading: loadingRecommended, data: recommendeData } =
+  const { loading: loadingRecommended, data: recommendedContent } =
     useGetRecommendedContentQuery();
+
+  const searchedContent: (Movie | Show)[] = useMemo(() => {
+    if (!trendingContent || !recommendedContent) return [];
+
+    return recommendedContent.recommended.content.filter((content) =>
+      content.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }, [search, trendingContent, recommendedContent]);
+
+  if (search !== '' && searchedContent) {
+    return (
+      <main>
+        <DashboardSearch search={search} setSearch={setSearch} />
+        <SearchResults query={search} searchedData={searchedContent} />
+      </main>
+    );
+  }
 
   return (
     <main>
-      <DashboardSearch />
+      <DashboardSearch search={search} setSearch={setSearch} />
 
       <section>
         <h2>Trending</h2>
         {loadingTrending && <p>loading trending content</p>}
         <div data-cy="trendingContent">
-          {trendingData &&
-            trendingData.trending.content.map((content) => (
+          {trendingContent &&
+            trendingContent.trending.content.map((content) => (
               <LargeContent
                 key={content.id}
                 id={content.id}
@@ -40,8 +62,8 @@ const Homepage = () => {
         <h2>Recommended for you</h2>
         <div data-cy="recommendedContent">
           {loadingRecommended && <p>Loading Recommended Content</p>}
-          {recommendeData &&
-            recommendeData.recommended.content.map((content) => (
+          {recommendedContent &&
+            recommendedContent.recommended.content.map((content) => (
               <SmallContent
                 key={content.id}
                 title={content.title}
