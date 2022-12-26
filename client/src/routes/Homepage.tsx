@@ -1,27 +1,34 @@
+import { useMemo, useState } from 'react';
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import LargeContent from '../components/LargeContent/LargeContent';
 import SmallContent from '../components/SmallContent/SmallContent';
-import {
-  useGetRecommendedContentQuery,
-  useGetTrendingContentQuery,
-} from '../generated/graphql';
+import { Movie, Show, useGetHomepageContentQuery } from '../generated/graphql';
+import SearchResults from '../components/SearchResults/SearchResults';
 
 const Homepage = () => {
-  const { loading: loadingTrending, data: trendingData } =
-    useGetTrendingContentQuery();
-  const { loading: loadingRecommended, data: recommendeData } =
-    useGetRecommendedContentQuery();
+  const [search, setSearch] = useState('');
+  const { loading: homepageLoading, data: homepageContent } =
+    useGetHomepageContentQuery();
+
+  // if (search !== '' && searchedContent) {
+  //   return (
+  //     <main>
+  //       <DashboardSearch search={search} setSearch={setSearch} />
+  //       <SearchResults query={search} searchedData={searchedContent} />
+  //     </main>
+  //   );
+  // }
 
   return (
     <main>
-      <DashboardSearch />
+      <DashboardSearch search={search} setSearch={setSearch} />
 
       <section>
         <h2>Trending</h2>
-        {loadingTrending && <p>loading trending content</p>}
+        {homepageLoading && <p>loading trending content</p>}
         <div data-cy="trendingContent">
-          {trendingData &&
-            trendingData.trending.content.map((content) => (
+          {homepageContent &&
+            homepageContent.homepage.trending.map((content) => (
               <LargeContent
                 key={content.id}
                 id={content.id}
@@ -39,9 +46,9 @@ const Homepage = () => {
       <section>
         <h2>Recommended for you</h2>
         <div data-cy="recommendedContent">
-          {loadingRecommended && <p>Loading Recommended Content</p>}
-          {recommendeData &&
-            recommendeData.recommended.content.map((content) => (
+          {homepageLoading && <p>Loading Recommended Content</p>}
+          {homepageContent &&
+            homepageContent.homepage.recommended.map((content) => (
               <SmallContent
                 key={content.id}
                 title={content.title}

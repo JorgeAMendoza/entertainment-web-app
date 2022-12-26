@@ -17,6 +17,12 @@ export type Scalars = {
 
 export type Content = Movie | Show;
 
+export type HomepageContent = {
+  __typename?: 'HomepageContent';
+  recommended: Array<Content>;
+  trending: Array<Content>;
+};
+
 export type ImageLinks = {
   __typename?: 'ImageLinks';
   large: Scalars['String'];
@@ -71,16 +77,10 @@ export type MutationUnbookmarkContentArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  homepage: HomepageContent;
   movies: Array<Movie>;
-  recommended: Recommended;
   shows: Array<Show>;
-  trending: Trending;
   user?: Maybe<User>;
-};
-
-export type Recommended = {
-  __typename?: 'Recommended';
-  content: Array<Content>;
 };
 
 export type Show = {
@@ -97,11 +97,6 @@ export type Show = {
 export type Token = {
   __typename?: 'Token';
   token: Scalars['String'];
-};
-
-export type Trending = {
-  __typename?: 'Trending';
-  content: Array<Content>;
 };
 
 export type User = {
@@ -184,16 +179,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Content: ResolversTypes['Movie'] | ResolversTypes['Show'];
+  HomepageContent: ResolverTypeWrapper<Omit<HomepageContent, 'recommended' | 'trending'> & { recommended: Array<ResolversTypes['Content']>, trending: Array<ResolversTypes['Content']> }>;
   ImageLinks: ResolverTypeWrapper<ImageLinks>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Movie: ResolverTypeWrapper<Movie>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  Recommended: ResolverTypeWrapper<Omit<Recommended, 'content'> & { content: Array<ResolversTypes['Content']> }>;
   Show: ResolverTypeWrapper<Show>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Token: ResolverTypeWrapper<Token>;
-  Trending: ResolverTypeWrapper<Omit<Trending, 'content'> & { content: Array<ResolversTypes['Content']> }>;
   User: ResolverTypeWrapper<User>;
 };
 
@@ -201,21 +195,26 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Content: ResolversParentTypes['Movie'] | ResolversParentTypes['Show'];
+  HomepageContent: Omit<HomepageContent, 'recommended' | 'trending'> & { recommended: Array<ResolversParentTypes['Content']>, trending: Array<ResolversParentTypes['Content']> };
   ImageLinks: ImageLinks;
   Int: Scalars['Int'];
   Movie: Movie;
   Mutation: {};
   Query: {};
-  Recommended: Omit<Recommended, 'content'> & { content: Array<ResolversParentTypes['Content']> };
   Show: Show;
   String: Scalars['String'];
   Token: Token;
-  Trending: Omit<Trending, 'content'> & { content: Array<ResolversParentTypes['Content']> };
   User: User;
 };
 
 export type ContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Content'] = ResolversParentTypes['Content']> = {
   __resolveType: TypeResolveFn<'Movie' | 'Show', ParentType, ContextType>;
+};
+
+export type HomepageContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['HomepageContent'] = ResolversParentTypes['HomepageContent']> = {
+  recommended?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
+  trending?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ImageLinksResolvers<ContextType = any, ParentType extends ResolversParentTypes['ImageLinks'] = ResolversParentTypes['ImageLinks']> = {
@@ -245,16 +244,10 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  homepage?: Resolver<ResolversTypes['HomepageContent'], ParentType, ContextType>;
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
-  recommended?: Resolver<ResolversTypes['Recommended'], ParentType, ContextType>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
-  trending?: Resolver<ResolversTypes['Trending'], ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-};
-
-export type RecommendedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Recommended'] = ResolversParentTypes['Recommended']> = {
-  content?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = {
@@ -273,11 +266,6 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TrendingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Trending'] = ResolversParentTypes['Trending']> = {
-  content?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   bookmarkedMovies?: Resolver<Maybe<Array<ResolversTypes['Movie']>>, ParentType, ContextType>;
   bookmarkedShows?: Resolver<Maybe<Array<ResolversTypes['Show']>>, ParentType, ContextType>;
@@ -289,14 +277,13 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Content?: ContentResolvers<ContextType>;
+  HomepageContent?: HomepageContentResolvers<ContextType>;
   ImageLinks?: ImageLinksResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  Recommended?: RecommendedResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   Token?: TokenResolvers<ContextType>;
-  Trending?: TrendingResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 

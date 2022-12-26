@@ -38,7 +38,7 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
     });
   },
 
-  recommended: async (_, __, { currentUser }) => {
+  homepage: async (_, __, { currentUser }) => {
     if (!currentUser) throw new AuthenticationError('invalid token');
     const user = await userService.getUser(currentUser.id);
     const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
@@ -47,6 +47,8 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
     );
     const allMovies = await movieService.getAllMovies();
     const allShows = await showService.getAllShows();
+
+    // grabbing recommeded content (for now, just set of movies/shows)
 
     const recommendedShows = allShows
       .slice(0, Math.floor(allShows.length / 2))
@@ -64,20 +66,9 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
         else return movieTransform(movie, false);
       });
 
-    return {
-      content: [...recommendedMovies, ...recommendedShows],
-    };
-  },
+    const recommended = [...recommendedMovies, ...recommendedShows];
 
-  trending: async (_, __, { currentUser }) => {
-    if (!currentUser) throw new AuthenticationError('invalid token');
-    const user = await userService.getUser(currentUser.id);
-    const allMovies = await movieService.getAllMovies();
-    const allShows = await showService.getAllShows();
-    const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
-      id._id.toString()
-    );
-    const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
+    // grabbing trending shows
 
     let currentRandomNumber: number;
     const trendingShows: Show[] = [];
@@ -104,8 +95,12 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
       else trendingMovies.push(movieTransform(movie, false));
       movieHash[movie.title] = true;
     }
+
+    const trending = [...trendingMovies, ...trendingShows];
+
     return {
-      content: [...trendingShows, ...trendingMovies],
+      recommended,
+      trending,
     };
   },
 

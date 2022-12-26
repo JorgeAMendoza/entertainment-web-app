@@ -28,7 +28,7 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="trendingContent"]').children().should('have.length', 5);
   });
 
-  it('recommended content contains 24 pieces of content', () => {
+  it('recommended content contains 2 pieces of content', () => {
     cy.get('[data-cy="recommendedContent"]')
       .children()
       .should('have.length', 2);
@@ -255,7 +255,7 @@ describe('login bypass', () => {
     cy.get('[data-cy="loginLink"]').as('loginLink');
   });
 
-  it.only('navigate to dashboard without being authenticated', () => {
+  it('navigate to dashboard without being authenticated', () => {
     cy.get('@logoutModal')
       .find('h3')
       .should('contain.text', 'You are not signed in');

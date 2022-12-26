@@ -1,8 +1,7 @@
 type Query {
   movies: [Movie!]!
   shows: [Show!]!
-  recommended: Recommended!
-  trending: Trending!
+  homepage: HomepageContent!
   user: User
 }
 
@@ -46,18 +45,15 @@ type Token {
   token: String!
 }
 
-type Recommended {
-  content: [Content!]!
-}
-
-type Trending {
-  content: [Content!]!
-}
-
 type ImageLinks {
   small: String!
   medium: String!
   large: String!
+}
+
+type HomepageContent {
+  recommended: [Content!]!
+  trending: [Content!]!
 }
 
 union Content = Movie | Show
