@@ -36,10 +36,10 @@ export const GET_ALL_SHOWS = gql`
   }
 `;
 
-export const GET_TRENDING_CONTENT = gql`
-  query GetTrendingContent {
-    trending {
-      content {
+export const GET_HOMEPAGE_CONTENT = gql`
+  query GetHomepageContent {
+    homepage {
+      recommended {
         ... on Movie {
           id
           title
@@ -68,14 +68,7 @@ export const GET_TRENDING_CONTENT = gql`
           bookmarked
         }
       }
-    }
-  }
-`;
-
-export const GET_RECOMMENDED_CONTENT = gql`
-  query GetRecommendedContent {
-    recommended {
-      content {
+      trending {
         ... on Movie {
           id
           title
@@ -89,6 +82,7 @@ export const GET_RECOMMENDED_CONTENT = gql`
           type
           bookmarked
         }
+
         ... on Show {
           id
           title
