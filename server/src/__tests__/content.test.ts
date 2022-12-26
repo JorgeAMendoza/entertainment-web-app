@@ -29,22 +29,30 @@ describe('recommend and trending', () => {
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
-        query: `{recommended {content {
-        ... on Movie {
-          id,
-          title,
-          type
-        }
-        ... on Show {
-          id,
-          title,
-          type
-        }
-      }}}`,
+        query: `{homepage 
+          {
+            recommended {
+              ... on Movie {
+                title
+              }
+              ... on Show {
+                title
+              }
+            }
+            trending {
+              ... on Movie {
+                title
+              }
+              ... on Show {
+                title
+              }
+            }
+          }
+        }`,
       })
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.data.recommended.content).toHaveLength(2);
+    expect(response.body.data.homepage.recommended).toHaveLength(2);
   });
 
   test('trending movies and showws returend as JSON', async () => {
@@ -63,20 +71,29 @@ describe('recommend and trending', () => {
       .post('')
       .set({ authorization: `bearer ${userToken}` })
       .send({
-        query: `{trending {content {
-        ... on Movie {
-          id,
-          title,
-          type
-        }
-        ... on Show {
-          id,
-          title,
-        }
-      }}}`,
+        query: `{homepage 
+          {
+            recommended {
+              ... on Movie {
+                title
+              }
+              ... on Show {
+                title
+              }
+            }
+            trending {
+              ... on Movie {
+                title
+              }
+              ... on Show {
+                title
+              }
+            }
+          }
+        }`,
       })
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body.data.trending.content).toHaveLength(5);
+    expect(response.body.data.homepage.trending).toHaveLength(5);
   });
 });
