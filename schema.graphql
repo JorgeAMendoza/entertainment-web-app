@@ -3,6 +3,7 @@ type Query {
   shows: [Show!]!
   homepage: HomepageContent!
   user: User
+  search(title: String!): [Content!]!
 }
 
 type Mutation {

@@ -79,8 +79,14 @@ export type Query = {
   __typename?: 'Query';
   homepage: HomepageContent;
   movies: Array<Movie>;
+  search: Array<Content>;
   shows: Array<Show>;
   user?: Maybe<User>;
+};
+
+
+export type QuerySearchArgs = {
+  title: Scalars['String'];
 };
 
 export type Show = {
@@ -246,6 +252,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   homepage?: Resolver<ResolversTypes['HomepageContent'], ParentType, ContextType>;
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
+  search?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'title'>>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };

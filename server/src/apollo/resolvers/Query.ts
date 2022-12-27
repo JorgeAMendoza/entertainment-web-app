@@ -112,6 +112,38 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
 
     return transformedUser;
   },
+
+  search: async (_, { title: search }, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
+    const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
+      id._id.toString()
+    );
+
+    const allMovies = await movieService.getAllMovies();
+    const allShows = await showService.getAllShows();
+
+    const filteredMovies = allMovies
+      .filter((movie) =>
+        movie.title.toLowerCase().includes(search.toLowerCase())
+      )
+      .map((movie) => {
+        const bookmarked = bookmarkedMovies.includes(movie.id);
+        if (bookmarked) return movieTransform(movie, true);
+        else return movieTransform(movie, false);
+      });
+
+    const filteredShows = allShows
+      .filter((show) => show.title.toLowerCase().includes(search.toLowerCase()))
+      .map((show) => {
+        const bookmarked = bookmarkedShows.includes(show.id);
+        if (bookmarked) return showTransform(show, true);
+        else return showTransform(show, false);
+      });
+
+    return [...filteredMovies, ...filteredShows];
+  },
 };
 
 export default queryResolver;
