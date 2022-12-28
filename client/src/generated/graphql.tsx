@@ -79,8 +79,14 @@ export type Query = {
   __typename?: 'Query';
   homepage: HomepageContent;
   movies: Array<Movie>;
+  search: Array<Content>;
   shows: Array<Show>;
   user?: Maybe<User>;
+};
+
+
+export type QuerySearchArgs = {
+  title: Scalars['String'];
 };
 
 export type Show = {
@@ -160,6 +166,13 @@ export type GetBookmarkedContentQueryVariables = Exact<{ [key: string]: never; }
 
 
 export type GetBookmarkedContentQuery = { __typename?: 'Query', user?: { __typename?: 'User', bookmarkedMovies?: Array<{ __typename?: 'Movie', id: string, title: string, type: string, rating: string, year: number, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> | null, bookmarkedShows?: Array<{ __typename?: 'Show', id: string, title: string, type: string, rating: string, year: number, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> | null } | null };
+
+export type SearchAllContentQueryVariables = Exact<{
+  title: Scalars['String'];
+}>;
+
+
+export type SearchAllContentQuery = { __typename?: 'Query', search: Array<{ __typename?: 'Movie', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } | { __typename?: 'Show', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> };
 
 
 export const LoginUserDocument = gql`
@@ -585,3 +598,63 @@ export function useGetBookmarkedContentLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetBookmarkedContentQueryHookResult = ReturnType<typeof useGetBookmarkedContentQuery>;
 export type GetBookmarkedContentLazyQueryHookResult = ReturnType<typeof useGetBookmarkedContentLazyQuery>;
 export type GetBookmarkedContentQueryResult = Apollo.QueryResult<GetBookmarkedContentQuery, GetBookmarkedContentQueryVariables>;
+export const SearchAllContentDocument = gql`
+    query SearchAllContent($title: String!) {
+  search(title: $title) {
+    ... on Movie {
+      id
+      title
+      year
+      rating
+      images {
+        small
+        medium
+        large
+      }
+      type
+      bookmarked
+    }
+    ... on Show {
+      id
+      title
+      year
+      rating
+      images {
+        small
+        medium
+        large
+      }
+      type
+      bookmarked
+    }
+  }
+}
+    `;
+
+/**
+ * __useSearchAllContentQuery__
+ *
+ * To run a query within a React component, call `useSearchAllContentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAllContentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAllContentQuery({
+ *   variables: {
+ *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useSearchAllContentQuery(baseOptions: Apollo.QueryHookOptions<SearchAllContentQuery, SearchAllContentQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchAllContentQuery, SearchAllContentQueryVariables>(SearchAllContentDocument, options);
+      }
+export function useSearchAllContentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchAllContentQuery, SearchAllContentQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchAllContentQuery, SearchAllContentQueryVariables>(SearchAllContentDocument, options);
+        }
+export type SearchAllContentQueryHookResult = ReturnType<typeof useSearchAllContentQuery>;
+export type SearchAllContentLazyQueryHookResult = ReturnType<typeof useSearchAllContentLazyQuery>;
+export type SearchAllContentQueryResult = Apollo.QueryResult<SearchAllContentQuery, SearchAllContentQueryVariables>;

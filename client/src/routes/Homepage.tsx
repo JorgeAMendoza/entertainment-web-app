@@ -1,23 +1,51 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import LargeContent from '../components/LargeContent/LargeContent';
 import SmallContent from '../components/SmallContent/SmallContent';
-import { Movie, Show, useGetHomepageContentQuery } from '../generated/graphql';
+import {
+  useGetHomepageContentQuery,
+  useSearchAllContentLazyQuery,
+  Movie,
+  Show,
+} from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
   const { loading: homepageLoading, data: homepageContent } =
     useGetHomepageContentQuery();
+  const [getSearch, { loading: searchLoading, data: searchedContent }] =
+    useSearchAllContentLazyQuery({
+      variables: {
+        title: search,
+      },
+    });
 
-  // if (search !== '' && searchedContent) {
-  //   return (
-  //     <main>
-  //       <DashboardSearch search={search} setSearch={setSearch} />
-  //       <SearchResults query={search} searchedData={searchedContent} />
-  //     </main>
-  //   );
-  // }
+  useEffect(() => {
+    if (search === '') return;
+    void searchAllContent();
+  }, [search]);
+
+  const searchAllContent = async (): Promise<void> => {
+    await getSearch();
+  };
+
+  if (search !== '') {
+    if (searchLoading) {
+      <main>
+        <DashboardSearch search={search} setSearch={setSearch} />
+        <p>Searching</p>
+      </main>;
+    }
+
+    const searchResult = searchedContent?.search ? searchedContent.search : [];
+    return (
+      <main>
+        <DashboardSearch search={search} setSearch={setSearch} />
+        <SearchResults query={search} searchedData={searchResult} />
+      </main>
+    );
+  }
 
   return (
     <main>

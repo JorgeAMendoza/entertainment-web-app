@@ -133,3 +133,37 @@ export const GET_BOOKMARKED_CONTENT = gql`
     }
   }
 `;
+
+export const SEARCH_ALL_CONTENT = gql`
+  query SearchAllContent($title: String!) {
+    search(title: $title) {
+      ... on Movie {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
+      }
+
+      ... on Show {
+        id
+        title
+        year
+        rating
+        images {
+          small
+          medium
+          large
+        }
+        type
+        bookmarked
+      }
+    }
+  }
+`;
