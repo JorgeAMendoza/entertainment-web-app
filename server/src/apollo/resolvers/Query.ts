@@ -115,6 +115,7 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
 
   search: async (_, { title: search }, { currentUser }) => {
     if (!currentUser) throw new AuthenticationError('invalid token');
+    if (search === '') return [];
     const user = await userService.getUser(currentUser.id);
     const bookmarkedShows = user.bookmarkedShows.map((id) => id._id.toString());
     const bookmarkedMovies = user.bookmarkedMovies.map((id) =>
