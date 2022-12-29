@@ -24,7 +24,7 @@ const Bookmarked = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <main>
+      <main data-cy="bookmarkPage">
         <DashboardSearch
           search={search}
           setSearch={setSearch}
@@ -36,7 +36,7 @@ const Bookmarked = () => {
   }
 
   return (
-    <main>
+    <main data-cy="bookmarkPage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -53,7 +53,7 @@ const Bookmarked = () => {
         <section>
           <h2>Bookmarked movies</h2>
           {content.user.bookmarkedMovies.length !== 0 ? (
-            <div data-cy="bookmarkMovies">
+            <div data-cy="bookmarkedMovies">
               {content.user.bookmarkedMovies.map((movie) => (
                 <SmallContent
                   key={movie.id}
@@ -79,7 +79,7 @@ const Bookmarked = () => {
         <section>
           <h2>Bookmarked TV Series</h2>
           {content.user.bookmarkedShows.length !== 0 ? (
-            <div data-cy="bookmarkMovies">
+            <div data-cy="bookmarkedShows">
               {content.user.bookmarkedShows.map((show) => (
                 <SmallContent
                   key={show.id}
