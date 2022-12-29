@@ -35,13 +35,12 @@ describe('homepage interactivity', () => {
   });
 
   it('search bar movies and shows', () => {
-    cy.get('@searchBar').type('beyond earth');
-    cy.get('[data-cy="searchResults]').children().should('have.length', 2);
-    cy.get('[data-cy="searchResults]')
+    cy.get('@searchBar').type('earth');
+    cy.get('[data-cy="searchResults"]').children().should('have.length', 1);
+    cy.get('[data-cy="searchResults"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', 'Beyond Earth');
-        cy.wrap($el[1]).find('h3').should('contain.text', "Earth's Untouched");
+        cy.wrap($el[0]).find('h4').should('contain.text', 'Beyond Earth');
       });
   });
 
@@ -52,25 +51,29 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="homePage"]').should('not.exist');
   });
 
-  it('search for only movies', () => {
+  it('search for only movies, no results found', () => {
     cy.get('@movieTab').click();
-    cy.get('@searchBar').should(
-      'have.attr',
-      'placeholder',
-      'Search for movies'
-    );
+    cy.get('@searchBar')
+      .find('input')
+      .should('have.attr', 'placeholder', 'Search for movies');
     cy.get('@searchBar').type('the diary');
 
-    cy.get('[data-test="searchResults"]')
-      .find('h2')
-      .should('contain.text', 'No results found');
+    cy.get('h2').should('contain.text', "Found 0 results for 'the diary'");
+  });
 
+  it('search for only movies, results found', () => {
+    cy.get('@movieTab').click();
+    cy.get('@searchBar')
+      .find('input')
+      .should('have.attr', 'placeholder', 'Search for movies');
+
+    cy.get('@searchBar').type('the diary');
     cy.get('@searchBar').type('{selectAll}{backspace}1998');
     cy.get('[data-cy="searchResults"]').children().should('have.length', 1);
     cy.get('[data-cy="searchResults"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', '1998');
+        cy.wrap($el[0]).find('h4').should('contain.text', '1998');
       });
   });
 
@@ -83,33 +86,35 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="homePage"]').should('not.exist');
   });
 
-  it('search for only tv shows', () => {
+  it('search for only tv shows, no results found', () => {
     cy.get('@showTab').click();
-    cy.get('@searchBar').should(
-      'have.attr',
-      'placeholder',
-      'Search for TV series'
-    );
+    cy.get('@searchBar')
+      .find('input')
+      .should('have.attr', 'placeholder', 'Search for TV shows');
     cy.get('@searchBar').type('darker');
 
-    cy.get('[data-cy="searchResults"]')
-      .find('h2')
-      .should('contain.text', 'No results found');
+    cy.get('h2').should('contain.text', "Found 0 results for 'darker'");
+  });
 
-    cy.get('[data-cy="searchResults"]').children().should('have.length', 2);
+  it('search for only tv shows, results returned', () => {
+    cy.get('@showTab').click();
+    cy.get('@searchBar')
+      .find('input')
+      .should('have.attr', 'placeholder', 'Search for TV shows');
+    cy.get('@searchBar').type('diary');
+
+    cy.get('[data-cy="searchResults"]').children().should('have.length', 1);
     cy.get('[data-cy="searchResults"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', 'Darker');
+        cy.wrap($el[0]).find('h4').should('contain.text', 'The Diary');
       });
   });
 
   it('switch to bookmarked tab', () => {
     cy.get('@bookmarkedTab').click();
     cy.url().should('include', '/dashboard/my-stuff');
-    cy.get('[data-cy="bookmarkPage"]')
-      .find('p')
-      .should('contain.text', 'No bookmarked movies or shows');
+    cy.get('[data-cy="bookmarkPage"]');
   });
 
   it('bookmark movie content', () => {
@@ -198,9 +203,9 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="moviesList"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('button').click();
+        cy.wrap($el[0]).find('button:first-of-type').click();
         cy.wrap($el[0])
-          .find('h1')
+          .find('h4')
           .then(($el) => {
             contentMovieTitle = $el.text();
           });
@@ -210,31 +215,31 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="showList"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('button').click();
+        cy.wrap($el[0]).find('button:first-of-type').click();
         cy.wrap($el[0])
-          .find('h1')
+          .find('h4')
           .then(($el) => {
             contentShowTitle = $el.text();
           });
       });
 
     cy.get('@bookmarkedTab').click();
-    cy.get('[data-cy="bookmarkedMovies"]').children().should('have.length', 2);
-    cy.get('[data-cy="bookMarkedMovies"]')
+    cy.get('[data-cy="bookmarkedMovies"]').children().should('have.length', 1);
+    cy.get('[data-cy="bookmarkedMovies"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', contentMovieTitle);
+        cy.wrap($el[0]).find('h4').should('contain.text', contentMovieTitle);
       });
 
     cy.get('[data-cy="bookmarkedShows"]').children().should('have.length', 1);
-    cy.get('[data-cy="bookMarkedShows"]')
+    cy.get('[data-cy="bookmarkedShows"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', contentShowTitle);
+        cy.wrap($el[0]).find('h4').should('contain.text', contentShowTitle);
       });
   });
 
-  it('logout user', () => {
+  it.skip('logout user', () => {
     cy.get('@userProfile').click();
     cy.get('[data-cy="logoutButton"]').click();
     cy.url().should('include', '/login');

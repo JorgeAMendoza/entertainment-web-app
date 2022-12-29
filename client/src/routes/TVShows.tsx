@@ -17,7 +17,11 @@ const TVShows = () => {
   if (search !== '' && searchedContent) {
     return (
       <main>
-        <DashboardSearch search={search} setSearch={setSearch} />
+        <DashboardSearch
+          search={search}
+          setSearch={setSearch}
+          placeholderText="Search for TV shows"
+        />
         <SearchResults query={search} searchedData={searchedContent} />
       </main>
     );
@@ -25,7 +29,11 @@ const TVShows = () => {
 
   return (
     <main data-cy="showPage">
-      <DashboardSearch search={search} setSearch={setSearch} />
+      <DashboardSearch
+        search={search}
+        setSearch={setSearch}
+        placeholderText="Search for TV shows"
+      />
 
       <section>
         <h1>TV Series</h1>

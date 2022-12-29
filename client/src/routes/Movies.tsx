@@ -17,7 +17,11 @@ const Movies = () => {
   if (search !== '' && searchedContent) {
     return (
       <main>
-        <DashboardSearch search={search} setSearch={setSearch} />
+        <DashboardSearch
+          search={search}
+          setSearch={setSearch}
+          placeholderText="Search for movies"
+        />
         <SearchResults query={search} searchedData={searchedContent} />
       </main>
     );
@@ -25,7 +29,11 @@ const Movies = () => {
 
   return (
     <main data-cy="moviePage">
-      <DashboardSearch search={search} setSearch={setSearch} />
+      <DashboardSearch
+        search={search}
+        setSearch={setSearch}
+        placeholderText="Search for movies"
+      />
 
       <section>
         <h1>Movies</h1>
