@@ -35,13 +35,12 @@ describe('homepage interactivity', () => {
   });
 
   it('search bar movies and shows', () => {
-    cy.get('@searchBar').type('beyond earth');
-    cy.get('[data-cy="searchResults]').children().should('have.length', 2);
-    cy.get('[data-cy="searchResults]')
+    cy.get('@searchBar').type('earth');
+    cy.get('[data-cy="searchResults"]').children().should('have.length', 1);
+    cy.get('[data-cy="searchResults"]')
       .children()
       .then(($el) => {
-        cy.wrap($el[0]).find('h3').should('contain.text', 'Beyond Earth');
-        cy.wrap($el[1]).find('h3').should('contain.text', "Earth's Untouched");
+        cy.wrap($el[0]).find('h4').should('contain.text', 'Beyond Earth');
       });
   });
 
@@ -52,7 +51,7 @@ describe('homepage interactivity', () => {
     cy.get('[data-cy="homePage"]').should('not.exist');
   });
 
-  it('search for only movies', () => {
+  it.only('search for only movies', () => {
     cy.get('@movieTab').click();
     cy.get('@searchBar').should(
       'have.attr',

@@ -13,7 +13,7 @@ const SearchResults = ({ query, searchedData }: SearchResultsProps) => {
       <h2>
         Found {searchedData.length} results for &apos;{query}&apos;
       </h2>
-      <div>
+      <div data-cy="searchResults">
         {searchedData.map((content) => (
           <SmallContent
             key={content.id}
