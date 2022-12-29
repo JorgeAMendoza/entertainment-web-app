@@ -5,8 +5,6 @@ import SmallContent from '../components/SmallContent/SmallContent';
 import {
   useGetHomepageContentQuery,
   useSearchAllContentLazyQuery,
-  Movie,
-  Show,
 } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 
@@ -33,7 +31,11 @@ const Homepage = () => {
   if (search !== '') {
     if (searchLoading) {
       <main>
-        <DashboardSearch search={search} setSearch={setSearch} />
+        <DashboardSearch
+          search={search}
+          setSearch={setSearch}
+          placeholderText="Search for movies or TV series"
+        />
         <p>Searching</p>
       </main>;
     }
@@ -41,7 +43,11 @@ const Homepage = () => {
     const searchResult = searchedContent?.search ? searchedContent.search : [];
     return (
       <main>
-        <DashboardSearch search={search} setSearch={setSearch} />
+        <DashboardSearch
+          search={search}
+          setSearch={setSearch}
+          placeholderText="Search for movies or TV series"
+        />
         <SearchResults query={search} searchedData={searchResult} />
       </main>
     );
@@ -49,7 +55,11 @@ const Homepage = () => {
 
   return (
     <main>
-      <DashboardSearch search={search} setSearch={setSearch} />
+      <DashboardSearch
+        search={search}
+        setSearch={setSearch}
+        placeholderText="Search for movies or TV series"
+      />
 
       <section>
         <h2>Trending</h2>

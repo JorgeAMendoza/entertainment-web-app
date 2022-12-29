@@ -25,7 +25,11 @@ const Bookmarked = () => {
   if (search !== '' && searchedContent) {
     return (
       <main>
-        <DashboardSearch search={search} setSearch={setSearch} />
+        <DashboardSearch
+          search={search}
+          setSearch={setSearch}
+          placeholderText="Search for bookmarked content"
+        />
         <SearchResults query={search} searchedData={searchedContent} />
       </main>
     );
@@ -33,7 +37,11 @@ const Bookmarked = () => {
 
   return (
     <main>
-      <DashboardSearch search={search} setSearch={setSearch} />
+      <DashboardSearch
+        search={search}
+        setSearch={setSearch}
+        placeholderText="Search for bookmarked content"
+      />
 
       {loading && (
         <div>
