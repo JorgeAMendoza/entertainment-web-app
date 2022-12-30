@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import closeMenuIcon from '../../../assets/icon-close-menu.svg';
 import logoutIcon from '../../../assets/icon-logout.svg';
 import gearIcon from '../../../assets/icon-gear.svg';
+import { useEffect, useRef } from 'react';
 
 interface AccountMenuProps {
   setShowAccountMenu: React.Dispatch<boolean>;
@@ -11,6 +12,23 @@ interface AccountMenuProps {
 const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
   const { setToken } = useLoginContext();
   const navigate = useNavigate();
+  const accountMenu = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+      if (
+        accountMenu.current &&
+        !accountMenu.current.contains(event.target as HTMLElement)
+      ) {
+        setShowAccountMenu(false);
+      }
+    };
+    document.addEventListener('click', handleClick, true);
+
+    return () => {
+      document.removeEventListener('click', handleClick, true);
+    };
+  }, []);
 
   const logoutUser = () => {
     setToken(null);
@@ -20,7 +38,11 @@ const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
     });
   };
   return (
-    <div aria-label="account sub menu">
+    <div
+      style={{ border: '1px solid black' }}
+      aria-label="account sub menu"
+      ref={accountMenu}
+    >
       <div>
         <button
           aria-label="close sub menu"

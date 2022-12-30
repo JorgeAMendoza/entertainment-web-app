@@ -52,10 +52,10 @@ const NavBar = () => {
               style={{ width: '50px' }}
             />
           </div>
-          {showAccountMenu && (
-            <AccountMenu setShowAccountMenu={setShowAccountMenu} />
-          )}
         </button>
+        {showAccountMenu && (
+          <AccountMenu setShowAccountMenu={setShowAccountMenu} />
+        )}
       </div>
     </nav>
   );
