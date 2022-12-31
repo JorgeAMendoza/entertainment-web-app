@@ -6,19 +6,35 @@ import { loginFormValidation } from '../utils/form-validation';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoIcon from '../assets/logo.svg';
 import saveToken from '../utils/save-token';
+import { useEffect, useState } from 'react';
 
 const initialValues: LoginForm = {
   email: '',
   password: '',
 };
 
+interface LocationStateLogin {
+  logoutMessage: string;
+}
+
 const LoginRoute = () => {
   const [loginUser, { loading, error }] = useLoginUserMutation();
-  // const location = useLocation();
+  const [logoutMessage, setLogoutMessage] = useState('');
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const state = location.state as LocationStateLogin;
+    if (state && state.logoutMessage) setLogoutMessage(state.logoutMessage);
+
+    // at some point, the logout messagwe may be a seperate component where it appears fro three seconds and then dissapears.
+  }, [location]);
 
   return (
     <main>
+      <div>
+        {logoutMessage && <p data-cy="logoutMessage">{logoutMessage}</p>}
+      </div>
       <div>
         <img src={logoIcon} alt="entertainment logo" />
       </div>

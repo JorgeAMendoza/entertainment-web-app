@@ -53,7 +53,7 @@ const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
       </div>
       <ul>
         <li>
-          <button onClick={logoutUser}>
+          <button onClick={logoutUser} data-cy="logoutButton">
             <img src={logoutIcon} alt="logout icon" /> <span>Logout</span>
           </button>
         </li>
