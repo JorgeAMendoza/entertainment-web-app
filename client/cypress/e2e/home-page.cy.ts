@@ -239,16 +239,16 @@ describe('homepage interactivity', () => {
       });
   });
 
-  it.skip('logout user', () => {
+  it('logout user', () => {
     cy.get('@userProfile').click();
     cy.get('[data-cy="logoutButton"]').click();
     cy.url().should('include', '/login');
 
     cy.get('[data-cy="homePage"]').should('not.exist');
     cy.get('[data-cy="loginForm"]');
-    cy.get('[data-cy="loginMessage"]').should(
+    cy.get('[data-cy="logoutMessage"]').should(
       'contain.text',
-      'You have been succesfully logged out'
+      'You have been succesfully signed out'
     );
   });
 });
