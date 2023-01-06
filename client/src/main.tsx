@@ -7,7 +7,6 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { GRAPHQL_URI } from './utils/config';
-import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import WelcomeRoute from './routes/WelcomeRoute';
