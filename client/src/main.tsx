@@ -9,13 +9,13 @@ import {
 import { GRAPHQL_URI } from './utils/config';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
-import WelcomeRoute from './routes/WelcomeRoute';
+import WelcomePage from './routes/WelcomePage/WelcomePage';
 import LoginRoute from './routes/LoginRoute';
 import SignUpRoute from './routes/SignUpRoute';
 import ErrorPage from './routes/ErrorPage/ErrorPage';
 import LoginProvider from './context/login-context';
 import Dashboard from './routes/Dashboard';
-import Root from './routes/Root';
+import Root from './routes/Root/Root';
 import Homepage from './routes/Homepage';
 import Movies from './routes/Movies';
 import TVShows from './routes/TVShows';
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/welcome',
-        element: <WelcomeRoute />,
+        element: <WelcomePage />,
       },
       {
         path: '/login',
