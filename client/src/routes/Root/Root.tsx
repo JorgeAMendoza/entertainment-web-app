@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import extractToken from '../utils/extract-token';
-import GlobalStyles from '../styles/Globa.styled';
+import extractToken from '../../utils/extract-token';
+import GlobalStyles from '../../styles/Global.styled';
+import RootStyled from './Root.styled';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -18,10 +19,10 @@ const Root = () => {
   }, []);
 
   return (
-    <div id="router-root">
+    <RootStyled id="router-root">
       <GlobalStyles />
       <Outlet />
-    </div>
+    </RootStyled>
   );
 };
 
