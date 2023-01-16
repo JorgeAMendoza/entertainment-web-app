@@ -1,28 +1,31 @@
 import styled from 'styled-components';
 import bannerImage from '../../assets/banner.png';
 import { ButtonLink } from '../../styles/Button.styled';
-import bgSmallBeyondEarth from '../../assets/thumbnails/beyond-earth-bg-sm.png';
-import bgSmall1998 from '../../assets/thumbnails/1998-bg-sm.png';
-import bgSmallNoLand from '../../assets/thumbnails/no-land-beyond-bg-sm.png';
-import bgSmallCities from '../../assets/thumbnails/undiscovered-cities-bg-sm.png';
-import bgSmallHunt from '../../assets/thumbnails/the-hunt-bg-sm.png';
-import bgSmallEcho from '../../assets/thumbnails/below-echo-bg-sm.png';
+import device from '../../styles/utils/device-breakpoints';
+import bgBeyondEarth from '../../assets/thumbnails/beyond-earth-bg.png';
+import bg1998 from '../../assets/thumbnails/1998-bg.png';
+import bgNoLand from '../../assets/thumbnails/no-land-beyond-bg.png';
+import bgCities from '../../assets/thumbnails/undiscovered-cities-bg.png';
+import bgHunt from '../../assets/thumbnails/the-hunt-bg.png';
+import bgEcho from '../../assets/thumbnails/below-echo-bg.png';
 
 const WelcomePage = styled.div`
   & > *:not(:last-child) {
     margin-block-end: 2rem;
   }
+  padding: 2rem 0;
 `;
 
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
 `;
 
 const Logo = styled.div`
-  width: 10rem;
+  img {
+    width: 5rem;
+  }
 `;
 
 const HomeBanner = styled.section`
@@ -43,6 +46,10 @@ const HomeBanner = styled.section`
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
   }
+
+  @media screen and ${device.laptop} {
+    min-height: 50vh;
+  }
 `;
 
 const HomeBannerContent = styled.div`
@@ -57,6 +64,16 @@ const HomeBannerContent = styled.div`
 
   & > *:not(:last-child) {
     margin-block-end: 1.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    h1 {
+      font-size: 3.2rem;
+    }
+
+    p {
+      font-size: 2rem;
+    }
   }
 `;
 
@@ -83,23 +100,29 @@ const HomeInformation = styled.section`
   }
 
   & > *:not(:last-child) {
-    margin-block-end: 1.5rem;
+    margin-block-end: 3rem;
   }
 `;
 
 const HomeInformationText = styled.div`
-  p {
-    font-weight: 300;
+  & > *:not(:last-child) {
+    margin-block-end: 1.5rem;
+
+    @media screen and ${device.tablet} {
+      margin-block-end: 0;
+    }
   }
 
-  & > div {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
+  @media screen and ${device.tablet} {
+    text-align: left;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    grid-template-areas:
+      'head icons'
+      'text icons';
 
-    img {
-      width: 3rem;
+    h2 {
+      padding-bottom: 1rem;
     }
   }
 `;
@@ -109,21 +132,36 @@ const HomeInfoIcons = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+  grid-area: icons;
 
   img {
     width: 3rem;
+  }
+
+  @media screen and ${device.tablet} {
+    align-items: center;
+    justify-content: end;
+    gap: 3rem;
+    img {
+      width: 4rem;
+    }
   }
 `;
 
 const HomeInformationContent = styled.div`
   text-align: left;
-  width: 90%;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   grid-auto-rows: 16rem;
   gap: 1rem;
   margin-bottom: 2rem;
+
+  @media screen and ${device.tablet} {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: min(40vw, 48rem);
+    justify-content: space-between;
+    gap: 2rem;
+  }
 `;
 
 const FooterInfo = styled.div`
@@ -144,28 +182,42 @@ const ContentCard = styled.figure`
   flex-direction: column;
   justify-content: flex-end;
 
-  p span {
-    display: inline-block;
-    margin-left: 0.5rem;
+  p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media screen and ${device.laptop} {
+    h3 {
+      font-size: 3.2rem;
+    }
+    p {
+      font-size: 2.4rem;
+      gap: 1rem;
+    }
+    img {
+      width: 2rem;
+    }
   }
 
   &:nth-of-type(1) {
-    background: url(${bgSmallBeyondEarth}) no-repeat center/cover;
+    background: url(${bgBeyondEarth}) no-repeat center center/cover;
   }
   &:nth-of-type(2) {
-    background: url(${bgSmall1998}) no-repeat center/cover;
+    background: url(${bg1998}) no-repeat center/cover;
   }
   &:nth-of-type(3) {
-    background: url(${bgSmallNoLand}) no-repeat center/cover;
+    background: url(${bgNoLand}) no-repeat center/cover;
   }
   &:nth-of-type(4) {
-    background: url(${bgSmallCities}) no-repeat center/cover;
+    background: url(${bgCities}) no-repeat center/cover;
   }
   &:nth-of-type(5) {
-    background: url(${bgSmallHunt}) no-repeat center/cover;
+    background: url(${bgHunt}) no-repeat center/cover;
   }
   &:nth-of-type(6) {
-    background: url(${bgSmallEcho}) no-repeat center/cover;
+    background: url(${bgEcho}) no-repeat center/cover;
   }
 `;
 

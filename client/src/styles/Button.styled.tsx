@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import device from './utils/device-breakpoints';
 
 export const Button = styled.button`
   color: white;
@@ -17,4 +18,8 @@ export const ButtonLink = styled(Link)`
   text-decoration: none;
   text-align: center;
   font-weight: 300;
+
+  @media screen and ${device.tablet} {
+    font-size: 1.8rem;
+  }
 `;

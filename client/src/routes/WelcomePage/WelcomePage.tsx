@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logoIcon from '../../assets/logo.svg';
 import movieIcon from '../../assets/icon-category-movie.svg';
 import tvIcon from '../../assets/icon-category-tv.svg';
@@ -11,9 +12,11 @@ const WelcomePage = () => {
     <Styled.WelcomePage>
       <Container>
         <Styled.Header>
-          <Styled.Logo>
-            <img src={logoIcon} alt="Entertainment app logo" />
-          </Styled.Logo>
+          <Link to="/welcome">
+            <Styled.Logo>
+              <img src={logoIcon} alt="Entertainment app logo" />
+            </Styled.Logo>
+          </Link>
 
           <ButtonLink to="/login">Sign In</ButtonLink>
         </Styled.Header>
@@ -45,22 +48,26 @@ const WelcomePage = () => {
 
         <Container>
           <Styled.HomeInformation>
-            <h2>No premiums, no extra charges, just one plan</h2>
-            <Styled.HomeInfoIcons>
-              <div>
-                <img src={tvIcon} alt="" />
-              </div>
-              <div>
-                <img src={movieIcon} alt="" />
-              </div>
-              <div>
-                <img src={playIcon} alt="" />
-              </div>
-            </Styled.HomeInfoIcons>
-            <p>
-              Sign up and get access to every piece of content on our service.
-              No extra charges, no ads, just you and the entertainment you love.
-            </p>
+            <Styled.HomeInformationText>
+              <h2>No premiums, no extra charges, just one plan</h2>
+              <Styled.HomeInfoIcons>
+                <div>
+                  <img src={tvIcon} alt="" />
+                </div>
+                <div>
+                  <img src={movieIcon} alt="" />
+                </div>
+                <div>
+                  <img src={playIcon} alt="" />
+                </div>
+              </Styled.HomeInfoIcons>
+              <p>
+                Sign up and get access to every piece of content on our service.
+                No extra charges, no ads, just you and the entertainment you
+                love.
+              </p>
+            </Styled.HomeInformationText>
+
             <Styled.HomeInformationContent>
               <Styled.ContentCard>
                 <h3>Beyond Earth</h3>
