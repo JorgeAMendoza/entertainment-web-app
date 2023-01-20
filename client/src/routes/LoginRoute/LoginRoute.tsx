@@ -68,33 +68,35 @@ const LoginRoute = () => {
           <Styled.AuthForm data-cy="loginForm">
             <h1>Login</h1>
             <div>
-              <label data-cy="loginEmail">
+              <Styled.InputLabel data-cy="loginEmail">
                 <TextField
                   name="email"
                   type="text"
                   id="email"
-                  placeholder="email address"
+                  placeholder="Email address"
                 />
-              </label>
-              <label data-cy="loginPassword">
+              </Styled.InputLabel>
+              <Styled.InputLabel data-cy="loginPassword">
                 <TextField
                   name="password"
                   type="password"
                   id="password"
-                  placeholder="password"
+                  placeholder="Password"
                 />
-              </label>
+              </Styled.InputLabel>
             </div>
 
-            <button type="submit" data-cy="loginButton">
-              {loading ? '...loading' : 'log into your account'}
-            </button>
-            <p>
+            <Styled.ActionButton type="submit" data-cy="loginButton">
+              {loading ? '...loading' : 'Login to your account'}
+            </Styled.ActionButton>
+            <Styled.SignUpText>
               Don&apos;t have an account?{' '}
-              <Link to="/sign-up" data-cy="signUpLink">
-                Sign up
-              </Link>
-            </p>
+              <span>
+                <Link to="/sign-up" data-cy="signUpLink">
+                  Sign Up
+                </Link>
+              </span>
+            </Styled.SignUpText>
           </Styled.AuthForm>
         </Formik>
       </Styled.PageContainer>

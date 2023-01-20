@@ -7,6 +7,8 @@ export const Button = styled.button`
   background-color: var(--red);
   min-width: 8ch;
   padding: 1rem 1rem;
+  font-family: inherit;
+  border: none;
 `;
 
 export const ButtonLink = styled(Link)`
