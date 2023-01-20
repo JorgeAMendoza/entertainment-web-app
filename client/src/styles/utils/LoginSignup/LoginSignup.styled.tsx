@@ -33,30 +33,45 @@ const AuthForm = styled(Form)`
 
 const InputLabel = styled.label`
   --outline-color: var(--greyish-blue);
+  --outline-focus-color: var(--white);
   width: 100%;
   display: flex;
   border-bottom: 1px solid var(--outline-color);
   margin-block-end: 0.7rem;
+  position: relative;
+
+  &:focus-within {
+    border-bottom: 1px solid var(--outline-focus-color);
+  }
 
   input {
     background: transparent;
     border: none;
     font-size: 1.5rem;
     font-weight: 300;
-    width: 70%;
+    width: 100%;
     padding: 1.6rem 1.7rem;
     color: var(--white);
+    outline: none;
 
     &::placeholder {
       color: var(--white);
       opacity: 0.5;
+    }
+
+    &:invalid {
+      border-bottom: 1px solid red;
     }
   }
 
   p {
     color: var(--red);
     font-size: 1.2rem;
-    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    width: 40%;
   }
 `;
 
