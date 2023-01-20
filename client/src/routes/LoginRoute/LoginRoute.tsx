@@ -30,19 +30,18 @@ const LoginRoute = () => {
     if (state && state.logoutMessage) setLogoutMessage(state.logoutMessage);
 
     // at some point, the logout messagwe may be a seperate component where it appears fro three seconds and then dissapears.
+    const logoutMessage = setTimeout(() => {
+      setLogoutMessage('');
+    }, 2500);
+    return () => clearInterval(logoutMessage);
   }, [location]);
 
   return (
     <Container>
       <Styled.PageContainer>
         <div>
-          {logoutMessage && <p data-cy="logoutMessage">{logoutMessage}</p>}
-        </div>
-        <div>
           <img src={logoIcon} alt="entertainment logo" />
         </div>
-
-        {error && <p data-cy="loginError">{error.message}</p>}
 
         <Formik
           initialValues={initialValues}
@@ -65,40 +64,58 @@ const LoginRoute = () => {
               });
           }}
         >
-          <Styled.AuthForm data-cy="loginForm">
-            <h1>Login</h1>
-            <div>
-              <Styled.InputLabel data-cy="loginEmail">
-                <TextField
-                  name="email"
-                  type="text"
-                  id="email"
-                  placeholder="Email address"
-                />
-              </Styled.InputLabel>
-              <Styled.InputLabel data-cy="loginPassword">
-                <TextField
-                  name="password"
-                  type="password"
-                  id="password"
-                  placeholder="Password"
-                />
-              </Styled.InputLabel>
-            </div>
+          {({ errors, touched }) => (
+            <Styled.AuthForm data-cy="loginForm">
+              <h1>Login</h1>
+              <div>
+                <Styled.InputLabel
+                  error={errors.email && touched.email ? true : false}
+                  data-cy="loginEmail"
+                >
+                  <TextField
+                    name="email"
+                    type="text"
+                    id="email"
+                    placeholder="Email address"
+                  />
+                </Styled.InputLabel>
+                <Styled.InputLabel
+                  error={errors.password && touched.password ? true : false}
+                  data-cy="loginPassword"
+                >
+                  <TextField
+                    name="password"
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </Styled.InputLabel>
+              </div>
 
-            <Styled.ActionButton type="submit" data-cy="loginButton">
-              {loading ? '...loading' : 'Login to your account'}
-            </Styled.ActionButton>
-            <Styled.SignUpText>
-              Don&apos;t have an account?{' '}
-              <span>
-                <Link to="/sign-up" data-cy="signUpLink">
-                  Sign Up
-                </Link>
-              </span>
-            </Styled.SignUpText>
-          </Styled.AuthForm>
+              <Styled.ActionButton type="submit" data-cy="loginButton">
+                {loading ? '...loading' : 'Login to your account'}
+              </Styled.ActionButton>
+              <Styled.SignUpText>
+                Don&apos;t have an account?{' '}
+                <span>
+                  <Link to="/sign-up" data-cy="signUpLink">
+                    Sign Up
+                  </Link>
+                </span>
+              </Styled.SignUpText>
+            </Styled.AuthForm>
+          )}
         </Formik>
+        {error && (
+          <Styled.AuthError data-cy="loginError">
+            {error.message}
+          </Styled.AuthError>
+        )}
+        {logoutMessage && (
+          <Styled.LogoutMessage data-cy="logoutMessage">
+            {logoutMessage}
+          </Styled.LogoutMessage>
+        )}
       </Styled.PageContainer>
     </Container>
   );

@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { Form } from 'formik';
 import { Button } from '../../Button.styled';
 
+interface InputLabelProps {
+  error: boolean;
+}
+
 const PageContainer = styled.main`
   height: 100vh;
   display: flex;
@@ -31,14 +35,18 @@ const AuthForm = styled(Form)`
   }
 `;
 
-const InputLabel = styled.label`
+const InputLabel = styled.label<InputLabelProps>`
   --outline-color: var(--greyish-blue);
   --outline-focus-color: var(--white);
+  --outline-error-color: var(--red);
   width: 100%;
   display: flex;
-  border-bottom: 1px solid var(--outline-color);
+  border-bottom: 1px solid
+    ${({ error }) =>
+      error ? 'var(--outline-error-color)' : 'var(--outline-color)'};
   margin-block-end: 0.7rem;
   position: relative;
+  background: transparent;
 
   &:focus-within {
     border-bottom: 1px solid var(--outline-focus-color);
@@ -57,10 +65,6 @@ const InputLabel = styled.label`
     &::placeholder {
       color: var(--white);
       opacity: 0.5;
-    }
-
-    &:invalid {
-      border-bottom: 1px solid red;
     }
   }
 
@@ -101,6 +105,19 @@ const SignUpText = styled.p`
   }
 `;
 
+const AuthError = styled.p`
+  --text-color: var(--red);
+  color: var(--text-color);
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-top: 1rem;
+`;
+
+const LogoutMessage = styled.p`
+  font-weight: 300;
+  margin-top: 1rem;
+`;
+
 export default {
   PageContainer,
   AuthForm,
@@ -108,4 +125,6 @@ export default {
   InputLabel,
   ActionButton,
   SignUpText,
+  AuthError,
+  LogoutMessage,
 };
