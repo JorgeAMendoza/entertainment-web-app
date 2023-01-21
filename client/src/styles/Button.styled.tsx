@@ -9,6 +9,11 @@ export const Button = styled.button`
   padding: 1rem 1rem;
   font-family: inherit;
   border: none;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--dark-blue);
+  }
 `;
 
 export const ButtonLink = styled(Link)`
