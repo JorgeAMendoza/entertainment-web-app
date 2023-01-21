@@ -7,6 +7,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signUpValidation } from '../utils/form-validation';
 import { ApolloError } from '@apollo/client';
 import saveToken from '../utils/save-token';
+import Styled from '../styles/utils/LoginSignup/LoginSignup.styled';
+import Container from '../styles/utils/Container.styled';
 
 const initialValues: SignUpForm = {
   email: '',
@@ -19,15 +21,12 @@ const SignUpRoute = () => {
   const [signUpUser, { loading, error }] = useSignUpUserMutation();
   const navigate = useNavigate();
   return (
-    <main>
-      <div>
-        <img src={logoIcon} alt="entertainment logo" />
-      </div>
+    <Container>
+      <Styled.PageContainer>
+        <div>
+          <img src={logoIcon} alt="entertainment logo" />
+        </div>
 
-      {error && <p data-cy="signUpError">{error.message}</p>}
-
-      <div>
-        <h1>Sign Up</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={signUpValidation}
@@ -55,66 +54,95 @@ const SignUpRoute = () => {
                   if (message.includes('email'))
                     actions.setFieldError('email', 'Invalid email');
                   else if (message.includes('password'))
-                    actions.setFieldError('password', 'Invalid password');
+                    actions.setFieldError('password', 'Invalid');
                 }
               });
           }}
         >
-          <Form data-cy="signUpForm">
-            <label data-cy="signUpEmail">
-              <TextField
-                name="email"
-                type="text"
-                id="email"
-                placeholder="email address"
-              />
-            </label>
-
-            <label data-cy="signUpName">
-              <TextField name="name" type="text" id="name" placeholder="name" />
-            </label>
-
-            <label data-cy="signUpPassword">
-              <TextField
-                name="password"
-                type="password"
-                id="password"
-                placeholder="password"
-              />
+          {({ errors, touched }) => (
+            <Styled.AuthForm data-cy="signUpForm">
+              <h1>Sign Up</h1>
               <div>
-                <p>Password must meet the following criteria:</p>
-                <ul>
-                  <li>8 characters long</li>
-                  <li>1 lowercase letter</li>
-                  <li>1 uppercase letter</li>
-                  <li>1 number</li>
-                  <li>1 special character (!?&)</li>
-                </ul>
+                <Styled.InputLabel
+                  error={errors.email && touched.email ? true : false}
+                  data-cy="signUpEmail"
+                >
+                  <TextField
+                    name="email"
+                    type="text"
+                    id="email"
+                    placeholder="Email address"
+                  />
+                </Styled.InputLabel>
+
+                <Styled.InputLabel
+                  error={errors.name && touched.name ? true : false}
+                  data-cy="signUpName"
+                >
+                  <TextField
+                    name="name"
+                    type="text"
+                    id="name"
+                    placeholder="Name"
+                  />
+                </Styled.InputLabel>
+
+                <Styled.InputLabel
+                  error={errors.password && touched.password ? true : false}
+                  data-cy="signUpPassword"
+                >
+                  <TextField
+                    name="password"
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                  />
+                  {/* <div>
+                    <p>Password must meet the following criteria:</p>
+                    <ul>
+                      <li>8 characters long</li>
+                      <li>1 lowercase letter</li>
+                      <li>1 uppercase letter</li>
+                      <li>1 number</li>
+                      <li>1 special character (!?&)</li>
+                    </ul>
+                  </div> */}
+                </Styled.InputLabel>
+                <Styled.InputLabel
+                  error={
+                    errors.repeatPassword && touched.repeatPassword
+                      ? true
+                      : false
+                  }
+                  data-cy="signUpRepeatPassword"
+                >
+                  <TextField
+                    name="repeatPassword"
+                    type="password"
+                    id="repeatPassword"
+                    placeholder="Repeat password"
+                  />
+                </Styled.InputLabel>
               </div>
-            </label>
 
-            <label data-cy="signUpRepeatPassword">
-              <TextField
-                name="repeatPassword"
-                type="password"
-                id="repeatPassword"
-                placeholder="repeat password"
-              />
-            </label>
-
-            <button type="submit" data-cy="signUpButton">
-              {loading ? 'loading...' : 'create an account'}
-            </button>
-          </Form>
+              <Styled.ActionButton type="submit" data-cy="signUpButton">
+                {loading ? 'loading...' : 'Create an account'}
+              </Styled.ActionButton>
+              <Styled.SignUpText>
+                Already have an account?{' '}
+                <span>
+                  <Link to="/login" data-cy="loginLink">
+                    Login
+                  </Link>
+                </span>
+              </Styled.SignUpText>
+            </Styled.AuthForm>
+          )}
         </Formik>
-        <p>
-          Already have an account?{' '}
-          <Link to="/login" data-cy="loginLink">
-            Login
-          </Link>
-        </p>
-      </div>
-    </main>
+
+        {error && <p data-cy="signUpError">{error.message}</p>}
+      </Styled.PageContainer>
+    </Container>
   );
 };
 

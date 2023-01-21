@@ -10,14 +10,11 @@ export const signUpValidation = Yup.object({
   email: Yup.string().required("Can't be blank").email('Invalid email'),
   name: Yup.string().required("Can't be blank"),
   password: Yup.string()
-    .test('valid', 'Invalid password', (val) => {
+    .test('valid', 'Invalid', (val) => {
       if (!val) return true;
       if (validator.isStrongPassword(val)) return true;
       else return false;
     })
     .required("Can't be blank"),
-  repeatPassword: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Passwords do not match'
-  ),
+  repeatPassword: Yup.string().oneOf([Yup.ref('password'), null], 'No match'),
 });
