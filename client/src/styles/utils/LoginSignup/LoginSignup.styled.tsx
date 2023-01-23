@@ -57,6 +57,7 @@ const AuthForm = styled(Form)`
   padding-bottom: 1rem;
   margin-block-start: 5.5rem;
   position: relative;
+  max-width: 40rem;
 
   h1 {
     font-weight: 300;
