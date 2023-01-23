@@ -87,17 +87,19 @@ const SignUpRoute = () => {
                   />
                 </Styled.InputLabel>
 
-                <Styled.InputLabel
-                  error={errors.password && touched.password ? true : false}
-                  data-cy="signUpPassword"
-                >
-                  <TextField
-                    name="password"
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                  />
-                  {/* <div>
+                <Styled.PasswordLabel>
+                  <Styled.InputLabel
+                    error={errors.password && touched.password ? true : false}
+                    data-cy="signUpPassword"
+                  >
+                    <TextField
+                      name="password"
+                      type="password"
+                      id="password"
+                      placeholder="Password"
+                    />
+                  </Styled.InputLabel>
+                  <Styled.PasswordInfo>
                     <p>Password must meet the following criteria:</p>
                     <ul>
                       <li>8 characters long</li>
@@ -106,8 +108,9 @@ const SignUpRoute = () => {
                       <li>1 number</li>
                       <li>1 special character (!?&)</li>
                     </ul>
-                  </div> */}
-                </Styled.InputLabel>
+                  </Styled.PasswordInfo>
+                </Styled.PasswordLabel>
+
                 <Styled.InputLabel
                   error={
                     errors.repeatPassword && touched.repeatPassword

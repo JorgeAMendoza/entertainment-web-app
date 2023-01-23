@@ -79,6 +79,10 @@ const GlobalStyles = createGlobalStyle`
   -webkit-text-fill-color: var(--white);
   -webkit-box-shadow: 0 0 0px 1000px var(--semi-dark-blue) inset;
   transition: background-color 5000s ease-in-out 0s;
+  }
+  
+  #root, #__next {
+  isolation: isolate;
 }
 `;
 

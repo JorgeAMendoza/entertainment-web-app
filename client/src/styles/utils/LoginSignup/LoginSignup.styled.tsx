@@ -16,6 +16,38 @@ const PageContainer = styled.main`
 
 const Logo = styled.div``;
 
+const PasswordInfo = styled.div`
+  --background: var(--dark-blue);
+  background-color: var(--background);
+  width: 80%;
+  top: 100%;
+  left: 0;
+  font-size: 1.3rem;
+  position: absolute;
+  font-weight: 300;
+  padding: 1em 0.6rem;
+  display: none;
+
+  ul {
+    list-style: inside;
+  }
+
+  li {
+    margin-left: 1rem;
+  }
+`;
+
+const PasswordLabel = styled.div`
+  position: relative;
+  z-index: 2;
+
+  &:focus-within {
+    ${PasswordInfo} {
+      display: block;
+    }
+  }
+`;
+
 const AuthForm = styled(Form)`
   --container-bg: var(--semi-dark-blue);
   background-color: var(--semi-dark-blue);
@@ -24,6 +56,7 @@ const AuthForm = styled(Form)`
   padding: 2.4rem 2.3rem;
   padding-bottom: 1rem;
   margin-block-start: 5.5rem;
+  position: relative;
 
   h1 {
     font-weight: 300;
@@ -61,6 +94,7 @@ const InputLabel = styled.label<InputLabelProps>`
     padding: 1.6rem 1.7rem;
     color: var(--white);
     outline: none;
+    z-index: -1;
 
     &::placeholder {
       color: var(--white);
@@ -127,4 +161,6 @@ export default {
   SignUpText,
   AuthError,
   LogoutMessage,
+  PasswordInfo,
+  PasswordLabel,
 };
