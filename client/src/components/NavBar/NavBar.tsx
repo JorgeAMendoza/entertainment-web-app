@@ -7,16 +7,17 @@ import IconNavMovie from '../icons/IconNavMovie';
 import IconNavShow from '../icons/IconNavShow';
 import { Link } from 'react-router-dom';
 import AccountMenu from './AccountMenu/AccountMenu';
+import Styled from './NavBar.styled';
 
 const NavBar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   return (
-    <nav>
-      <div>
+    <Styled.NavBar>
+      <Styled.NavIcon>
         <img src={entertainmentLogo} alt="entertainment logo" />
-      </div>
+      </Styled.NavIcon>
 
-      <ul>
+      <Styled.NavLinks>
         <li>
           <Link to="/dashboard" data-cy="homepageTab">
             <IconNavHome />
@@ -37,10 +38,10 @@ const NavBar = () => {
             <IconNavBookMark />
           </Link>
         </li>
-      </ul>
+      </Styled.NavLinks>
 
-      <div>
-        <button
+      <Styled.Profile>
+        <Styled.ProfileButton
           aria-label="click to open account menu"
           data-cy="userProfile"
           onClick={() => setShowAccountMenu(true)}
@@ -52,12 +53,12 @@ const NavBar = () => {
               style={{ width: '50px' }}
             />
           </div>
-        </button>
+        </Styled.ProfileButton>
         {showAccountMenu && (
           <AccountMenu setShowAccountMenu={setShowAccountMenu} />
         )}
-      </div>
-    </nav>
+      </Styled.Profile>
+    </Styled.NavBar>
   );
 };
 
