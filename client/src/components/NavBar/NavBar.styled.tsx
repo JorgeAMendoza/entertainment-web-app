@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface NavLinkProps {
+  isActive: boolean;
+}
+
 const NavBar = styled.nav`
   --background: var(--semi-dark-blue);
   background-color: var(--background);
@@ -16,17 +20,17 @@ const NavIcon = styled.div`
 `;
 
 const NavLinks = styled.ul`
-  --icon-color: var(--greyish-blue);
-  --icon-color-active: var(--white);
-  --icon-color-hover: var(--white);
   display: flex;
   align-items: center;
   gap: 2.3rem;
+`;
 
-  li {
-    width: 1.7rem;
-    height: 1.7rem;
-  }
+const NavLink = styled.li<NavLinkProps>`
+  --icon-color: var(--greyish-blue);
+  --icon-color-active: var(--white);
+  --icon-color-hover: var(--white);
+  width: 1.7rem;
+  height: 1.7rem;
 
   a {
     display: inline-block;
@@ -34,7 +38,8 @@ const NavLinks = styled.ul`
     svg {
       width: 100%;
       height: 100%;
-      color: var(--icon-color);
+      color: ${({ isActive }) =>
+        isActive ? 'var(--icon-color-active)' : 'var(--icon-color)'};
     }
 
     &:hover {
@@ -63,4 +68,4 @@ const ProfileButton = styled.button`
   }
 `;
 
-export default { NavBar, NavIcon, NavLinks, Profile, ProfileButton };
+export default { NavBar, NavIcon, NavLinks, NavLink, Profile, ProfileButton };
