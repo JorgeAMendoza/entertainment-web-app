@@ -49,11 +49,7 @@ const NavBar = () => {
           onClick={() => setShowAccountMenu(true)}
         >
           <div>
-            <img
-              src={userProfilePic}
-              alt="user profile picture"
-              style={{ width: '50px' }}
-            />
+            <img src={userProfilePic} alt="user profile picture" />
           </div>
         </Styled.ProfileButton>
         {showAccountMenu && (
