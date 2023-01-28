@@ -16,6 +16,9 @@ const NavIcon = styled.div`
 `;
 
 const NavLinks = styled.ul`
+  --icon-color: var(--greyish-blue);
+  --icon-color-active: var(--white);
+  --icon-color-hover: var(--white);
   display: flex;
   align-items: center;
   gap: 2.3rem;
@@ -25,12 +28,19 @@ const NavLinks = styled.ul`
     height: 1.7rem;
   }
 
-  li a {
+  a {
     display: inline-block;
     width: 100%;
     svg {
       width: 100%;
       height: 100%;
+      color: var(--icon-color);
+    }
+
+    &:hover {
+      svg {
+        color: var(--icon-color-hover);
+      }
     }
   }
 `;
