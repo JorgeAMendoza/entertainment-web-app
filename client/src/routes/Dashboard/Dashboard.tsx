@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import LogOutModal from '../components/LogOutModal';
-import NavBar from '../components/NavBar/NavBar';
+import LogOutModal from '../../components/LogOutModal';
+import NavBar from '../../components/NavBar/NavBar';
+import Styled from './Dashboard.styled';
 
 type DashboardLocState = null | { token: string };
 
@@ -20,12 +21,12 @@ export const Dashboard = () => {
       {!token ? (
         <LogOutModal />
       ) : (
-        <div data-cy="dashboard">
+        <Styled.Dashboard data-cy="dashboard">
           <NavBar />
           <div>
             <Outlet />
           </div>
-        </div>
+        </Styled.Dashboard>
       )}
     </>
   );

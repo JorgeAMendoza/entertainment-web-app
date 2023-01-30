@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device-breakpoints';
 
 interface NavLinkProps {
   isActive: boolean;
@@ -11,11 +12,24 @@ const NavBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 1.3rem 1.5rem;
+
+  @media screen and ${device.tablet} {
+    width: 94%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 2.1rem 2.4rem;
+  }
 `;
 
 const NavIcon = styled.div`
   img {
     width: 2.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    img {
+      width: 3.3rem;
+    }
   }
 `;
 
@@ -23,6 +37,10 @@ const NavLinks = styled.ul`
   display: flex;
   align-items: center;
   gap: 2.3rem;
+
+  @media screen and ${device.tablet} {
+    gap: 3.2rem;
+  }
 `;
 
 const NavLink = styled.li<NavLinkProps>`
@@ -48,6 +66,11 @@ const NavLink = styled.li<NavLinkProps>`
       }
     }
   }
+
+  @media screen and ${device.tablet} {
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
 const Profile = styled.div`
@@ -60,11 +83,17 @@ const ProfileButton = styled.button`
   border-radius: 50%;
   border: none;
   outline: 1px solid white;
+  display: block;
 
   img {
     border-radius: 50%;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  @media screen and ${device.tablet} {
+    width: 3.2rem;
+    height: 3.2rem;
   }
 `;
 
