@@ -87,13 +87,18 @@ const ProfileButton = styled.button`
 
   img {
     border-radius: 50%;
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
   }
 
   @media screen and ${device.tablet} {
     width: 3.2rem;
     height: 3.2rem;
+
+    img {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
   }
 `;
 
