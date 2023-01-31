@@ -19,6 +19,16 @@ const NavBar = styled.nav`
     border-radius: 10px;
     padding: 2.1rem 2.4rem;
   }
+
+  @media screen and ${device.laptop} {
+    width: 100%;
+    flex-direction: column;
+    min-height: min(95vh, 96rem);
+    justify-content: flex-start;
+    gap: 7.8rem;
+    padding: 3.4rem 2.9rem;
+    border-radius: 2rem;
+  }
 `;
 
 const NavIcon = styled.div`
@@ -40,6 +50,12 @@ const NavLinks = styled.ul`
 
   @media screen and ${device.tablet} {
     gap: 3.2rem;
+  }
+
+  @media screen and ${device.laptop} {
+    flex-direction: column;
+    margin-bottom: auto;
+    gap: 3.9rem;
   }
 `;
 
@@ -98,6 +114,20 @@ const ProfileButton = styled.button`
     img {
       width: 3.2rem;
       height: 3.2rem;
+    }
+  }
+
+  @media screen and ${device.laptop} {
+    margin-top: auto;
+    align-self: flex-end;
+    justify-self: flex-end;
+
+    width: 4rem;
+    height: 4rem;
+
+    img {
+      width: 4rem;
+      height: 4rem;
     }
   }
 `;

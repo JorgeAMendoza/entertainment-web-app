@@ -26,7 +26,7 @@ export const Dashboard = () => {
           <div>
             <Outlet />
           </div>
-        </Styled.Dashboard>
+        </Styled.Dashboard> 
       )}
     </>
   );
