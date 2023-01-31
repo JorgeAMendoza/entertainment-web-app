@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '../../../styles/Button.styled';
+import device from '../../../styles/utils/device-breakpoints';
 
 const AccountMenu = styled.div`
   --background-color: var(--semi-dark-blue);
@@ -12,9 +13,15 @@ const AccountMenu = styled.div`
   left: -8rem;
   width: 10rem;
   padding: 0.5rem;
+  z-index: 3;
 
   ul li:first-of-type {
     margin-bottom: 0.7rem;
+  }
+
+  @media screen and ${device.laptop} {
+    top: -135%;
+    left: 120%;
   }
 `;
 
@@ -30,6 +37,15 @@ const MenuButton = styled(Button)`
   img {
     width: 1.8rem;
     margin-right: 0.3rem;
+  }
+
+  @media screen and ${device.laptop} {
+    font-size: 1.6rem;
+    justify-content: flex-start;
+    min-width: 8ch;
+    img {
+      width: 2.2rem;
+    }
   }
 `;
 
