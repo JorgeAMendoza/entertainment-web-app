@@ -11,6 +11,7 @@ const Dashboard = styled.div`
     grid-template-columns: auto 1fr;
     margin-left: 3.1rem;
     padding: 3.1rem 0;
+    padding-bottom: 0;
   }
 `;
 
