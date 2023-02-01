@@ -5,59 +5,58 @@ import IconNavBookMark from '../icons/IconNavBoomark';
 import IconNavHome from '../icons/IconNavHome';
 import IconNavMovie from '../icons/IconNavMovie';
 import IconNavShow from '../icons/IconNavShow';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AccountMenu from './AccountMenu/AccountMenu';
+import Styled from './NavBar.styled';
 
 const NavBar = () => {
+  const { pathname } = useLocation();
+
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   return (
-    <nav>
-      <div>
+    <Styled.NavBar>
+      <Styled.NavIcon>
         <img src={entertainmentLogo} alt="entertainment logo" />
-      </div>
+      </Styled.NavIcon>
 
-      <ul>
-        <li>
+      <Styled.NavLinks>
+        <Styled.NavLink isActive={pathname === '/dashboard' ? true : false}>
           <Link to="/dashboard" data-cy="homepageTab">
             <IconNavHome />
           </Link>
-        </li>
-        <li>
+        </Styled.NavLink>
+        <Styled.NavLink isActive={pathname.includes('movies') ? true : false}>
           <Link to="movies" data-cy="movieTab">
             <IconNavMovie />
           </Link>
-        </li>
-        <li>
+        </Styled.NavLink>
+        <Styled.NavLink isActive={pathname.includes('shows') ? true : false}>
           <Link to="shows" data-cy="showTab">
             <IconNavShow />
           </Link>
-        </li>
-        <li>
+        </Styled.NavLink>
+        <Styled.NavLink isActive={pathname.includes('my-stuff') ? true : false}>
           <Link to="my-stuff" data-cy="bookmarkedTab">
             <IconNavBookMark />
           </Link>
-        </li>
-      </ul>
+        </Styled.NavLink>
+      </Styled.NavLinks>
 
-      <div>
-        <button
+      <Styled.Profile>
+        <Styled.ProfileButton
           aria-label="click to open account menu"
           data-cy="userProfile"
           onClick={() => setShowAccountMenu(true)}
         >
           <div>
-            <img
-              src={userProfilePic}
-              alt="user profile picture"
-              style={{ width: '50px' }}
-            />
+            <img src={userProfilePic} alt="user profile picture" />
           </div>
-        </button>
+        </Styled.ProfileButton>
         {showAccountMenu && (
           <AccountMenu setShowAccountMenu={setShowAccountMenu} />
         )}
-      </div>
-    </nav>
+      </Styled.Profile>
+    </Styled.NavBar>
   );
 };
 

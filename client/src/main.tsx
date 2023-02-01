@@ -14,7 +14,7 @@ import LoginRoute from './routes/LoginRoute/LoginRoute';
 import SignUpRoute from './routes/SignUpRoute';
 import ErrorPage from './routes/ErrorPage/ErrorPage';
 import LoginProvider from './context/login-context';
-import Dashboard from './routes/Dashboard';
+import Dashboard from './routes/Dashboard/Dashboard';
 import Root from './routes/Root/Root';
 import Homepage from './routes/Homepage';
 import Movies from './routes/Movies';
