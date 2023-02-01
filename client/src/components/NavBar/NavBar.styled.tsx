@@ -12,6 +12,7 @@ const NavBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 1.3rem 1.5rem;
+  z-index: 2;
 
   @media screen and ${device.tablet} {
     width: 94%;
@@ -25,9 +26,14 @@ const NavBar = styled.nav`
     flex-direction: column;
     min-height: min(95vh, 96rem);
     justify-content: flex-start;
-    gap: 7.8rem;
+    gap: 7.6rem;
     padding: 3.4rem 2.9rem;
     border-radius: 2rem;
+
+    position: fixed;
+    left: 3.1rem;
+    top: 3.2rem;
+    width: 9.6rem;
   }
 `;
 
