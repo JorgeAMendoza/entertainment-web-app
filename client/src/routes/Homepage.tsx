@@ -7,6 +7,7 @@ import {
   useSearchAllContentLazyQuery,
 } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
+import RouteContainer from '../styles/utils/Route.styled';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
@@ -30,31 +31,31 @@ const Homepage = () => {
 
   if (search !== '') {
     if (searchLoading) {
-      <main>
+      <RouteContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for movies or TV series"
         />
         <p>Searching</p>
-      </main>;
+      </RouteContainer>;
     }
 
     const searchResult = searchedContent?.search ? searchedContent.search : [];
     return (
-      <main>
+      <RouteContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for movies or TV series"
         />
         <SearchResults query={search} searchedData={searchResult} />
-      </main>
+      </RouteContainer>
     );
   }
 
   return (
-    <main>
+    <RouteContainer>
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -100,7 +101,7 @@ const Homepage = () => {
             ))}
         </div>
       </section>
-    </main>
+    </RouteContainer>
   );
 };
 
