@@ -6,6 +6,7 @@ const RouteContainer = styled.main`
   grid-template-columns: 1fr;
   gap: 2rem;
   padding-top: 2.4rem;
+  width: 100%;
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;

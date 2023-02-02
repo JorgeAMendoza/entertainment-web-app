@@ -30,7 +30,7 @@ const Input = styled.input`
   color: var(--input-color);
   font-weight: 300;
   font-size: 1.6rem;
-  width: 100%;
+  width: 90%;
   margin-left: 1.8rem;
 
   @media screen and ${device.tablet} {
