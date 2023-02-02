@@ -1,5 +1,4 @@
 import searchIcon from '../../assets/icon-search.svg';
-import Container from '../../styles/utils/Container.styled';
 import Styled from './DashboardSearch.styled';
 
 interface DashboardSearchProps {
@@ -14,22 +13,20 @@ const DashboardSearch = ({
   placeholderText,
 }: DashboardSearchProps) => {
   return (
-    <Container>
-      <Styled.DashboardSearch data-cy="searchBar">
-        <span>
-          <img src={searchIcon} alt="Search icon" />
-        </span>
-        <Styled.Input
-          type="text"
-          name="searchContent"
-          placeholder={placeholderText}
-          id="searchContent"
-          onChange={({ target }) => setSearch(target.value)}
-          onBlur={({ target }) => setSearch(target.value)}
-          value={search}
-        />
-      </Styled.DashboardSearch>
-    </Container>
+    <Styled.DashboardSearch data-cy="searchBar">
+      <span>
+        <img src={searchIcon} alt="Search icon" />
+      </span>
+      <Styled.Input
+        type="text"
+        name="searchContent"
+        placeholder={placeholderText}
+        id="searchContent"
+        onChange={({ target }) => setSearch(target.value)}
+        onBlur={({ target }) => setSearch(target.value)}
+        value={search}
+      />
+    </Styled.DashboardSearch>
   );
 };
 

@@ -3,13 +3,16 @@ import device from '../../styles/utils/device-breakpoints';
 
 const DashboardSearch = styled.label`
   display: flex;
+  width: 91%;
+  margin: 0 auto;
 
   span img {
-    width: 2.4rem;
+    width: 2.5rem;
     height: 2.4rem;
   }
 
   @media screen and ${device.tablet} {
+    width: 93%;
     span img {
       width: 3.4rem;
       height: 3.3rem;
