@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device-breakpoints';
 
 const DashboardSearch = styled.label`
   display: flex;
@@ -6,6 +7,13 @@ const DashboardSearch = styled.label`
   span img {
     width: 2.4rem;
     height: 2.4rem;
+  }
+
+  @media screen and ${device.tablet} {
+    span img {
+      width: 3.4rem;
+      height: 3.3rem;
+    }
   }
 `;
 
@@ -17,6 +25,11 @@ const Input = styled.input`
   font-size: 1.6rem;
   width: 100%;
   margin-left: 1.8rem;
+
+  @media screen and ${device.tablet} {
+    font-size: 2.4rem;
+    margin-left: 2.5rem;
+  }
 `;
 
 export default {

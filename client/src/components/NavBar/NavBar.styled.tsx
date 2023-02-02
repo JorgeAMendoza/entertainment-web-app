@@ -15,7 +15,7 @@ const NavBar = styled.nav`
   z-index: 2;
 
   @media screen and ${device.tablet} {
-    width: 94%;
+    width: 93%;
     margin: 0 auto;
     border-radius: 10px;
     padding: 2.1rem 2.4rem;

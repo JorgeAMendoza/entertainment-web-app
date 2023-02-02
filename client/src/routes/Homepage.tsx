@@ -7,7 +7,7 @@ import {
   useSearchAllContentLazyQuery,
 } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
-import RouteContainer from '../styles/utils/Route.styled';
+import RouteContainer from '../styles/utils/RouteContainer.styled';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
