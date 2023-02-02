@@ -5,15 +5,13 @@ const Dashboard = styled.div`
   position: relative;
   @media screen and ${device.tablet} {
     padding: 2.2rem 0;
-  }
+
 
   @media screen and ${device.laptop} {
-    display: grid;
-    grid-template-columns: auto 1fr;
     margin-left: 3.1rem;
-    padding: 3.1rem 0;
+    padding: 3.2rem 0;
     padding-bottom: 0;
-    padding-left: 13rem;
+    padding-left: 13.4rem;
   }
 `;
 

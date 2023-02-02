@@ -4,6 +4,7 @@ import SmallContent from '../components/SmallContent/SmallContent';
 import { useGetBookmarkedContentQuery } from '../generated/graphql';
 import { Show, Movie } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
+import RouteContainer from '../styles/utils/RouteContainer.styled';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
@@ -24,19 +25,19 @@ const Bookmarked = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <main data-cy="bookmarkPage">
+      <RouteContainer data-cy="bookmarkPage">
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for bookmarked content"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </main>
+      </RouteContainer>
     );
   }
 
   return (
-    <main data-cy="bookmarkPage">
+    <RouteContainer data-cy="bookmarkPage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -100,7 +101,7 @@ const Bookmarked = () => {
           )}
         </section>
       ) : null}
-    </main>
+    </RouteContainer>
   );
 };
 

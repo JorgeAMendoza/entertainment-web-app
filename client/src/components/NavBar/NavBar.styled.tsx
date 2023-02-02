@@ -11,11 +11,11 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.3rem 1.5rem;
+  padding: 1.6rem 1.5rem;
   z-index: 2;
 
   @media screen and ${device.tablet} {
-    width: 94%;
+    width: 93%;
     margin: 0 auto;
     border-radius: 10px;
     padding: 2.1rem 2.4rem;

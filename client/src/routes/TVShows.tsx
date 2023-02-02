@@ -3,6 +3,7 @@ import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContent from '../components/SmallContent/SmallContent';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
+import RouteContainer from '../styles/utils/RouteContainer.styled';
 
 const TVShows = () => {
   const [search, setSearch] = useState('');
@@ -16,19 +17,19 @@ const TVShows = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <main>
+      <RouteContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for TV shows"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </main>
+      </RouteContainer>
     );
   }
 
   return (
-    <main data-cy="showPage">
+    <RouteContainer data-cy="showPage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -56,7 +57,7 @@ const TVShows = () => {
             : null}
         </div>
       </section>
-    </main>
+    </RouteContainer>
   );
 };
 
