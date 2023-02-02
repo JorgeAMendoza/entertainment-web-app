@@ -3,6 +3,7 @@ import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContentCard from '../components/SmallContent/SmallContent';
 import { useGetAllMoviesQuery } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
+import RouteContainer from '../styles/utils/RouteContainer.styled';
 
 const Movies = () => {
   const { loading, data: content } = useGetAllMoviesQuery();
@@ -16,19 +17,19 @@ const Movies = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <main>
+      <RouteContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for movies"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </main>
+      </RouteContainer>
     );
   }
 
   return (
-    <main data-cy="moviePage">
+    <RouteContainer data-cy="moviePage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -56,7 +57,7 @@ const Movies = () => {
             : null}
         </div>
       </section>
-    </main>
+    </RouteContainer>
   );
 };
 
