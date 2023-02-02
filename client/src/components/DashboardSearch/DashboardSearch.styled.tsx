@@ -18,6 +18,10 @@ const DashboardSearch = styled.label`
       height: 3.3rem;
     }
   }
+
+  @media screen and ${device.laptop} {
+    width: 100%;
+  }
 `;
 
 const Input = styled.input`

@@ -11,9 +11,9 @@ const Dashboard = styled.div`
     display: grid;
     grid-template-columns: auto 1fr;
     margin-left: 3.1rem;
-    padding: 3.1rem 0;
+    padding: 3.2rem 0;
     padding-bottom: 0;
-    padding-left: 13rem;
+    padding-left: 13.4rem;
   }
 `;
 
