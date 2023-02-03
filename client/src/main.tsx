@@ -16,7 +16,7 @@ import ErrorPage from './routes/ErrorPage/ErrorPage';
 import LoginProvider from './context/login-context';
 import Dashboard from './routes/Dashboard/Dashboard';
 import Root from './routes/Root/Root';
-import Homepage from './routes/Homepage';
+import Homepage from './routes/HomePage/Homepage';
 import Movies from './routes/Movies';
 import TVShows from './routes/TVShows';
 import Bookmarked from './routes/Bookmarked';

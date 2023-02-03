@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
-import LargeContent from '../components/LargeContent/LargeContent';
-import SmallContent from '../components/SmallContent/SmallContent';
+import DashboardSearch from '../../components/DashboardSearch/DashboardSearch';
+import LargeContent from '../../components/LargeContent/LargeContent';
+import SmallContent from '../../components/SmallContent/SmallContent';
 import {
   useGetHomepageContentQuery,
   useSearchAllContentLazyQuery,
-} from '../generated/graphql';
-import SearchResults from '../components/SearchResults/SearchResults';
-import RouteContainer from '../styles/utils/RouteContainer.styled';
+} from '../../generated/graphql';
+import SearchResults from '../../components/SearchResults/SearchResults';
+import RouteContainer from '../../styles/utils/RouteContainer.styled';
+import Styled from './HomePage.styled';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
@@ -62,10 +63,10 @@ const Homepage = () => {
         placeholderText="Search for movies or TV series"
       />
 
-      <section>
+      <Styled.TrendingSection>
         <h2>Trending</h2>
         {homepageLoading && <p>loading trending content</p>}
-        <div data-cy="trendingContent">
+        <Styled.TrendingItems data-cy="trendingContent">
           {homepageContent &&
             homepageContent.homepage.trending.map((content) => (
               <LargeContent
@@ -79,8 +80,8 @@ const Homepage = () => {
                 bookmarked={content.bookmarked}
               />
             ))}
-        </div>
-      </section>
+        </Styled.TrendingItems>
+      </Styled.TrendingSection>
 
       <section>
         <h2>Recommended for you</h2>
