@@ -15,11 +15,6 @@ const TrendingItems = styled.div`
   display: flex;
   width: 100%;
   gap: 1.5rem;
-
-  figure {
-    min-width: 24rem;
-    border: 1px solid black;
-  }
 `;
 
 export default {
