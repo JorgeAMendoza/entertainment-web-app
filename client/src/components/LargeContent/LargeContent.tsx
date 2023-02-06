@@ -13,7 +13,11 @@ interface LargeContentProps {
   year: number;
   type: string;
   rating: string;
-  image: string;
+  images: {
+    small: string;
+    medium: string;
+    large: string;
+  };
   bookmarked: boolean;
 }
 
@@ -24,7 +28,7 @@ const LargeContent = ({
   type,
   rating,
   bookmarked,
-  image,
+  images,
 }: LargeContentProps) => {
   const { bookmarkContent } = useBookmarkMutation();
   const { unbookmarkContent } = useUnbookmarkMutation();
@@ -44,7 +48,16 @@ const LargeContent = ({
   return (
     <Styled.LargeContent>
       <Styled.ContentImage>
-        <img src={'http://localhost:4000/' + image} />
+        <picture>
+          <source
+            srcSet={'http://localhost:4000/' + images.large}
+            media="(min-width:1024px)"
+          />
+          <img
+            src={'http://localhost:4000/' + images.small}
+            alt={`content image for ${title}`}
+          />
+        </picture>
       </Styled.ContentImage>
       <Styled.ContentContainer>
         <Styled.BookmarkButton

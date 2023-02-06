@@ -10,10 +10,12 @@ const LargeContent = styled.figure`
 const ContentImage = styled.div`
   position: absolute;
   z-index: -1;
-  img {
-    min-width: 100%;
-    height: 100%;
+  img,
+  picture {
+    width: 24rem;
+    height: 14rem;
     border-radius: 8px;
+    display: block;
   }
 `;
 

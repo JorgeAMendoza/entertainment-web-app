@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import device from './device-breakpoints';
 
 const RouteContainer = styled.main`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
   padding-top: 2.4rem;
   width: 100%;
+
+  & > * {
+    margin-block-end: 2rem;
+  }
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;

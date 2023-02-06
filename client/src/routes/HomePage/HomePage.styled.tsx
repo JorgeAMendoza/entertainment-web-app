@@ -10,6 +10,12 @@ const TrendingSection = styled.section`
   }
 `;
 
+const TrendingTitle = styled.h2`
+  font-weight: 300;
+  width: 93%;
+  margin: 0 auto;
+`;
+
 const TrendingItems = styled.div`
   margin-block-start: 1rem;
   display: flex;
@@ -20,4 +26,5 @@ const TrendingItems = styled.div`
 export default {
   TrendingSection,
   TrendingItems,
+  TrendingTitle,
 };

@@ -63,9 +63,10 @@ const Homepage = () => {
         placeholderText="Search for movies or TV series"
       />
 
+      <Styled.TrendingTitle>Trending</Styled.TrendingTitle>
       <Styled.TrendingSection>
-        <h2>Trending</h2>
         {homepageLoading && <p>loading trending content</p>}
+
         <Styled.TrendingItems data-cy="trendingContent">
           {homepageContent &&
             homepageContent.homepage.trending.map((content) => (
@@ -76,7 +77,11 @@ const Homepage = () => {
                 type={content.type}
                 rating={content.rating}
                 year={content.year}
-                image={content.images.large}
+                images={{
+                  small: content.images.small,
+                  medium: content.images.medium,
+                  large: content.images.large,
+                }}
                 bookmarked={content.bookmarked}
               />
             ))}
