@@ -97,7 +97,7 @@ const LargeContent = ({
             &bull;
             <span> {rating}</span>
           </p>
-          <Styled.ContentTitle>{title}</Styled.ContentTitle>
+          <p>{title}</p>
         </Styled.ContentInfo>
       </Styled.ContentContainer>
     </Styled.LargeContent>

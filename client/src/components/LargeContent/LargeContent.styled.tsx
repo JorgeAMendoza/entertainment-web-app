@@ -50,11 +50,24 @@ const PlayButton = styled.div`
 
 const ContentInfo = styled.div`
   align-self: flex-end;
+  font-weight: 300;
+  padding-left: 0.6rem;
+  padding-bottom: 0.4rem;
   p {
     display: flex;
-    font-size: 1.5rem;
-    gap: 1rem;
+    font-size: 1.2rem;
+    gap: 0.8rem;
     text-transform: capitalize;
+    font-weight: light;
+
+    &:nth-of-type(1) {
+      margin-block-end: 0.3rem;
+    }
+
+    &:nth-of-type(2) {
+      font-weight: 500;
+      font-size: 1.5rem;
+    }
   }
   span {
     display: flex;
@@ -64,17 +77,11 @@ const ContentInfo = styled.div`
   }
 `;
 
-const ContentTitle = styled.p`
-  font-size: 1.5rem;
-  font-weight: 500;
-`;
-
 export default {
   LargeContent,
   BookmarkButton,
   ContentImage,
   PlayButton,
   ContentInfo,
-  ContentTitle,
   ContentContainer,
 };
