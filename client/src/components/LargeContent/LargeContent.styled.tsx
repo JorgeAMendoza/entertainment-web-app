@@ -1,10 +1,16 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device-breakpoints';
 
 const LargeContent = styled.figure`
   position: relative;
   min-width: 24rem;
   min-height: 14rem;
   border-radius: 8px;
+
+  @media screen and ${device.tablet} {
+    min-width: 47rem;
+    height: 23rem;
+  }
 `;
 
 const ContentImage = styled.div`
@@ -17,6 +23,14 @@ const ContentImage = styled.div`
     border-radius: 8px;
     display: block;
   }
+
+  @media screen and ${device.tablet} {
+    img,
+    picture {
+      width: 47rem;
+      height: 23rem;
+    }
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -24,6 +38,11 @@ const ContentContainer = styled.div`
   justify-content: space-between;
   padding: 1rem;
   height: 100%;
+
+  @media screen and ${device.tablet} {
+    padding-right: 2.3rem;
+    padding-top: 1.6rem;
+  }
 `;
 
 const BookmarkButton = styled.button`
@@ -74,6 +93,18 @@ const ContentInfo = styled.div`
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+  }
+
+  @media screen and ${device.tablet} {
+    padding-left: 1.5rem;
+    padding-bottom: 0.8rem;
+    p {
+      font-size: 1.5rem;
+
+      &:nth-of-type(2) {
+        font-size: 2.4rem;
+      }
+    }
   }
 `;
 

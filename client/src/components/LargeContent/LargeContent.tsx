@@ -51,7 +51,7 @@ const LargeContent = ({
         <picture>
           <source
             srcSet={'http://localhost:4000/' + images.large}
-            media="(min-width:1024px)"
+            media="(min-width:768px)"
           />
           <img
             src={'http://localhost:4000/' + images.small}
