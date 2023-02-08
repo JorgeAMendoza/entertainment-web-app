@@ -41,7 +41,7 @@ const ContentContainer = styled.div`
 
   @media screen and ${device.tablet} {
     padding-right: 2.3rem;
-    padding-top: 1.6rem;
+    padding-top: 1.7rem;
   }
 `;
 
@@ -97,7 +97,7 @@ const ContentInfo = styled.div`
 
   @media screen and ${device.tablet} {
     padding-left: 1.5rem;
-    padding-bottom: 0.8rem;
+    padding-bottom: 0.9rem;
     p {
       font-size: 1.5rem;
 
