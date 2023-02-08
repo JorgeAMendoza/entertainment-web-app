@@ -38,6 +38,21 @@ const ContentContainer = styled.div`
   justify-content: space-between;
   padding: 1rem;
   height: 100%;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.6) 80%
+    );
+    height: 50%;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+  }
 
   @media screen and ${device.tablet} {
     padding-right: 2.3rem;
