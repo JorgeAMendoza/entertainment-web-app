@@ -5,6 +5,7 @@ import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import useBookmarkMutation from '../../hooks/bookmarkMutation';
 import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
+import Styled from './LargeContent.styled';
 
 interface LargeContentProps {
   id: string;
@@ -12,7 +13,11 @@ interface LargeContentProps {
   year: number;
   type: string;
   rating: string;
-  image: string;
+  images: {
+    small: string;
+    medium: string;
+    large: string;
+  };
   bookmarked: boolean;
 }
 
@@ -23,6 +28,7 @@ const LargeContent = ({
   type,
   rating,
   bookmarked,
+  images,
 }: LargeContentProps) => {
   const { bookmarkContent } = useBookmarkMutation();
   const { unbookmarkContent } = useUnbookmarkMutation();
@@ -40,32 +46,43 @@ const LargeContent = ({
   };
 
   return (
-    <figure>
-      <button
-        onClick={bookmark}
-        aria-label={
-          bookmarked
-            ? `click to bookmark ${title}`
-            : `click to un-bookmark ${title}`
-        }
-      >
-        <img
-          src={bookmarked ? bookmarkIconFull : bookmarkIconEmpty}
-          alt="bookmark content icon"
-        />
-      </button>
+    <Styled.LargeContent>
+      <Styled.ContentImage>
+        <picture>
+          <source
+            srcSet={'http://localhost:4000/' + images.large}
+            media="(min-width:768px)"
+          />
+          <img
+            src={'http://localhost:4000/' + images.small}
+            alt={`content image for ${title}`}
+          />
+        </picture>
+      </Styled.ContentImage>
+      <Styled.ContentContainer>
+        <Styled.BookmarkButton
+          onClick={bookmark}
+          aria-label={
+            bookmarked
+              ? `click to bookmark ${title}`
+              : `click to un-bookmark ${title}`
+          }
+        >
+          <img
+            src={bookmarked ? bookmarkIconFull : bookmarkIconEmpty}
+            alt="bookmark content icon"
+          />
+        </Styled.BookmarkButton>
+        <Styled.PlayButton>
+          <div>
+            <button aria-label="click the button to play (content name here)">
+              <img src={playIcon} alt="play the content (content name here)" />
+            </button>
+          </div>
+          <p>play</p>
+        </Styled.PlayButton>
 
-      <div>
-        <div>
-          <button aria-label="click the button to play (content name here)">
-            <img src={playIcon} alt="play the content (content name here)" />
-          </button>
-        </div>
-        <p>play</p>
-      </div>
-
-      <div>
-        <div>
+        <Styled.ContentInfo>
           <p>
             <span>{year}</span> &bull;{' '}
             <span>
@@ -80,10 +97,10 @@ const LargeContent = ({
             &bull;
             <span> {rating}</span>
           </p>
-          <h3>{title}</h3>
-        </div>
-      </div>
-    </figure>
+          <p>{title}</p>
+        </Styled.ContentInfo>
+      </Styled.ContentContainer>
+    </Styled.LargeContent>
   );
 };
 
