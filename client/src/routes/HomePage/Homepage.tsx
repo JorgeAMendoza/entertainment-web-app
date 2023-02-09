@@ -9,6 +9,7 @@ import {
 import SearchResults from '../../components/SearchResults/SearchResults';
 import RouteContainer from '../../styles/utils/RouteContainer.styled';
 import Styled from './HomePage.styled';
+import ContentSection from '../../components/ContentSection/ContentSection';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
@@ -88,8 +89,7 @@ const Homepage = () => {
         </Styled.TrendingItems>
       </Styled.TrendingSection>
 
-      <section>
-        <h2>Recommended for you</h2>
+      <ContentSection title="Recommended for you">
         <div data-cy="recommendedContent">
           {homepageLoading && <p>Loading Recommended Content</p>}
           {homepageContent &&
@@ -106,7 +106,7 @@ const Homepage = () => {
               />
             ))}
         </div>
-      </section>
+      </ContentSection>
     </RouteContainer>
   );
 };
