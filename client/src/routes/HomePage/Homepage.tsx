@@ -90,22 +90,21 @@ const Homepage = () => {
       </Styled.TrendingSection>
 
       <ContentSection title="Recommended for you">
-        <div data-cy="recommendedContent">
-          {homepageLoading && <p>Loading Recommended Content</p>}
-          {homepageContent &&
-            homepageContent.homepage.recommended.map((content) => (
-              <SmallContent
-                key={content.id}
-                title={content.title}
-                year={content.year}
-                type={content.type}
-                rating={content.rating}
-                image={content.images.medium}
-                id={content.id}
-                bookmarked={content.bookmarked}
-              />
-            ))}
-        </div>
+        {homepageLoading && <p>Loading Recommended Content</p>}
+        {homepageContent &&
+          homepageContent.homepage.recommended.map((content) => (
+            <SmallContent
+              key={content.id}
+              title={content.title}
+              year={content.year}
+              type={content.type}
+              rating={content.rating}
+              image={content.images.medium}
+              id={content.id}
+              bookmarked={content.bookmarked}
+              images={content.images}
+            />
+          ))}
       </ContentSection>
     </RouteContainer>
   );
