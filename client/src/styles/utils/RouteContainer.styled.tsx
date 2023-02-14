@@ -6,7 +6,7 @@ const RouteContainer = styled.main`
   width: 100%;
 
   & > * {
-    margin-block-end: 2rem;
+    margin-block-end: 1.9rem;
   }
 
   @media screen and ${device.tablet} {

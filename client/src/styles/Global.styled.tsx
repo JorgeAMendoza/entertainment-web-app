@@ -39,6 +39,7 @@ const GlobalStyles = createGlobalStyle`
     position:relative;
     background-color: var(--dark-blue);
     color: var(--white);
+    padding-bottom:3rem;
   } 
   img,svg {
     max-width: 100%;
