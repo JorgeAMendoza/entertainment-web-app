@@ -3,7 +3,7 @@ import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContent from '../components/SmallContent/SmallContent';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
-import RouteContainer from '../styles/utils/RouteContainer.styled';
+import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
 
 const TVShows = () => {
@@ -18,19 +18,19 @@ const TVShows = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <RouteContainer>
+      <PageContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for TV shows"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </RouteContainer>
+      </PageContainer>
     );
   }
 
   return (
-    <RouteContainer data-cy="showPage">
+    <PageContainer data-cy="showPage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -56,7 +56,7 @@ const TVShows = () => {
             : null}
         </ContentSection>
       </section>
-    </RouteContainer>
+    </PageContainer>
   );
 };
 

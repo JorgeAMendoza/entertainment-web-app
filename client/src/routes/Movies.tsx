@@ -3,7 +3,7 @@ import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContentCard from '../components/SmallContent/SmallContent';
 import { useGetAllMoviesQuery } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
-import RouteContainer from '../styles/utils/RouteContainer.styled';
+import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
 
 const Movies = () => {
@@ -18,19 +18,19 @@ const Movies = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <RouteContainer>
+      <PageContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for movies"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </RouteContainer>
+      </PageContainer>
     );
   }
 
   return (
-    <RouteContainer data-cy="moviePage">
+    <PageContainer data-cy="moviePage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
@@ -56,7 +56,7 @@ const Movies = () => {
             : null}
         </ContentSection>
       </section>
-    </RouteContainer>
+    </PageContainer>
   );
 };
 

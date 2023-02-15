@@ -7,7 +7,7 @@ import {
   useSearchAllContentLazyQuery,
 } from '../../generated/graphql';
 import SearchResults from '../../components/SearchResults/SearchResults';
-import RouteContainer from '../../styles/utils/RouteContainer.styled';
+import { RouteContainer } from '../../styles/utils/Container.styled';
 import Styled from './HomePage.styled';
 import ContentSection from '../../components/ContentSection/ContentSection';
 
