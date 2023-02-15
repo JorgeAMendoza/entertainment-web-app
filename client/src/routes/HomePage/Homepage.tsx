@@ -99,7 +99,6 @@ const Homepage = () => {
               year={content.year}
               type={content.type}
               rating={content.rating}
-              image={content.images.medium}
               id={content.id}
               bookmarked={content.bookmarked}
               images={content.images}

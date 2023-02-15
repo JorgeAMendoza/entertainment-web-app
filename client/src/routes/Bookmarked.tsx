@@ -5,6 +5,7 @@ import { useGetBookmarkedContentQuery } from '../generated/graphql';
 import { Show, Movie } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 import RouteContainer from '../styles/utils/RouteContainer.styled';
+import ContentSection from '../components/ContentSection/ContentSection';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
@@ -50,57 +51,51 @@ const Bookmarked = () => {
         </div>
       )}
 
-      {content?.user?.bookmarkedMovies ? (
-        <section>
-          <h2>Bookmarked movies</h2>
-          {content.user.bookmarkedMovies.length !== 0 ? (
-            <div data-cy="bookmarkedMovies">
-              {content.user.bookmarkedMovies.map((movie) => (
-                <SmallContent
-                  key={movie.id}
-                  id={movie.id}
-                  title={movie.title}
-                  year={movie.year}
-                  rating={movie.rating}
-                  type={movie.type}
-                  image={movie.images.medium}
-                  bookmarked={movie.bookmarked}
-                />
-              ))}
-            </div>
+      <ContentSection title="Bookmarked Movies">
+        {content?.user?.bookmarkedMovies ? (
+          content.user.bookmarkedMovies.length !== 0 ? (
+            content.user.bookmarkedMovies.map((movie) => (
+              <SmallContent
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                year={movie.year}
+                rating={movie.rating}
+                type={movie.type}
+                bookmarked={movie.bookmarked}
+                images={movie.images}
+              />
+            ))
           ) : (
             <div>
               <p>bookmarked content can be found here</p>
             </div>
-          )}
-        </section>
-      ) : null}
+          )
+        ) : null}
+      </ContentSection>
 
-      {content?.user?.bookmarkedShows ? (
-        <section>
-          <h2>Bookmarked TV Series</h2>
-          {content.user.bookmarkedShows.length !== 0 ? (
-            <div data-cy="bookmarkedShows">
-              {content.user.bookmarkedShows.map((show) => (
-                <SmallContent
-                  key={show.id}
-                  id={show.id}
-                  title={show.title}
-                  year={show.year}
-                  rating={show.rating}
-                  type={show.type}
-                  image={show.images.medium}
-                  bookmarked={show.bookmarked}
-                />
-              ))}
-            </div>
+      <ContentSection title="Bookmarked TV Series">
+        {content?.user?.bookmarkedShows ? (
+          content.user.bookmarkedShows.length !== 0 ? (
+            content.user.bookmarkedShows.map((show) => (
+              <SmallContent
+                key={show.id}
+                id={show.id}
+                title={show.title}
+                year={show.year}
+                rating={show.rating}
+                type={show.type}
+                bookmarked={show.bookmarked}
+                images={show.images}
+              />
+            ))
           ) : (
             <div>
               <p>bookmarked content can be found here</p>
             </div>
-          )}
-        </section>
-      ) : null}
+          )
+        ) : null}{' '}
+      </ContentSection>
     </RouteContainer>
   );
 };

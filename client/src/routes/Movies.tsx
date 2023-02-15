@@ -4,6 +4,7 @@ import SmallContentCard from '../components/SmallContent/SmallContent';
 import { useGetAllMoviesQuery } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 import RouteContainer from '../styles/utils/RouteContainer.styled';
+import ContentSection from '../components/ContentSection/ContentSection';
 
 const Movies = () => {
   const { loading, data: content } = useGetAllMoviesQuery();
@@ -37,25 +38,23 @@ const Movies = () => {
       />
 
       <section>
-        <h1>Movies</h1>
-
         <div>{loading ? <p>loading movies</p> : null}</div>
-        <div data-cy="moviesList">
+        <ContentSection title="Movies">
           {content
             ? content.movies.map((movie) => (
                 <SmallContentCard
                   key={movie.id}
-                  image={movie.images.medium}
                   rating={movie.rating}
                   title={movie.title}
                   type={movie.type}
                   year={movie.year}
                   bookmarked={movie.bookmarked}
                   id={movie.id}
+                  images={movie.images}
                 />
               ))
             : null}
-        </div>
+        </ContentSection>
       </section>
     </RouteContainer>
   );

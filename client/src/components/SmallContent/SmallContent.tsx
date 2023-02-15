@@ -9,7 +9,6 @@ import Styled from './SmallContent.styled';
 
 interface SmallContentProps {
   id: string;
-  image: string;
   rating: string;
   title: string;
   type: string;

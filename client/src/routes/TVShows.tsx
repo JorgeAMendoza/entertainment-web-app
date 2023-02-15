@@ -4,6 +4,7 @@ import SmallContent from '../components/SmallContent/SmallContent';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
 import RouteContainer from '../styles/utils/RouteContainer.styled';
+import ContentSection from '../components/ContentSection/ContentSection';
 
 const TVShows = () => {
   const [search, setSearch] = useState('');
@@ -37,25 +38,23 @@ const TVShows = () => {
       />
 
       <section>
-        <h1>TV Series</h1>
-
         <div>{loading ? <p>loading shows</p> : null}</div>
-        <div data-cy="showList">
+        <ContentSection title="TV Series">
           {content
             ? content.shows.map((show) => (
                 <SmallContent
                   key={show.id}
-                  image={show.images.medium}
                   rating={show.rating}
                   title={show.title}
                   type={show.type}
                   year={show.year}
                   id={show.id}
                   bookmarked={show.bookmarked}
+                  images={show.images}
                 />
               ))
             : null}
-        </div>
+        </ContentSection>
       </section>
     </RouteContainer>
   );
