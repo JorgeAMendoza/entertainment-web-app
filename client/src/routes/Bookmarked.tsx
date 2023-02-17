@@ -6,6 +6,7 @@ import { Show, Movie } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
+import NoBookmarks from '../components/NoBookmarks/NoBookmarks';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
@@ -23,6 +24,17 @@ const Bookmarked = () => {
       content.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (
+    content?.user?.bookmarkedMovies?.length === 0 &&
+    content.user.bookmarkedShows?.length === 0
+  ) {
+    return (
+      <PageContainer style={{ border: '1px solid black;' }}>
+        <NoBookmarks />
+      </PageContainer>
+    );
+  }
 
   if (search !== '' && searchedContent) {
     return (
@@ -44,12 +56,6 @@ const Bookmarked = () => {
         setSearch={setSearch}
         placeholderText="Search for bookmarked content"
       />
-
-      {loading && (
-        <div>
-          <p>loading bookmarked content</p>
-        </div>
-      )}
 
       <ContentSection title="Bookmarked Movies">
         {content?.user?.bookmarkedMovies ? (
