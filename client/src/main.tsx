@@ -19,7 +19,7 @@ import Root from './routes/Root/Root';
 import Homepage from './routes/HomePage/Homepage';
 import Movies from './routes/Movies';
 import TVShows from './routes/TVShows';
-import Bookmarked from './routes/Bookmarked';
+import Bookmarked from './routes/Bookmarked/Bookmarked';
 
 const httpLink = createHttpLink({
   uri: GRAPHQL_URI as string,

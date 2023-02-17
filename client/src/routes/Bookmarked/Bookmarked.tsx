@@ -1,12 +1,13 @@
 import { useState, useMemo } from 'react';
-import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
-import SmallContent from '../components/SmallContent/SmallContent';
-import { useGetBookmarkedContentQuery } from '../generated/graphql';
-import { Show, Movie } from '../generated/graphql';
-import SearchResults from '../components/SearchResults/SearchResults';
-import { PageContainer } from '../styles/utils/Container.styled';
-import ContentSection from '../components/ContentSection/ContentSection';
-import NoBookmarks from '../components/NoBookmarks/NoBookmarks';
+import DashboardSearch from '../../components/DashboardSearch/DashboardSearch';
+import SmallContent from '../../components/SmallContent/SmallContent';
+import { useGetBookmarkedContentQuery } from '../../generated/graphql';
+import { Show, Movie } from '../../generated/graphql';
+import SearchResults from '../../components/SearchResults/SearchResults';
+import { PageContainer } from '../../styles/utils/Container.styled';
+import ContentSection from '../../components/ContentSection/ContentSection';
+import NoBookmarks from '../../components/NoBookmarks/NoBookmarks';
+import Styled from './Bookmarked.styled';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
@@ -73,9 +74,10 @@ const Bookmarked = () => {
               />
             ))
           ) : (
-            <div>
-              <p>bookmarked content can be found here</p>
-            </div>
+            <Styled.NoContentMessage>
+              <p>No, bookmarked movies.</p>
+              <p>Save movies to find them here later!</p>
+            </Styled.NoContentMessage>
           )
         ) : null}
       </ContentSection>
@@ -96,9 +98,10 @@ const Bookmarked = () => {
               />
             ))
           ) : (
-            <div>
-              <p>bookmarked content can be found here</p>
-            </div>
+            <Styled.NoContentMessage>
+              <p>No, bookmarked shows.</p>
+              <p>Save shows to find them here later!</p>
+            </Styled.NoContentMessage>
           )
         ) : null}{' '}
       </ContentSection>
