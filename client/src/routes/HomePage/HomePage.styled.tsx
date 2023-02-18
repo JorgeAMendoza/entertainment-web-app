@@ -4,7 +4,10 @@ import device from '../../styles/utils/device-breakpoints';
 const TrendingSection = styled.section`
   overflow: scroll;
   direction: ltr;
-  padding: 0.5rem 1.7rem;
+  padding: 0 1.7rem;
+  padding-top: 0.7rem;
+
+  position: relative;
 
   h2 {
     font-weight: 300;
@@ -21,11 +24,11 @@ const TrendingSection = styled.section`
 
 const TrendingTitle = styled.h2`
   font-weight: 300;
-  width: 93%;
+  width: 92%;
   margin: 0 auto;
   font-size: 2rem;
-  padding-left: 0.3rem;
-  padding-top: 0.2rem;
+  margin-bottom: -1.9rem;
+  letter-spacing: -0.3px;
 
   @media screen and ${device.tablet} {
     font-size: 3.2rem;
@@ -40,10 +43,10 @@ const TrendingTitle = styled.h2`
 `;
 
 const TrendingItems = styled.div`
-  margin-block-start: 1.1rem;
   display: flex;
   width: 100%;
   gap: 1.5rem;
+  height: 14rem;
 
   @media screen and ${device.tablet} {
     margin-block-start: 1.5rem;

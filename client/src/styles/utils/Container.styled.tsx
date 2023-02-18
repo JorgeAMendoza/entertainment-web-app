@@ -10,10 +10,8 @@ const Container = styled.div`
 export const RouteContainer = styled.main`
   padding-top: 2.4rem;
   width: 100%;
-
-  & > * {
-    margin-block-end: 1.9rem;
-  }
+  display: grid;
+  gap: 2.4rem;
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;
@@ -23,10 +21,8 @@ export const RouteContainer = styled.main`
 export const PageContainer = styled.main`
   padding-top: 2.4rem;
   width: 100%;
-
-  & > * {
-    margin-block-end: 2.2rem;
-  }
+  display: grid;
+  gap: 1.9rem;
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;

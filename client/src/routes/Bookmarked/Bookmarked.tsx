@@ -31,7 +31,7 @@ const Bookmarked = () => {
     content.user.bookmarkedShows?.length === 0
   ) {
     return (
-      <PageContainer style={{ border: '1px solid black;' }}>
+      <PageContainer>
         <NoBookmarks />
       </PageContainer>
     );
