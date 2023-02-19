@@ -15,6 +15,7 @@ export const RouteContainer = styled.main`
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;
+    gap: 3.1rem;
   }
 `;
 

@@ -24,16 +24,15 @@ const TrendingSection = styled.section`
 
 const TrendingTitle = styled.h2`
   font-weight: 300;
-  width: 92%;
+  width: 93.5%;
   margin: 0 auto;
   font-size: 2rem;
-  margin-bottom: -1.9rem;
+  margin-bottom: -2.9rem;
   letter-spacing: -0.3px;
 
   @media screen and ${device.tablet} {
     font-size: 3.2rem;
     padding: 0;
-    padding-top: 1.1rem;
   }
 
   @media screen and ${device.laptop} {
@@ -46,7 +45,7 @@ const TrendingItems = styled.div`
   display: flex;
   width: 100%;
   gap: 1.5rem;
-  height: 15rem;
+  height: 24rem;
 
   @media screen and ${device.tablet} {
     margin-block-start: 1.5rem;
