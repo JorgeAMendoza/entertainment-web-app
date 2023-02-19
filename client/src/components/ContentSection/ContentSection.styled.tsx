@@ -9,6 +9,7 @@ const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto;
+  grid-auto-rows: 15.4rem;
   text-align: center;
   gap: 1.5rem;
 `;

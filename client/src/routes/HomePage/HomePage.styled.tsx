@@ -6,7 +6,7 @@ const TrendingSection = styled.section`
   direction: ltr;
   padding: 0 1.7rem;
   padding-top: 0.7rem;
-
+  margin-bottom: -1rem;
   position: relative;
 
   h2 {
@@ -46,7 +46,7 @@ const TrendingItems = styled.div`
   display: flex;
   width: 100%;
   gap: 1.5rem;
-  height: 14rem;
+  height: 15rem;
 
   @media screen and ${device.tablet} {
     margin-block-start: 1.5rem;
