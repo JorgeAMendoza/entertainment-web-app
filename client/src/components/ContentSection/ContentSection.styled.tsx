@@ -1,23 +1,37 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device-breakpoints';
 
 const ContentSection = styled.section`
   width: 92%;
   margin: 0 auto;
+
+  @media screen and ${device.tablet} {
+    width: 93.5%;
+  }
 `;
 
 const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  grid-auto-rows: 15.4rem;
   text-align: center;
   gap: 1.5rem;
+
+  @media screen and ${device.tablet} {
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
 `;
 
 const Title = styled.p`
   font-size: 2rem;
   font-weight: 300;
   margin-block-end: 2rem;
+
+  @media screen and ${device.tablet} {
+    font-size: 3.2rem;
+    letter-spacing: -0.5px;
+  }
 `;
 
 export default { ContentSection, Title, ContentContainer };

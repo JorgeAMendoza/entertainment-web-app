@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import device from '../../styles/utils/device-breakpoints';
 
 const SmallContent = styled.figure``;
 
@@ -48,9 +49,15 @@ const ContentInfo = styled.div`
   font-weight: 300;
   font-size: 1.1rem;
   margin-block-end: 0.3rem;
+  opacity: 0.75;
 
   img {
     width: 1rem;
+  }
+
+  @media screen and ${device.tablet} {
+    font-size: 1.3rem;
+    gap: 0.9rem;
   }
 `;
 
@@ -64,6 +71,10 @@ const ContentIcon = styled.div`
 const Title = styled.p`
   font-size: 1.4rem;
   font-weight: medium;
+
+  @media screen and ${device.tablet} {
+    font-size: 1.8rem;
+  }
 `;
 
 export default {
