@@ -28,10 +28,10 @@ const Title = styled.p`
   font-size: 2rem;
   font-weight: 300;
   margin-block-end: 2rem;
+  letter-spacing: -0.5px;
 
   @media screen and ${device.tablet} {
     font-size: 3.2rem;
-    letter-spacing: -0.5px;
   }
 `;
 
