@@ -39,7 +39,7 @@ const BookmarkButton = styled.button`
 `;
 
 const ContentContainer = styled.div`
-  margin-block-start: 0.8rem;
+  margin-block-start: 0.5rem;
   text-align: left;
 `;
 

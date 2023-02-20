@@ -17,7 +17,8 @@ const ContentContainer = styled.div`
   gap: 1.5rem;
 
   @media screen and ${device.tablet} {
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    grid-template-columns: repeat(3, minmax(22rem, 1fr));
+    grid-auto-rows: 19.2rem;
     justify-content: space-between;
     gap: 2.5rem;
   }

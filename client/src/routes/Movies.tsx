@@ -37,25 +37,23 @@ const Movies = () => {
         placeholderText="Search for movies"
       />
 
-      <section>
-        <div>{loading ? <p>loading movies</p> : null}</div>
-        <ContentSection title="Movies">
-          {content
-            ? content.movies.map((movie) => (
-                <SmallContentCard
-                  key={movie.id}
-                  rating={movie.rating}
-                  title={movie.title}
-                  type={movie.type}
-                  year={movie.year}
-                  bookmarked={movie.bookmarked}
-                  id={movie.id}
-                  images={movie.images}
-                />
-              ))
-            : null}
-        </ContentSection>
-      </section>
+      {loading ? <p>loading movies</p> : null}
+      <ContentSection title="Movies">
+        {content
+          ? content.movies.map((movie) => (
+              <SmallContentCard
+                key={movie.id}
+                rating={movie.rating}
+                title={movie.title}
+                type={movie.type}
+                year={movie.year}
+                bookmarked={movie.bookmarked}
+                id={movie.id}
+                images={movie.images}
+              />
+            ))
+          : null}
+      </ContentSection>
     </PageContainer>
   );
 };
