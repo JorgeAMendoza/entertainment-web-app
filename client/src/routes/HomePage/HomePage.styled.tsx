@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import device from '../../styles/utils/device-breakpoints';
 
 const TrendingSection = styled.section`
-  overflow: scroll;
+  overflow-x: scroll;
   direction: ltr;
   padding: 0 1.7rem;
   padding-top: 0.7rem;

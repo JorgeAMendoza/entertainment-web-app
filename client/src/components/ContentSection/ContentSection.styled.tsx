@@ -8,6 +8,11 @@ const ContentSection = styled.section`
   @media screen and ${device.tablet} {
     width: 93.5%;
   }
+
+  @media screen and ${device.laptop} {
+    width: 100%;
+    padding-right: 3.4rem;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -19,8 +24,13 @@ const ContentContainer = styled.div`
   @media screen and ${device.tablet} {
     grid-template-columns: repeat(3, minmax(22rem, 1fr));
     grid-auto-rows: max-content;
-    justify-content: space-between;
     gap: 2.5rem;
+  }
+
+  @media screen and ${device.laptop} {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    grid-auto-rows: max-content;
+    gap: 3.3rem;
   }
 `;
 
@@ -32,6 +42,7 @@ const Title = styled.p`
 
   @media screen and ${device.tablet} {
     font-size: 3.2rem;
+    margin-block-end: 3rem;
   }
 `;
 

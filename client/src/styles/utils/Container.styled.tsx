@@ -23,7 +23,7 @@ export const PageContainer = styled.main`
   padding-top: 2.4rem;
   width: 100%;
   display: grid;
-  gap: 3.2rem;
+  gap: 2.4rem;
 
   @media screen and ${device.tablet} {
     padding-top: 3.1rem;
