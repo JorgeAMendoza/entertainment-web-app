@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import device from './utils/device-breakpoints';
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -40,6 +41,10 @@ const GlobalStyles = createGlobalStyle`
     background-color: var(--dark-blue);
     color: var(--white);
     padding-bottom:3rem;
+
+    @media screen and ${device.laptop}{
+      padding-bottom: 2rem;
+    }
   } 
   img,svg {
     max-width: 100%;
