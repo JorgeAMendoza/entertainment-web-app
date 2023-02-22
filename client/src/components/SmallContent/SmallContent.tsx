@@ -5,15 +5,20 @@ import movieCategoryIcon from '../../assets/icon-category-movie.svg';
 import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import useBookmarkMutation from '../../hooks/bookmarkMutation';
 import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
+import Styled from './SmallContent.styled';
 
 interface SmallContentProps {
   id: string;
-  image: string;
   rating: string;
   title: string;
   type: string;
   year: number;
   bookmarked: boolean;
+  images: {
+    small: string;
+    medium: string;
+    large: string;
+  };
 }
 
 const SmallContentCard = ({
@@ -23,6 +28,7 @@ const SmallContentCard = ({
   year,
   bookmarked,
   id,
+  images,
 }: SmallContentProps) => {
   const { bookmarkContent } = useBookmarkMutation();
   const { unbookmarkContent } = useUnbookmarkMutation();
@@ -39,10 +45,9 @@ const SmallContentCard = ({
     }
   };
   return (
-    <figure>
-      {/* this first div will have the image as the background, with the button inside placed absoluteley.  */}
-      <div>
-        <button
+    <Styled.SmallContent>
+      <Styled.ImageContainer>
+        <Styled.BookmarkButton
           data-cy="bookmarkButton"
           onClick={bookmark}
           aria-label={
@@ -55,34 +60,40 @@ const SmallContentCard = ({
             src={bookmarked ? bookmarkIconFull : bookmarkIconEmpty}
             alt="bookmark content icon"
           />
-        </button>
+        </Styled.BookmarkButton>
 
-        <button aria-label="click to play (current content name here)">
+        <Styled.PlayButton aria-label="click to play (current content name here)">
           <div>
             <img src={playIcon} alt="play icon" />
           </div>
           play
-        </button>
-      </div>
+        </Styled.PlayButton>
 
-      <div>
-        <div>
-          <p aria-label="content release year">{year} &bull; </p>
-          <div>
+        <picture>
+          <source
+            srcSet={'http://localhost:4000/' + images.medium}
+            media="(min-width:768px)"
+          />
+          <img src={'http://localhost:4000/' + images.small} />
+        </picture>
+      </Styled.ImageContainer>
+
+      <Styled.ContentContainer>
+        <Styled.ContentInfo>
+          <p aria-label="content release year">{year}</p>&bull;
+          <Styled.ContentIcon>
             {type === 'movie' ? (
               <img src={movieCategoryIcon} alt="movie category icon" />
             ) : (
               <img src={showCategoryIcon} alt="tv series category icon" />
             )}
             <p>{type}</p>
-          </div>{' '}
-          &bull; <span>{rating}</span>
-        </div>
-        <div>
-          <h4>{title}</h4>
-        </div>
-      </div>
-    </figure>
+          </Styled.ContentIcon>{' '}
+          &bull;<span>{rating}</span>
+        </Styled.ContentInfo>
+        <Styled.Title>{title}</Styled.Title>
+      </Styled.ContentContainer>
+    </Styled.SmallContent>
   );
 };
 

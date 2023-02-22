@@ -3,7 +3,8 @@ import DashboardSearch from '../components/DashboardSearch/DashboardSearch';
 import SmallContentCard from '../components/SmallContent/SmallContent';
 import { useGetAllMoviesQuery } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
-import RouteContainer from '../styles/utils/RouteContainer.styled';
+import { PageContainer } from '../styles/utils/Container.styled';
+import ContentSection from '../components/ContentSection/ContentSection';
 
 const Movies = () => {
   const { loading, data: content } = useGetAllMoviesQuery();
@@ -17,47 +18,43 @@ const Movies = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <RouteContainer>
+      <PageContainer>
         <DashboardSearch
           search={search}
           setSearch={setSearch}
           placeholderText="Search for movies"
         />
         <SearchResults query={search} searchedData={searchedContent} />
-      </RouteContainer>
+      </PageContainer>
     );
   }
 
   return (
-    <RouteContainer data-cy="moviePage">
+    <PageContainer data-cy="moviePage">
       <DashboardSearch
         search={search}
         setSearch={setSearch}
         placeholderText="Search for movies"
       />
 
-      <section>
-        <h1>Movies</h1>
-
-        <div>{loading ? <p>loading movies</p> : null}</div>
-        <div data-cy="moviesList">
-          {content
-            ? content.movies.map((movie) => (
-                <SmallContentCard
-                  key={movie.id}
-                  image={movie.images.medium}
-                  rating={movie.rating}
-                  title={movie.title}
-                  type={movie.type}
-                  year={movie.year}
-                  bookmarked={movie.bookmarked}
-                  id={movie.id}
-                />
-              ))
-            : null}
-        </div>
-      </section>
-    </RouteContainer>
+      {loading ? <p>loading movies</p> : null}
+      <ContentSection title="Movies">
+        {content
+          ? content.movies.map((movie) => (
+              <SmallContentCard
+                key={movie.id}
+                rating={movie.rating}
+                title={movie.title}
+                type={movie.type}
+                year={movie.year}
+                bookmarked={movie.bookmarked}
+                id={movie.id}
+                images={movie.images}
+              />
+            ))
+          : null}
+      </ContentSection>
+    </PageContainer>
   );
 };
 

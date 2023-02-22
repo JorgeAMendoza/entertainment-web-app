@@ -7,8 +7,9 @@ import {
   useSearchAllContentLazyQuery,
 } from '../../generated/graphql';
 import SearchResults from '../../components/SearchResults/SearchResults';
-import RouteContainer from '../../styles/utils/RouteContainer.styled';
+import { RouteContainer } from '../../styles/utils/Container.styled';
 import Styled from './HomePage.styled';
+import ContentSection from '../../components/ContentSection/ContentSection';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
@@ -88,25 +89,22 @@ const Homepage = () => {
         </Styled.TrendingItems>
       </Styled.TrendingSection>
 
-      <section>
-        <h2>Recommended for you</h2>
-        <div data-cy="recommendedContent">
-          {homepageLoading && <p>Loading Recommended Content</p>}
-          {homepageContent &&
-            homepageContent.homepage.recommended.map((content) => (
-              <SmallContent
-                key={content.id}
-                title={content.title}
-                year={content.year}
-                type={content.type}
-                rating={content.rating}
-                image={content.images.medium}
-                id={content.id}
-                bookmarked={content.bookmarked}
-              />
-            ))}
-        </div>
-      </section>
+      <ContentSection title="Recommended for you">
+        {homepageLoading && <p>Loading Recommended Content</p>}
+        {homepageContent &&
+          homepageContent.homepage.recommended.map((content) => (
+            <SmallContent
+              key={content.id}
+              title={content.title}
+              year={content.year}
+              type={content.type}
+              rating={content.rating}
+              id={content.id}
+              bookmarked={content.bookmarked}
+              images={content.images}
+            />
+          ))}
+      </ContentSection>
     </RouteContainer>
   );
 };

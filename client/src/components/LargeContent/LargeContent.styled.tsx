@@ -4,7 +4,7 @@ import device from '../../styles/utils/device-breakpoints';
 const LargeContent = styled.figure`
   position: relative;
   min-width: 24rem;
-  min-height: 14rem;
+  height: 14rem;
   border-radius: 8px;
 
   @media screen and ${device.tablet} {
@@ -40,18 +40,19 @@ const ContentContainer = styled.div`
   height: 100%;
   position: relative;
 
-  &::before {
+  &::after {
     content: '';
     position: absolute;
     background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0.6) 80%
+      rgba(0, 0, 0, 0.4) 80%
     );
     height: 50%;
     width: 100%;
     left: 0;
     bottom: 0;
+    border-radius: 8px;
   }
 
   @media screen and ${device.tablet} {

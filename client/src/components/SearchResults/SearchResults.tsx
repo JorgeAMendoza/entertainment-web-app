@@ -1,5 +1,6 @@
 import SmallContent from '../SmallContent/SmallContent';
 import { Movie, Show } from '../../generated/graphql';
+import ContentSection from '../ContentSection/ContentSection';
 
 // need the serach result and the data.
 interface SearchResultsProps {
@@ -10,23 +11,23 @@ interface SearchResultsProps {
 const SearchResults = ({ query, searchedData }: SearchResultsProps) => {
   return (
     <main>
-      <h2>
-        Found {searchedData.length} results for &apos;{query}&apos;
-      </h2>
-      <div data-cy="searchResults">
+      <ContentSection
+        title={`Found ${searchedData.length} results for '${query}'`}
+        data-cy="searchResults"
+      >
         {searchedData.map((content) => (
           <SmallContent
             key={content.id}
-            image={content.images.medium}
             rating={content.rating}
             title={content.title}
             type={content.type}
             year={content.year}
             bookmarked={content.bookmarked}
             id={content.id}
+            images={content.images}
           />
         ))}
-      </div>
+      </ContentSection>
     </main>
   );
 };
