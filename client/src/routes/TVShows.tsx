@@ -39,7 +39,7 @@ const TVShows = () => {
 
       <section>
         <div>{loading ? <p>loading shows</p> : null}</div>
-        <ContentSection title="TV Series">
+        <ContentSection title="TV Series" testId='showList'>
           {content
             ? content.shows.map((show) => (
                 <SmallContent

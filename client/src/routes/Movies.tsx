@@ -18,7 +18,7 @@ const Movies = () => {
 
   if (search !== '' && searchedContent) {
     return (
-      <PageContainer>
+      <PageContainer data-cy="moviePage">
         <DashboardSearch
           search={search}
           setSearch={setSearch}
@@ -38,7 +38,7 @@ const Movies = () => {
       />
 
       {loading ? <p>loading movies</p> : null}
-      <ContentSection title="Movies">
+      <ContentSection title="Movies" testId="movieList">
         {content
           ? content.movies.map((movie) => (
               <SmallContentCard

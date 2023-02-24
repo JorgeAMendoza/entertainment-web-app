@@ -75,8 +75,9 @@ describe('user signup', () => {
     cy.get('@signUpEmail').type('isabelmendoza2002@gmail.com');
     cy.get('@signUpPassword').type('Luffy!?1990');
     cy.get('@signUpRepeatPassword')
-      .type('Luffy!1990')
       .find('input')
+      .focus()
+      .type('Luffy!1990')
       .focus()
       .blur();
 
@@ -89,7 +90,7 @@ describe('user signup', () => {
     cy.get('@signUpEmail').type('jorgemendoza2002@gmail.com');
     cy.get('@signUpName').type('Jorge Mendoza');
     cy.get('@signUpPassword').type('Luffy!?1990');
-    cy.get('@signUpRepeatPassword').type('Luffy!?1990');
+    cy.get('@signUpRepeatPassword').find('input').focus().type('Luffy!?1990');
 
     cy.get('@signUpButton').click();
     cy.get('[data-cy="signUpError"]').should(

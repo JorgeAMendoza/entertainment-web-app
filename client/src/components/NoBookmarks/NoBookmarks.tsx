@@ -3,7 +3,7 @@ import Styled from './NoBookMarks.styled';
 
 const NoBookmarks = () => {
   return (
-    <Styled.NoBookmarks>
+    <Styled.NoBookmarks data-cy="noBookmarks">
       <div>
         <Styled.Title>No bookmarks found</Styled.Title>
         <Styled.Message>
