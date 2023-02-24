@@ -13,7 +13,7 @@ const SearchResults = ({ query, searchedData }: SearchResultsProps) => {
     <main>
       <ContentSection
         title={`Found ${searchedData.length} results for '${query}'`}
-        data-cy="searchResults"
+        testId="searchResults"
       >
         {searchedData.map((content) => (
           <SmallContent

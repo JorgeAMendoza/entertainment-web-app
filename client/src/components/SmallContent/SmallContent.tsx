@@ -91,7 +91,7 @@ const SmallContentCard = ({
           </Styled.ContentIcon>{' '}
           &bull;<span>{rating}</span>
         </Styled.ContentInfo>
-        <Styled.Title>{title}</Styled.Title>
+        <Styled.Title data-cy="smallContentTitle">{title}</Styled.Title>
       </Styled.ContentContainer>
     </Styled.SmallContent>
   );

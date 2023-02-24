@@ -89,7 +89,7 @@ const Homepage = () => {
         </Styled.TrendingItems>
       </Styled.TrendingSection>
 
-      <ContentSection title="Recommended for you">
+      <ContentSection title="Recommended for you" testId="recommendedContent">
         {homepageLoading && <p>Loading Recommended Content</p>}
         {homepageContent &&
           homepageContent.homepage.recommended.map((content) => (

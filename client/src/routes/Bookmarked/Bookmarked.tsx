@@ -31,7 +31,7 @@ const Bookmarked = () => {
     content.user.bookmarkedShows?.length === 0
   ) {
     return (
-      <PageContainer>
+      <PageContainer data-cy="bookmarkPage">
         <NoBookmarks />
       </PageContainer>
     );
@@ -58,7 +58,7 @@ const Bookmarked = () => {
         placeholderText="Search for bookmarked content"
       />
 
-      <ContentSection title="Bookmarked Movies">
+      <ContentSection title="Bookmarked Movies" testId="bookmarkedMovies">
         {content?.user?.bookmarkedMovies ? (
           content.user.bookmarkedMovies.length !== 0 ? (
             content.user.bookmarkedMovies.map((movie) => (
@@ -82,7 +82,7 @@ const Bookmarked = () => {
         ) : null}
       </ContentSection>
 
-      <ContentSection title="Bookmarked TV Series">
+      <ContentSection title="Bookmarked TV Series" testId="bookmarkedShows">
         {content?.user?.bookmarkedShows ? (
           content.user.bookmarkedShows.length !== 0 ? (
             content.user.bookmarkedShows.map((show) => (
