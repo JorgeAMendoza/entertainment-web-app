@@ -1,4 +1,4 @@
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { useSignUpUserMutation } from '../generated/graphql';
 import logoIcon from '../assets/logo.svg';
 import { SignUpForm } from '../types/form-props';
