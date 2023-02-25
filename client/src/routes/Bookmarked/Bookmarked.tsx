@@ -8,6 +8,7 @@ import { PageContainer } from '../../styles/utils/Container.styled';
 import ContentSection from '../../components/ContentSection/ContentSection';
 import NoBookmarks from '../../components/NoBookmarks/NoBookmarks';
 import Styled from './Bookmarked.styled';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
@@ -25,6 +26,14 @@ const Bookmarked = () => {
       content.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (loading) {
+    return (
+      <PageContainer>
+        <LoadingSpinner />
+      </PageContainer>
+    );
+  }
 
   if (
     content?.user?.bookmarkedMovies?.length === 0 &&
