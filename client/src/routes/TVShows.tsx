@@ -5,6 +5,7 @@ import SearchResults from '../components/SearchResults/SearchResults';
 import { useGetAllShowsQuery } from '../generated/graphql';
 import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 
 const TVShows = () => {
   const [search, setSearch] = useState('');
@@ -15,6 +16,13 @@ const TVShows = () => {
       show.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (loading)
+    return (
+      <PageContainer>
+        <LoadingSpinner />
+      </PageContainer>
+    );
 
   if (search !== '' && searchedContent) {
     return (
@@ -36,26 +44,22 @@ const TVShows = () => {
         setSearch={setSearch}
         placeholderText="Search for TV shows"
       />
-
-      <section>
-        <div>{loading ? <p>loading shows</p> : null}</div>
-        <ContentSection title="TV Series" testId='showList'>
-          {content
-            ? content.shows.map((show) => (
-                <SmallContent
-                  key={show.id}
-                  rating={show.rating}
-                  title={show.title}
-                  type={show.type}
-                  year={show.year}
-                  id={show.id}
-                  bookmarked={show.bookmarked}
-                  images={show.images}
-                />
-              ))
-            : null}
-        </ContentSection>
-      </section>
+      <ContentSection title="TV Series" testId="showList">
+        {content
+          ? content.shows.map((show) => (
+              <SmallContent
+                key={show.id}
+                rating={show.rating}
+                title={show.title}
+                type={show.type}
+                year={show.year}
+                id={show.id}
+                bookmarked={show.bookmarked}
+                images={show.images}
+              />
+            ))
+          : null}
+      </ContentSection>
     </PageContainer>
   );
 };

@@ -10,6 +10,7 @@ import SearchResults from '../../components/SearchResults/SearchResults';
 import { RouteContainer } from '../../styles/utils/Container.styled';
 import Styled from './HomePage.styled';
 import ContentSection from '../../components/ContentSection/ContentSection';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
@@ -30,6 +31,12 @@ const Homepage = () => {
   const searchAllContent = async (): Promise<void> => {
     await getSearch();
   };
+
+  if (homepageLoading) {
+    <RouteContainer>
+      <LoadingSpinner />
+    </RouteContainer>;
+  }
 
   if (search !== '') {
     if (searchLoading) {

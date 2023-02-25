@@ -5,6 +5,7 @@ import { useGetAllMoviesQuery } from '../generated/graphql';
 import SearchResults from '../components/SearchResults/SearchResults';
 import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
+import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
 
 const Movies = () => {
   const { loading, data: content } = useGetAllMoviesQuery();
@@ -15,6 +16,13 @@ const Movies = () => {
       movie.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (loading)
+    return (
+      <PageContainer>
+        <LoadingSpinner />
+      </PageContainer>
+    );
 
   if (search !== '' && searchedContent) {
     return (
@@ -36,8 +44,6 @@ const Movies = () => {
         setSearch={setSearch}
         placeholderText="Search for movies"
       />
-
-      {loading ? <p>loading movies</p> : null}
       <ContentSection title="Movies" testId="movieList">
         {content
           ? content.movies.map((movie) => (
