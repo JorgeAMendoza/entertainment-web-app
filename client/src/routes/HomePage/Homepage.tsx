@@ -73,8 +73,6 @@ const Homepage = () => {
 
       <Styled.TrendingTitle>Trending</Styled.TrendingTitle>
       <Styled.TrendingSection>
-        {homepageLoading && <p>loading trending content</p>}
-
         <Styled.TrendingItems data-cy="trendingContent">
           {homepageContent &&
             homepageContent.homepage.trending.map((content) => (
@@ -85,11 +83,7 @@ const Homepage = () => {
                 type={content.type}
                 rating={content.rating}
                 year={content.year}
-                images={{
-                  small: content.images.small,
-                  medium: content.images.medium,
-                  large: content.images.large,
-                }}
+                images={content.images}
                 bookmarked={content.bookmarked}
               />
             ))}
@@ -97,7 +91,6 @@ const Homepage = () => {
       </Styled.TrendingSection>
 
       <ContentSection title="Recommended for you" testId="recommendedContent">
-        {homepageLoading && <p>Loading Recommended Content</p>}
         {homepageContent &&
           homepageContent.homepage.recommended.map((content) => (
             <SmallContent

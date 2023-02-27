@@ -6,6 +6,7 @@ import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import useBookmarkMutation from '../../hooks/bookmarkMutation';
 import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
 import Styled from './SmallContent.styled';
+import { memo } from 'react';
 
 interface SmallContentProps {
   id: string;
@@ -97,4 +98,4 @@ const SmallContentCard = ({
   );
 };
 
-export default SmallContentCard;
+export default memo(SmallContentCard);

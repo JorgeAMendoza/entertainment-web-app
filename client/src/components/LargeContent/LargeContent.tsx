@@ -6,6 +6,7 @@ import showCategoryIcon from '../../assets/icon-category-tv.svg';
 import useBookmarkMutation from '../../hooks/bookmarkMutation';
 import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
 import Styled from './LargeContent.styled';
+import { memo } from 'react';
 
 interface LargeContentProps {
   id: string;
@@ -35,14 +36,11 @@ const LargeContent = ({
 
   const bookmark = () => {
     if (!bookmarked)
-      void bookmarkContent({
-        variables: { contentId: id, contentType: type },
-      });
-    else {
+      void bookmarkContent({ variables: { contentId: id, contentType: type } });
+    else
       void unbookmarkContent({
         variables: { contentId: id, contentType: type },
       });
-    }
   };
 
   return (
@@ -104,4 +102,4 @@ const LargeContent = ({
   );
 };
 
-export default LargeContent;
+export default memo(LargeContent);
