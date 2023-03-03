@@ -1,33 +1,27 @@
-import { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import LogOutModal from '../../components/LogOutModal';
+import { Outlet, useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import Styled from './Dashboard.styled';
-
-type DashboardLocState = null | { token: string };
+import { useVerifyTokenQuery } from '../../generated/graphql';
 
 export const Dashboard = () => {
-  const [token, setToken] = useState<null | string>(null);
-  const location = useLocation();
+  const { error, loading } = useVerifyTokenQuery();
+  const navigate = useNavigate();
 
-  const state = location.state as DashboardLocState;
+  if (error) {
+    localStorage.removeItem('ent-token');
+    navigate('/login');
+  }
 
-  useEffect(() => {
-    if (state === null) return;
-    else setToken(state.token);
-  }, [state]);
+  if (loading) return null;
+
   return (
     <>
-      {!token ? (
-        <LogOutModal />
-      ) : (
-        <Styled.Dashboard data-cy="dashboard">
-          <NavBar />
-          <div>
-            <Outlet />
-          </div>
-        </Styled.Dashboard> 
-      )}
+      <Styled.Dashboard data-cy="dashboard">
+        <NavBar />
+        <div>
+          <Outlet />
+        </div>
+      </Styled.Dashboard>
     </>
   );
 };

@@ -167,3 +167,11 @@ export const SEARCH_ALL_CONTENT = gql`
     }
   }
 `;
+
+export const VERIFY_TOKEN = gql`
+  query VerifyToken {
+    token {
+      token
+    }
+  }
+`;
