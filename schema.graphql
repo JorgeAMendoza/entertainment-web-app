@@ -4,6 +4,7 @@ type Query {
   homepage: HomepageContent!
   user: User
   search(title: String!): [Content!]!
+  token: Token
 }
 
 type Mutation {
