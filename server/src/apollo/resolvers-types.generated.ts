@@ -81,6 +81,7 @@ export type Query = {
   movies: Array<Movie>;
   search: Array<Content>;
   shows: Array<Show>;
+  token?: Maybe<Token>;
   user?: Maybe<User>;
 };
 
@@ -254,6 +255,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   movies?: Resolver<Array<ResolversTypes['Movie']>, ParentType, ContextType>;
   search?: Resolver<Array<ResolversTypes['Content']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'title'>>;
   shows?: Resolver<Array<ResolversTypes['Show']>, ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
