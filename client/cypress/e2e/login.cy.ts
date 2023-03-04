@@ -3,6 +3,14 @@
 describe('user login', () => {
   beforeEach(() => {
     cy.visit('/login');
+    cy.request({
+      method: 'POST',
+      url: 'http://localhost:4000/graphql',
+      body: {
+        operationName: 'Mutation',
+        query: 'mutation Mutation {resetDb}',
+      },
+    });
     cy.get('[data-cy="loginForm"]').as('loginForm');
     cy.get('[data-cy="loginEmail"]').as('loginEmail');
     cy.get('[data-cy="loginPassword"]').as('loginPassword');
