@@ -7,15 +7,22 @@ import {
   useSearchAllContentLazyQuery,
 } from '../../generated/graphql';
 import SearchResults from '../../components/SearchResults/SearchResults';
-import { RouteContainer } from '../../styles/utils/Container.styled';
+import {
+  PageContainer,
+  RouteContainer,
+} from '../../styles/utils/Container.styled';
 import Styled from './HomePage.styled';
 import ContentSection from '../../components/ContentSection/ContentSection';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import PageError from '../../components/PageError/PageError';
 
 const Homepage = () => {
   const [search, setSearch] = useState('');
-  const { loading: homepageLoading, data: homepageContent } =
-    useGetHomepageContentQuery();
+  const {
+    loading: homepageLoading,
+    data: homepageContent,
+    error: homepageError,
+  } = useGetHomepageContentQuery();
   const [getSearch, { loading: searchLoading, data: searchedContent }] =
     useSearchAllContentLazyQuery({
       variables: {
@@ -31,6 +38,13 @@ const Homepage = () => {
   const searchAllContent = async (): Promise<void> => {
     await getSearch();
   };
+
+  if (homepageError)
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
 
   if (homepageLoading) {
     <RouteContainer>

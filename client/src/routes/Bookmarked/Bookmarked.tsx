@@ -9,10 +9,11 @@ import ContentSection from '../../components/ContentSection/ContentSection';
 import NoBookmarks from '../../components/NoBookmarks/NoBookmarks';
 import Styled from './Bookmarked.styled';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import PageError from '../../components/PageError/PageError';
 
 const Bookmarked = () => {
   const [search, setSearch] = useState('');
-  const { loading, data: content } = useGetBookmarkedContentQuery();
+  const { loading, data: content, error } = useGetBookmarkedContentQuery();
 
   const searchedContent: (Show | Movie)[] = useMemo(() => {
     if (!content) return [];
@@ -26,6 +27,13 @@ const Bookmarked = () => {
       content.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (error)
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
 
   if (loading) {
     return (
