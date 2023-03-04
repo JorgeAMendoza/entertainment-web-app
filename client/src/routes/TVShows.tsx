@@ -6,16 +6,24 @@ import { useGetAllShowsQuery } from '../generated/graphql';
 import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import PageError from '../components/PageError/PageError';
 
 const TVShows = () => {
   const [search, setSearch] = useState('');
-  const { loading, data: content } = useGetAllShowsQuery();
+  const { loading, data: content, error } = useGetAllShowsQuery();
 
   const searchedContent = useMemo(() => {
     return content?.shows.filter((show) =>
       show.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (error)
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
 
   if (loading)
     return (

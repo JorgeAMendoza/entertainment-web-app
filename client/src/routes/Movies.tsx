@@ -6,9 +6,10 @@ import SearchResults from '../components/SearchResults/SearchResults';
 import { PageContainer } from '../styles/utils/Container.styled';
 import ContentSection from '../components/ContentSection/ContentSection';
 import LoadingSpinner from '../components/LoadingSpinner/LoadingSpinner';
+import PageError from '../components/PageError/PageError';
 
 const Movies = () => {
-  const { loading, data: content } = useGetAllMoviesQuery();
+  const { loading, data: content, error } = useGetAllMoviesQuery();
   const [search, setSearch] = useState('');
 
   const searchedContent = useMemo(() => {
@@ -16,6 +17,14 @@ const Movies = () => {
       movie.title.toLowerCase().includes(search.toLowerCase())
     );
   }, [search, content]);
+
+  if (error) {
+    return (
+      <PageContainer>
+        <PageError />
+      </PageContainer>
+    );
+  }
 
   if (loading)
     return (
