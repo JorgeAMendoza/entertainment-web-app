@@ -81,6 +81,7 @@ export type Query = {
   movies: Array<Movie>;
   search: Array<Content>;
   shows: Array<Show>;
+  token?: Maybe<Token>;
   user?: Maybe<User>;
 };
 
@@ -173,6 +174,11 @@ export type SearchAllContentQueryVariables = Exact<{
 
 
 export type SearchAllContentQuery = { __typename?: 'Query', search: Array<{ __typename?: 'Movie', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } } | { __typename?: 'Show', id: string, title: string, year: number, rating: string, type: string, bookmarked: boolean, images: { __typename?: 'ImageLinks', small: string, medium: string, large: string } }> };
+
+export type VerifyTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type VerifyTokenQuery = { __typename?: 'Query', token?: { __typename?: 'Token', token: string } | null };
 
 
 export const LoginUserDocument = gql`
@@ -658,3 +664,37 @@ export function useSearchAllContentLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type SearchAllContentQueryHookResult = ReturnType<typeof useSearchAllContentQuery>;
 export type SearchAllContentLazyQueryHookResult = ReturnType<typeof useSearchAllContentLazyQuery>;
 export type SearchAllContentQueryResult = Apollo.QueryResult<SearchAllContentQuery, SearchAllContentQueryVariables>;
+export const VerifyTokenDocument = gql`
+    query VerifyToken {
+  token {
+    token
+  }
+}
+    `;
+
+/**
+ * __useVerifyTokenQuery__
+ *
+ * To run a query within a React component, call `useVerifyTokenQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyTokenQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerifyTokenQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useVerifyTokenQuery(baseOptions?: Apollo.QueryHookOptions<VerifyTokenQuery, VerifyTokenQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<VerifyTokenQuery, VerifyTokenQueryVariables>(VerifyTokenDocument, options);
+      }
+export function useVerifyTokenLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VerifyTokenQuery, VerifyTokenQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<VerifyTokenQuery, VerifyTokenQueryVariables>(VerifyTokenDocument, options);
+        }
+export type VerifyTokenQueryHookResult = ReturnType<typeof useVerifyTokenQuery>;
+export type VerifyTokenLazyQueryHookResult = ReturnType<typeof useVerifyTokenLazyQuery>;
+export type VerifyTokenQueryResult = Apollo.QueryResult<VerifyTokenQuery, VerifyTokenQueryVariables>;

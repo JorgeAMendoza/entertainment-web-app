@@ -308,16 +308,9 @@ describe('homepage interactivity', () => {
 describe('login bypass', () => {
   beforeEach(() => {
     cy.visit('/dashboard');
-    cy.get('[data-cy="logoutModal"]').as('logoutModal');
-    cy.get('[data-cy="loginLink"]').as('loginLink');
   });
 
-  it('navigate to dashboard without being authenticated', () => {
-    cy.get('@logoutModal')
-      .find('h3')
-      .should('contain.text', 'You are not signed in');
-
-    cy.get('@loginLink').click();
+  it('navigate to back to login without token', () => {
     cy.url().should('include', '/login');
   });
 });

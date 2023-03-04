@@ -145,6 +145,17 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
 
     return [...filteredMovies, ...filteredShows];
   },
+
+  token: async (_, __, { currentUser }) => {
+    if (!currentUser) throw new AuthenticationError('invalid token');
+    const user = await userService.getUser(currentUser.id);
+    if (!user) throw new AuthenticationError('invalid token');
+    const token = 'token verified!';
+
+    return {
+      token,
+    };
+  },
 };
 
 export default queryResolver;
