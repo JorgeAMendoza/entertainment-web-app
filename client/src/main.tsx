@@ -17,9 +17,14 @@ import LoginProvider from './context/login-context';
 import Dashboard from './routes/Dashboard/Dashboard';
 import Root from './routes/Root/Root';
 import Homepage from './routes/HomePage/Homepage';
-import Movies from './routes/Movies';
-import TVShows from './routes/TVShows';
-import Bookmarked from './routes/Bookmarked/Bookmarked';
+import { Suspense } from 'react';
+import { lazy } from 'react';
+import SuspenseFallback from './components/SuspenseFallback/SuspenseFallback';
+
+// suspense
+const Movies = lazy(() => import('./routes/Movies'));
+const TVShows = lazy(() => import('./routes/TVShows'));
+const Bookmarked = lazy(() => import('./routes/Bookmarked/Bookmarked'));
 
 const httpLink = createHttpLink({
   uri: GRAPHQL_URI as string,
@@ -68,15 +73,27 @@ const router = createBrowserRouter([
               },
               {
                 path: '/dashboard/movies',
-                element: <Movies />,
+                element: (
+                  <Suspense fallback={<SuspenseFallback />}>
+                    <Movies />
+                  </Suspense>
+                ),
               },
               {
                 path: '/dashboard/shows',
-                element: <TVShows />,
+                element: (
+                  <Suspense fallback={<SuspenseFallback />}>
+                    <TVShows />
+                  </Suspense>
+                ),
               },
               {
                 path: '/dashboard/my-stuff',
-                element: <Bookmarked />,
+                element: (
+                  <Suspense fallback={<SuspenseFallback />}>
+                    <Bookmarked />
+                  </Suspense>
+                ),
               },
             ],
           },
