@@ -1,7 +1,23 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import device from '../../styles/utils/device-breakpoints';
 
-const SmallContent = styled.figure``;
+const SmallContentFadeIn = keyframes`
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+`;
+
+const SmallContent = styled.figure`
+  transition: opacity 2s ease-in;
+  animation: ${SmallContentFadeIn} 0.3s linear;
+`;
+
+const DummySmallContent = styled.div`
+  min-height: 19.2rem;
+`;
 
 const ImageContainer = styled.div`
   position: relative;
@@ -79,6 +95,7 @@ const Title = styled.p`
 
 export default {
   SmallContent,
+  DummySmallContent,
   ImageContainer,
   PlayButton,
   BookmarkButton,
