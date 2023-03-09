@@ -59,7 +59,7 @@ const SmallContentCard = ({
         <Styled.DummySmallContent />
       ) : (
         <Styled.SmallContent>
-          <Styled.ImageContainer>
+          <Styled.ImageContainer tabIndex={0}>
             <Styled.BookmarkButton
               data-cy="bookmarkButton"
               onClick={bookmark}
@@ -79,7 +79,7 @@ const SmallContentCard = ({
               <div>
                 <img src={playIcon} alt="play icon" />
               </div>
-              play
+              Play
             </Styled.PlayButton>
 
             <picture>

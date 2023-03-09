@@ -71,6 +71,10 @@ const GlobalStyles = createGlobalStyle`
     overflow-wrap: break-word;
     hyphens: auto;
   }
+
+  button{
+    cursor: pointer;
+  }
   
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 

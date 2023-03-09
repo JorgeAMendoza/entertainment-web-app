@@ -62,7 +62,6 @@ const ContentContainer = styled.div`
 `;
 
 const BookmarkButton = styled.button`
-  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   border: none;

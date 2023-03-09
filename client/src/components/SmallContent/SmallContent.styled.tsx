@@ -19,6 +19,25 @@ const DummySmallContent = styled.div`
   min-height: 19.2rem;
 `;
 
+const PlayButton = styled.button`
+  font-family: 'Outfit';
+  display: none;
+  background-color: rgba(151, 151, 151, 0.5);
+  border: none;
+  padding: 0.8rem 1rem;
+  border-radius: 24px;
+  color: var(--white);
+  font-weight: 500;
+  min-width: 10ch;
+  > div {
+    margin-right: 1.3rem;
+  }
+
+  @media screen and ${device.tablet} {
+    min-width: 12ch;
+  }
+`;
+
 const ImageContainer = styled.div`
   position: relative;
   width: 100%;
@@ -28,15 +47,32 @@ const ImageContainer = styled.div`
     border-radius: 8px;
     object-fit: cover;
   }
-`;
 
-const PlayButton = styled.button`
-  position: absolute;
-  display: none;
+  &:hover,
+  &:focus {
+    picture::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    ${PlayButton} {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 `;
 
 const BookmarkButton = styled.button`
-  cursor: pointer;
   position: absolute;
   top: 8%;
   right: 5%;
