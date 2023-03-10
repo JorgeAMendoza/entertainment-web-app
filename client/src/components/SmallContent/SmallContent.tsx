@@ -76,9 +76,9 @@ const SmallContentCard = ({
             </Styled.BookmarkButton>
 
             <Styled.PlayButton aria-label="click to play (current content name here)">
-              <div>
+              <span>
                 <img src={playIcon} alt="play icon" />
-              </div>
+              </span>
               Play
             </Styled.PlayButton>
 

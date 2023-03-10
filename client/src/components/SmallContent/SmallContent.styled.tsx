@@ -29,7 +29,7 @@ const PlayButton = styled.button`
   color: var(--white);
   font-weight: 500;
   min-width: 10ch;
-  > div {
+  > span {
     margin-right: 1.3rem;
   }
 
