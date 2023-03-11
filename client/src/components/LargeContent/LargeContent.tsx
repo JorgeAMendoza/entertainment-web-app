@@ -72,8 +72,8 @@ const LargeContent = ({
           />
         </Styled.BookmarkButton>
         <Styled.PlayButton>
-          <span aria-label="click the button to play (content name here)">
-            <img src={playIcon} alt="play the content (content name here)" />
+          <span aria-label={`click the button to play ${title}`}>
+            <img src={playIcon} alt="play button icon" />
           </span>
           Play
         </Styled.PlayButton>
