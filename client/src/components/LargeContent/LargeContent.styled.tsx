@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import device from '../../styles/utils/device-breakpoints';
 
-const LargeContent = styled.figure`
-  position: relative;
-  min-width: 24rem;
-  height: 14rem;
-  border-radius: 8px;
+const PlayButton = styled.button`
+  display: none;
+  font-family: 'Outfit';
+  background-color: rgba(151, 151, 151, 0.5);
+  border: none;
+  padding: 0.8rem 1rem;
+  border-radius: 24px;
+  color: var(--white);
+  font-weight: 500;
+  min-width: 10ch;
+  > span {
+    margin-right: 1.3rem;
+  }
 
   @media screen and ${device.tablet} {
-    min-width: 47rem;
-    height: 23rem;
+    min-width: 12ch;
   }
 `;
 
@@ -29,6 +36,40 @@ const ContentImage = styled.div`
     picture {
       width: 47rem;
       height: 23rem;
+    }
+  }
+`;
+
+const LargeContent = styled.figure`
+  position: relative;
+  min-width: 24rem;
+  height: 14rem;
+  border-radius: 8px;
+
+  @media screen and ${device.tablet} {
+    min-width: 47rem;
+    height: 23rem;
+  }
+
+  &:hover ${PlayButton}, &:focus ${PlayButton} {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:hover ${ContentImage}, &:focus ${ContentImage} {
+    picture::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
     }
   }
 `;
@@ -62,7 +103,6 @@ const ContentContainer = styled.div`
 `;
 
 const BookmarkButton = styled.button`
-  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   border: none;
@@ -72,15 +112,6 @@ const BookmarkButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const PlayButton = styled.div`
-  position: absolute;
-  display: flex;
-  width: fit-content;
-  top: 0;
-  left: 0;
-  display: none;
 `;
 
 const ContentInfo = styled.div`

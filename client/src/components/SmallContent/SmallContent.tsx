@@ -59,7 +59,7 @@ const SmallContentCard = ({
         <Styled.DummySmallContent />
       ) : (
         <Styled.SmallContent>
-          <Styled.ImageContainer>
+          <Styled.ImageContainer tabIndex={0}>
             <Styled.BookmarkButton
               data-cy="bookmarkButton"
               onClick={bookmark}
@@ -76,10 +76,10 @@ const SmallContentCard = ({
             </Styled.BookmarkButton>
 
             <Styled.PlayButton aria-label="click to play (current content name here)">
-              <div>
+              <span>
                 <img src={playIcon} alt="play icon" />
-              </div>
-              play
+              </span>
+              Play
             </Styled.PlayButton>
 
             <picture>

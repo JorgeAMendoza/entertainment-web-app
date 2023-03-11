@@ -143,9 +143,11 @@ describe('homepage interactivity', () => {
     cy.get('@movieTab').click();
 
     cy.get('[data-cy="movieList"]')
-      .find('figure:first-child')
-      .find('button:first-of-type')
-      .click();
+      .find('[data-cy="contentContainer"]')
+      .children()
+      .then((el) => {
+        cy.wrap(el[0]).find('[data-cy="bookmarkButton"]').click();
+      });
 
     cy.get('@bookmarkedTab').click();
     cy.get('[data-cy="bookmarkedMovies"]')
@@ -163,9 +165,10 @@ describe('homepage interactivity', () => {
 
     cy.get('[data-cy="showList"]')
       .find('[data-cy="contentContainer"]')
-      .find('figure:first-child')
-      .find('button:first-of-type')
-      .click();
+      .children()
+      .then((el) => {
+        cy.wrap(el[0]).find('[data-cy="bookmarkButton"]').click();
+      });
 
     cy.get('@bookmarkedTab').click();
     cy.get('[data-cy="bookmarkedShows"]')
@@ -183,9 +186,10 @@ describe('homepage interactivity', () => {
 
     cy.get('[data-cy="movieList"]')
       .find('[data-cy="contentContainer"]')
-      .find('figure:first-child')
-      .find('button:first-of-type')
-      .click();
+      .children()
+      .then((el) => {
+        cy.wrap(el[0]).find('[data-cy="bookmarkButton"]').click();
+      });
 
     cy.get('@bookmarkedTab').click();
     cy.get('[data-cy="bookmarkedMovies"]')
@@ -211,9 +215,10 @@ describe('homepage interactivity', () => {
 
     cy.get('[data-cy="showList"]')
       .find('[data-cy="contentContainer"]')
-      .find('figure:first-child')
-      .find('button:first-of-type')
-      .click();
+      .children()
+      .then((el) => {
+        cy.wrap(el[0]).find('[data-cy="bookmarkButton"]').click();
+      });
 
     cy.get('@bookmarkedTab').click();
     cy.get('[data-cy="bookmarkedShows"]')

@@ -72,12 +72,10 @@ const LargeContent = ({
           />
         </Styled.BookmarkButton>
         <Styled.PlayButton>
-          <div>
-            <button aria-label="click the button to play (content name here)">
-              <img src={playIcon} alt="play the content (content name here)" />
-            </button>
-          </div>
-          <p>play</p>
+          <span aria-label="click the button to play (content name here)">
+            <img src={playIcon} alt="play the content (content name here)" />
+          </span>
+          Play
         </Styled.PlayButton>
 
         <Styled.ContentInfo>
