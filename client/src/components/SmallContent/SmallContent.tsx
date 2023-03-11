@@ -75,7 +75,7 @@ const SmallContentCard = ({
               />
             </Styled.BookmarkButton>
 
-            <Styled.PlayButton aria-label="click to play (current content name here)">
+            <Styled.PlayButton aria-label={`click to play ${title}`}>
               <span>
                 <img src={playIcon} alt="play icon" />
               </span>
@@ -87,7 +87,10 @@ const SmallContentCard = ({
                 srcSet={'http://localhost:4000/' + images.medium}
                 media="(min-width:768px)"
               />
-              <img src={'http://localhost:4000/' + images.small} />
+              <img
+                src={'http://localhost:4000/' + images.small}
+                alt={`image of ${title}`}
+              />
             </picture>
           </Styled.ImageContainer>
 

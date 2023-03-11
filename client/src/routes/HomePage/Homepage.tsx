@@ -104,7 +104,7 @@ const Homepage = () => {
         </Styled.TrendingItems>
       </Styled.TrendingSection>
 
-      <ContentSection title="Recommended for you" testId="recommendedContent">
+      <ContentSection title="Recommended for you">
         {homepageContent &&
           homepageContent.homepage.recommended.map((content) => (
             <SmallContent
