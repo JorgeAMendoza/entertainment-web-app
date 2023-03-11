@@ -72,6 +72,7 @@ const SignUpRoute = () => {
                     type="text"
                     id="email"
                     placeholder="Email address"
+                    autoComplete="username"
                   />
                 </Styled.InputLabel>
 
@@ -84,6 +85,7 @@ const SignUpRoute = () => {
                     type="text"
                     id="name"
                     placeholder="Name"
+                    autoComplete="username"
                   />
                 </Styled.InputLabel>
 
@@ -97,6 +99,7 @@ const SignUpRoute = () => {
                       type="password"
                       id="password"
                       placeholder="Password"
+                      autoComplete="new-password"
                     />
                   </Styled.InputLabel>
                   <Styled.PasswordInfo>
@@ -124,6 +127,7 @@ const SignUpRoute = () => {
                     type="password"
                     id="repeatPassword"
                     placeholder="Repeat password"
+                    autoComplete="new-password"
                   />
                 </Styled.InputLabel>
               </div>

@@ -5,6 +5,7 @@ interface TextFieldProps {
   name: keyof LoginForm | keyof SignUpForm;
   type: 'text' | 'password';
   id: TextFieldProps['name'];
+  autoComplete?: string;
   placeholder: string;
 }
 
@@ -15,7 +16,7 @@ const TextField = (props: TextFieldProps) => {
     <>
       <input {...field} {...props} />
       {meta.touched && meta.error ? (
-        <p data-cy="errorMessage" aria-live="polite" >
+        <p data-cy="errorMessage" aria-live="polite">
           {meta.error}
         </p>
       ) : null}

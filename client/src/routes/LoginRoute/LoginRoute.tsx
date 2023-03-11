@@ -28,8 +28,6 @@ const LoginRoute = () => {
   useEffect(() => {
     const state = location.state as LocationStateLogin;
     if (state && state.logoutMessage) setLogoutMessage(state.logoutMessage);
-
-    // at some point, the logout messagwe may be a seperate component where it appears fro three seconds and then dissapears.
     const logoutMessage = setTimeout(() => {
       setLogoutMessage('');
     }, 2500);
@@ -77,6 +75,7 @@ const LoginRoute = () => {
                     type="text"
                     id="email"
                     placeholder="Email address"
+                    autoComplete="username"
                   />
                 </Styled.InputLabel>
                 <Styled.InputLabel
@@ -88,6 +87,7 @@ const LoginRoute = () => {
                     type="password"
                     id="password"
                     placeholder="Password"
+                    autoComplete="current-password"
                   />
                 </Styled.InputLabel>
               </div>
