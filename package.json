@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:client:dev": "cd client && npm run dev",
+    "start:client:prod": "cd client && npm run build && npm run preview",
     "start:backend:dev": "cd server && nodemon ./src/index.ts",
     "start:backend:test": "cd server && npm run server:test",
     "test:backend": "cd server && npm t",
