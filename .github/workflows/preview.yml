@@ -18,7 +18,10 @@ jobs:
         with:
           node-version: '18'
       - name: npm install
-        run: npm i
+        run: |
+          npm install
+          cd client && npm install
+          cd server ** npm install
       - name: lint backend
         run: npm run lint:backend
       - name: lint client
