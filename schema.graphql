@@ -1,57 +1,61 @@
-type Query{
-    movies: [Movie!]!
-    shows: [Show!]!
-    recommended: Recommended!
-    trending: Trending!
+type Query {
+  movies: [Movie!]!
+  shows: [Show!]!
+  homepage: HomepageContent!
+  user: User
+  search(title: String!): [Content!]!
+  token: Token
 }
 
-type Mutation{
-    addFavoriteShow(userId: String!, showId: String!): Show!
-    addFavoriteMovie(userId: String!, movieId: String!): Movie!
-    removeFavoriteShow(userId: String!, showId: String!): Show!
-    removeFavoriteMovie(userId: String!, movieId: String!): Movie!
+type Mutation {
+  bookmarkContent(contentId: String!, contentType: String!): Content!
+  unbookmarkContent(contentId: String!, contentType: String!): Content!
+  loginUser(email: String!, password: String!): Token!
+  signUpUser(email: String!, password: String!, name: String!): Token!
+  resetDb: String!
 }
 
 type Movie {
-    title: String!
-    year: String!
-    rating: String!
-    thumbnailTrending: ImageLinks
-    thumbnailRegular: ImageLinks
+  id: String!
+  title: String!
+  year: Int!
+  rating: String!
+  images: ImageLinks!
+  type: String!
+  bookmarked: Boolean!
 }
 
 type Show {
-    title: String!
-    year: String!
-    rating: String!
-    thumbnailTrending: ImageLinks
-    thumbnailRegular: ImageLinks
+  id: String!
+  title: String!
+  year: Int!
+  rating: String!
+  images: ImageLinks!
+  type: String!
+  bookmarked: Boolean!
 }
 
 type User {
-    username: String!
-    name: String!
-    email: String!
-    bookmarkedShows: [Show!]
-    bookmarkedMovies: [Movie!]
+  id: String!
+  name: String!
+  email: String!
+  bookmarkedShows: [Show!]
+  bookmarkedMovies: [Movie!]
 }
 
 type Token {
-    value: String
-}
-
-type Recommended {
-    shows: [Show!]!
-    movies: [Movie!]!
-}
-
-type Trending {
-    shows: [Show!]!
-    movies: [Show!]!
+  token: String!
 }
 
 type ImageLinks {
-    small: String
-    medium: String
-    large: String
+  small: String!
+  medium: String!
+  large: String!
 }
+
+type HomepageContent {
+  recommended: [Content!]!
+  trending: [Content!]!
+}
+
+union Content = Movie | Show

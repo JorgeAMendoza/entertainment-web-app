@@ -1,27 +1,15 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose from 'mongoose';
+import { DbMovie } from '../db';
 
-type MovieRatingTypes = 'G' | 'PG' | 'PG-13' | 'R' | 'NC-17';
-
-interface Movie extends Document {
-  title: string;
-  thumbnail: {
-    trending?: {
-      small: string;
-      medium: string;
-      large: string;
-    };
-    regular?: {
-      small: string;
-      medium: string;
-      large: string;
-    };
-  };
-  year: number;
-  rating: MovieRatingTypes;
-}
-
-const movieSchema: Schema = new Schema({
+const movieSchema = new mongoose.Schema<DbMovie>({
   title: String,
+  images: {
+    small: String,
+    medium: String,
+    large: String,
+  },
+  year: Number,
+  rating: String,
 });
 
-export const Movie = model<Movie>('Movie', movieSchema);
+export default mongoose.model<DbMovie>('Movie', movieSchema);

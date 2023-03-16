@@ -1,0 +1,36 @@
+name: Production Preview
+
+on:
+  push:
+    branches:
+      - production
+
+env:
+  MONGO_URL_TEST: mongodb://the_username:the_password@localhost:3456/entertainment_database_test
+  JWT_SECRET: k2ba1bCrKgA9D7bosZzzMhIL02jejmfM
+
+jobs:
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: npm install
+        run: npm i
+      - name: lint backend
+        run: npm run lint:backend
+      - name: lint client
+        run: npm run lint:client
+      - name: Docker Backend Test Container
+        run: npm run docker:mongo:test
+      - name: start backend test environment
+        run: npm run start:backend:test
+      - name: start backend test
+        run: npm run test:backend
+      - name: start client test
+        uses: cypress-io/github-action@v4.2.0
+        with:
+          browser: chrome
+          start: npm run start:client:dev
