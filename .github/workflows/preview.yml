@@ -17,11 +17,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '18'
-      - name: npm install
-        run: |
-          npm install
-          cd client && npm install
-          cd server && npm install
+      - name: npm install root
+        run: npm install
+      - name: npm install client
+        run: cd client && npm install
+      - name: npm install server
+        run: cd server && npm install
       - name: lint backend
         run: npm run lint:backend
       - name: lint client
