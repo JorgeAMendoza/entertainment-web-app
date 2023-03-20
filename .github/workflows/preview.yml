@@ -28,9 +28,7 @@ jobs:
       - name: lint client
         run: npm run lint:client
       - name: Backend test and container
-        run: npm run start:backend:test
-        with: 
-          start: npm run docker:mongo:test
+        run: npm run docker:mongo:test && npm run start:backend:test
       - name: start backend test
         run: npm run test:backend
       - name: start client test
