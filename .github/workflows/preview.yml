@@ -27,8 +27,10 @@ jobs:
         run: npm run lint:backend
       - name: lint client
         run: npm run lint:client
-      - name: Backend test and container
-        run: npm run docker:mongo:test && npm run start:backend:test
+      - name: Docker test container
+        run: docker-compose -f "docker-compose.dev.yml" up -d --build
+      - name: start server
+        run: npm run start:backend:test
       - name: start backend test
         run: npm run test:backend
       - name: start client test
