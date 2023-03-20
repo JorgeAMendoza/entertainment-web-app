@@ -28,7 +28,7 @@ jobs:
       - name: lint client
         run: npm run lint:client
       - name: Docker test container
-        run: docker-compose -f "docker-compose.dev.yml" up -d --build
+        run: docker-compose -f "docker-compose.test.yml" up -d --build
       - name: start server
         run: npm run start:backend:test
       - name: start backend test
