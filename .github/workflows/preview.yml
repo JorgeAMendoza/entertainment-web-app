@@ -31,6 +31,8 @@ jobs:
         run: docker-compose -f "docker-compose.test.yml" up -d --build
       - name: start server and run backend test
         run: npm run start:backend:test
+        env:
+          CI: true
       - name: start backend test
         run: npm run test:backend
       - name: start client test
