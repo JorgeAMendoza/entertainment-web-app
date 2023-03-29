@@ -31,8 +31,8 @@ jobs:
         run: docker build -f ./test.Dockerfile -t ent-test-server .
       - name: Docker test container
         run: docker-compose -f docker-compose.test.yml up -d
-      - name: List exposed ports of a container
-        run: docker port ent-test-server
+      - name: List Docker containers
+        run: docker ps
       - name: start backend test
         run: npm run test:backend
       - name: start client test
