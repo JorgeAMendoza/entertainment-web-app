@@ -15,6 +15,7 @@ services:
   server:
     image: ent-test-server
     build:
+      context: .
       dockerfile: test.Dockerfile
     ports:
       - 4000:4000
