@@ -13,7 +13,7 @@ services:
       - ./mongo-init-test.js:/docker-entrypoint-initdb.d/mongo-init.js
     container_name: entertainment-app-mongo-test
   server:
-    image: jorge/ent-test-server
+    image: ent-test-server
     build:
       dockerfile: test.Dockerfile
     ports:
