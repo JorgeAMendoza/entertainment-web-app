@@ -29,10 +29,7 @@ describe('homepage interactivity', () => {
   });
 
   it('recommended content contains 2 pieces of content', () => {
-    cy.get('[data-cy="recommendedContent"]')
-      .find('[data-cy="contentContainer"]')
-      .children()
-      .should('have.length', 2);
+    cy.get('[data-cy="contentContainer"]').children().should('have.length', 2);
   });
 
   it('search bar movies and shows', () => {
