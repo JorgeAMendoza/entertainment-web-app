@@ -34,5 +34,7 @@ jobs:
       - name: start client test
         uses: cypress-io/github-action@v4.2.0
         with:
+          install: false
+          working-directory: client
           browser: chrome
-          start: cd client && npm run start:client:dev
+          start: npm run start:client:dev
