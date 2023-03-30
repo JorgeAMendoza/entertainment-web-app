@@ -5,10 +5,6 @@ on:
     branches:
       - production
 
-env:
-  MONGO_URL_TEST: mongodb://the_username:the_password@localhost:3456/entertainment_database_test
-  JWT_SECRET: k2ba1bCrKgA9D7bosZzzMhIL02jejmfM
-
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
@@ -30,7 +26,11 @@ jobs:
       - name: build docker test server
         run: docker build -f ./test.Dockerfile -t ent-test-server .
       - name: Docker test container
-        run: docker-compose -f docker-compose.test.yml up
+        run: docker-compose -f docker-compose.test.yml up -d
+      - name: List Docker containers
+        run: docker ps
+      - name: start backend test
+        run: npm run test:backend
       - name: start client test
         uses: cypress-io/github-action@v4.2.0
         with:
