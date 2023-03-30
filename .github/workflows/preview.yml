@@ -36,4 +36,4 @@ jobs:
         with:
           working-directory: client
           browser: chrome
-          start: npm run start:client:dev
+          start: npm run dev
