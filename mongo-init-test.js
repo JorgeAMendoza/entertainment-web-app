@@ -5,7 +5,7 @@ db.createUser({
   roles: [
     {
       role: 'dbOwner',
-      db: 'entertainment_database_test',
+      db: 'entertainment_database',
     },
   ],
 });
