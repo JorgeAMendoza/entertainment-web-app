@@ -24,13 +24,21 @@ services:
   client:
     image: ent-client
     environment:
-      VITE_GRAPHQL: http://server:4000/graphql
+      VITE_GRAPHQL: http://localhost:8080/api
       VITE_HOST: http://server
     build:
       context: .
       dockerfile: ./docker/prod.client.Dockerfile
-    ports:
-      - 8080:8080
     depends_on:
       - server
     container_name: entertainment-client
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - server
+      - client
