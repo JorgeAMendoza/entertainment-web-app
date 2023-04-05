@@ -8,16 +8,18 @@
     "start:client:prod": "cd client && npm run build && npm run preview",
     "start:backend:dev": "cd server && nodemon ./src/index.ts",
     "start:backend:test": "cd server && npm run server:test",
+    "start:backend:prod": "cd server && npx tsc && node dist/index.js",
     "test:backend": "cd server && npm t",
     "test:client:e2e:open": "cd client && npm run cypress:open",
     "test:client:e2e": "cd client && npm run cypress:run",
     "start:dev": "npm run start:frontend:dev & npm run start:backend:dev",
     "lint:backend": "eslint ./server/src/**/*.{ts,tsx}",
     "lint:client": "cd client && npm run lint",
-    "docker:mongo:dev": "docker-compose -f docker-compose.dev.yml up",
+    "docker:start:dev": "docker-compose -f docker-compose.dev.yml up",
     "docker:start:test": "docker-compose -f docker-compose.test.yml up --build",
-    "docker:mongo:dev:down": "docker-compose -f docker-compose.dev.yml down",
-    "docker:down:test": "docker-compose -f docker-compose.test.yml down"
+    "docker:down:dev": "docker-compose -f docker-compose.dev.yml down",
+    "docker:down:test": "docker-compose -f docker-compose.test.yml down",
+    "docker:start:prod": "docker-compose -f docker-compose.production.yml up --build"
   },
   "repository": {
     "type": "git",

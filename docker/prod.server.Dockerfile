@@ -10,4 +10,4 @@ RUN npm install &&\
 
 EXPOSE 4000
 
-CMD [ "npm", "run", "start:backend:test" ]
+CMD [ "npm", "run", "start:backend:prod" ]
