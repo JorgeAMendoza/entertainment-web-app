@@ -9,6 +9,7 @@ import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
 import Styled from './SmallContent.styled';
 import { memo } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { HOST } from '../../utils/config';
 
 interface SmallContentProps {
   id: string;
@@ -84,13 +85,10 @@ const SmallContentCard = ({
 
             <picture>
               <source
-                srcSet={'http://localhost:4000/' + images.medium}
+                srcSet={`${HOST}${images.medium}`}
                 media="(min-width:768px)"
               />
-              <img
-                src={'http://localhost:4000/' + images.small}
-                alt={`image of ${title}`}
-              />
+              <img src={`${HOST}${images.small}`} alt={`image of ${title}`} />
             </picture>
           </Styled.ImageContainer>
 

@@ -25,7 +25,7 @@ services:
     image: ent-client
     environment:
       VITE_GRAPHQL: http://localhost:8080/api
-      VITE_HOST: http://server
+      VITE_HOST: http://localhost:8080/
     build:
       context: .
       dockerfile: ./docker/prod.client.Dockerfile
