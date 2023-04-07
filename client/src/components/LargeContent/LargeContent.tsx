@@ -7,6 +7,7 @@ import useBookmarkMutation from '../../hooks/bookmarkMutation';
 import useUnbookmarkMutation from '../../hooks/unbookmarkMutation';
 import Styled from './LargeContent.styled';
 import { memo } from 'react';
+import { HOST } from '../../utils/config';
 
 interface LargeContentProps {
   id: string;
@@ -47,12 +48,9 @@ const LargeContent = ({
     <Styled.LargeContent>
       <Styled.ContentImage>
         <picture>
-          <source
-            srcSet={'http://localhost:4000/' + images.large}
-            media="(min-width:768px)"
-          />
+          <source srcSet={`${HOST}${images.large}`} media="(min-width:768px)" />
           <img
-            src={'http://localhost:4000/' + images.small}
+            src={`${HOST}${images.small}`}
             alt={`content image for ${title}`}
           />
         </picture>

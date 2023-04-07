@@ -8,7 +8,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: entertainment_database_test
+      MONGO_INITDB_DATABASE: entertainment_database
     volumes:
       - ./mongo-init-test.js:/docker-entrypoint-initdb.d/mongo-init.js
     container_name: entertainment-app-mongo-test
@@ -16,13 +16,12 @@ services:
     image: ent-test-server
     build:
       context: .
-      dockerfile: test.Dockerfile
+      dockerfile: ./docker/test.server.Dockerfile
     ports:
       - 4000:4000
     depends_on:
       - mongo-test
     environment:
-      MONGO_URL: mongodb://the_username:the_password@localhost:27017/entertainment_database
-      MONGO_URL_TEST: mongodb://the_username:the_password@mongo-test:27017/entertainment_database_test
+      MONGO_URL: mongodb://the_username:the_password@mongo-test:27017/entertainment_database
       JWT_SECRET: k2ba1bCrKgA9D7bosZzzMhIL02jejmfM
     container_name: entertainment-test-server
