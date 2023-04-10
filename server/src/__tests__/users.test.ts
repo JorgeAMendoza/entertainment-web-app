@@ -24,7 +24,7 @@ describe('User login', () => {
           'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
         variables: {
           password: 'Chopper!?990',
-          email: 'jorgemendoza2002@gmail.com',
+          email: 'testuser@gmail.com',
         },
       })
       .expect('Content-Type', /application\/json/)
@@ -39,7 +39,7 @@ describe('User login', () => {
           'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
         variables: {
           password: 'badpassword',
-          email: 'jorgemendoza2002@gmail.com',
+          email: 'testuser@gmail.com',
         },
       })
       .expect('Content-Type', /application\/json/);
@@ -79,7 +79,7 @@ describe('User sign up', () => {
           'mutation Mutation($email: String!, $password: String!, $name: String!) {  signUpUser(email: $email, password: $password, name: $name) {token}}',
         variables: {
           password: 'Randompassword!?1919',
-          email: 'jorgemendoza2002@gmail.com',
+          email: 'testuser@gmail.com',
           name: 'Jorge Mendoza',
         },
       })
@@ -140,7 +140,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -190,7 +190,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -226,7 +226,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -291,7 +291,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -341,7 +341,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -377,7 +377,7 @@ describe('user adding favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -491,7 +491,7 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -568,7 +568,7 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -645,7 +645,7 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -691,7 +691,7 @@ describe('user can remove favorite content', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 

@@ -20,7 +20,7 @@ describe('recommend and trending', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -62,7 +62,7 @@ describe('recommend and trending', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -104,7 +104,7 @@ describe('recommend and trending', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -140,7 +140,7 @@ describe('recommend and trending', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
@@ -176,7 +176,7 @@ describe('recommend and trending', () => {
         'mutation Mutation($email: String!, $password: String!) {  loginUser(email: $email, password: $password) {token}}',
       variables: {
         password: 'Chopper!?990',
-        email: 'jorgemendoza2002@gmail.com',
+        email: 'testuser@gmail.com',
       },
     });
 
