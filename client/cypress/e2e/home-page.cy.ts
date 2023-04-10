@@ -11,7 +11,7 @@ describe('homepage interactivity', () => {
         query: 'mutation Mutation {resetDb}',
       },
     });
-    cy.get('[data-cy="loginEmail"]').type('jorgemendoza2002@gmail.com');
+    cy.get('[data-cy="loginEmail"]').type('testuser@gmail.com');
     cy.get('[data-cy="loginPassword"]').type('Chopper!?990');
     cy.get('[data-cy="loginButton"]').click();
     cy.url().should('include', '/dashboard');

@@ -19,7 +19,7 @@ describe('user login', () => {
   });
 
   it('valid login, redirected to home page', () => {
-    cy.get('@loginEmail').type('jorgemendoza2002@gmail.com');
+    cy.get('@loginEmail').type('testuser@gmail.com');
     cy.get('@loginPassword').type('Chopper!?990');
     cy.get('@loginButton').click();
 
@@ -59,7 +59,7 @@ describe('user login', () => {
   });
 
   it('invalid login, incorrect password', () => {
-    cy.get('@loginEmail').type('jorgemendoza2002@gmail.com');
+    cy.get('@loginEmail').type('testuser@gmail.com');
     cy.get('@loginPassword').type('Chopper!1990');
     cy.get('@loginButton').click();
 

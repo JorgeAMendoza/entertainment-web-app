@@ -87,7 +87,7 @@ describe('user signup', () => {
   });
 
   it('invalid sign up, account with email already exists', () => {
-    cy.get('@signUpEmail').type('jorgemendoza2002@gmail.com');
+    cy.get('@signUpEmail').type('testuser@gmail.com');
     cy.get('@signUpName').type('Jorge Mendoza');
     cy.get('@signUpPassword').type('Luffy!?1990');
     cy.get('@signUpRepeatPassword').find('input').focus().type('Luffy!?1990');
