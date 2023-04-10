@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    ports:
+      - 3456:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: entertainment_database
+    volumes:
+      - ./server/src/database/utils/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    container_name: entertainment-app-mongo-dev
