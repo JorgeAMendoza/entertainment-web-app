@@ -13,7 +13,8 @@
     "test:watch": "cross-env NODE_ENV=test jest --watch -o -i",
     "codegen": "npx graphql-codegen",
     "server:test": "cross-env NODE_ENV=test ts-node src/index.ts",
-    "server:test:clear:cache": "cross-env NODE_ENV=test jest --clearCache"
+    "server:test:clear:cache": "cross-env NODE_ENV=test jest --clearCache",
+    "build": "npx tsc"
   },
   "keywords": [
     "Graphql",
