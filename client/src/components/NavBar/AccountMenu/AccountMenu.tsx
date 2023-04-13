@@ -4,12 +4,14 @@ import closeMenuIcon from '../../../assets/icon-close-menu.svg';
 import logoutIcon from '../../../assets/icon-logout.svg';
 import { useEffect, useRef } from 'react';
 import Styled from './AccountMenu.styled';
+import { useLoginUserMutation } from '../../../generated/graphql';
 
 interface AccountMenuProps {
   setShowAccountMenu: React.Dispatch<boolean>;
 }
 
 const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
+  const [, { client }] = useLoginUserMutation();
   const { setToken } = useLoginContext();
   const navigate = useNavigate();
   const accountMenu = useRef<HTMLDivElement | null>(null);
@@ -33,6 +35,7 @@ const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
   const logoutUser = () => {
     setToken(null);
     localStorage.removeItem('ent-token');
+    // await client.clearStore();
     navigate('/login', {
       state: { logoutMessage: 'You have been succesfully signed out' },
     });
@@ -41,7 +44,13 @@ const AccountMenu = ({ setShowAccountMenu }: AccountMenuProps) => {
     <Styled.AccountMenu aria-label="account sub menu" ref={accountMenu}>
       <ul>
         <li>
-          <Styled.MenuButton onClick={logoutUser} data-cy="logoutButton">
+          <Styled.MenuButton
+            onClick={() => {
+              logoutUser();
+              client.clearStore().catch((e) => console.log(e));
+            }}
+            data-cy="logoutButton"
+          >
             <img src={logoutIcon} alt="logout icon" /> <span>Logout</span>
           </Styled.MenuButton>
         </li>
