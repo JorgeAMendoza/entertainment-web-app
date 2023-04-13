@@ -19,7 +19,8 @@
     "docker:start:test": "docker-compose -f docker-compose.test.yml up --build",
     "docker:down:dev": "docker-compose -f docker-compose.dev.yml down",
     "docker:down:test": "docker-compose -f docker-compose.test.yml down",
-    "docker:start:prod": "docker-compose -f docker-compose.production.yml up --build"
+    "docker:start:prod": "docker-compose -f docker-compose.production.yml up --build",
+    "docker:down:prod": "docker-compose -f docker-compose.production.yml down"
   },
   "repository": {
     "type": "git",
