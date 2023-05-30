@@ -4,11 +4,11 @@
 
 Project requirements and design provided thanks to [FrontEndMentors](https://www.frontendmentor.io/challenges/entertainment-web-app-J-UhgAW1X).
 
-The requirement of the project is to create an entertainment app where a user can navigate through TV shows, movies, bookmarked, or all content. The project's initial requirement is to create an interface with static data provided, but as an extra challenge, I created a full-stack application that aimed to achieve the following:
+The requirement of the project is to create an entertainment app where a user can navigate through TV shows, movies, bookmarked, or all content. The project's initial requirement is to create a user interface with static data provided, but as an extra challenge, I created a full-stack application that aimed to achieve the following:
 
 1. **Authentication**, user's are able to create an account and can only interact with the application if they are authenticated.
 2. **Database modification**, user's are able to bookmark content, remove bookmarked content, and have those changes reflect on the user-interface and in the backend.
-3. **Front/backend testing**, testing the entire application to have confidence in client-side and server-side deployments.
+3. **Front/backend testing**, test the entire application to have confidence in client-side and server-side deployments.
 
 [Live Demo]()
 
@@ -20,40 +20,46 @@ This section contains information about the technology used for both the front-e
 
 The frontend is bootstrapped with [Vite](https://vitejs.dev/guide/) using the React/Typescript template.
 
-- [React](https://reactjs.org/docs/getting-started.html), Front-end library for creating user interfaces
-- [Cypress](https://docs.cypress.io/guides/overview/why-cypress), Testing library for creating intergration and unit test
-- [Apollo Client](https://www.apollographql.com/docs/react/) State management tool for making queries/mutations to a GraphQL server and managing the state of those calls.
+- [React](https://reactjs.org/docs/getting-started.html), front-end library for creating user interfaces
+- [Cypress](https://docs.cypress.io/guides/overview/why-cypress), testing library for creating intergration and unit test
+- [Apollo Client](https://www.apollographql.com/docs/react/) state management tool for making queries/mutations to a GraphQL server and managing the state of those requests.
 - [Formik](https://formik.org/), Front-end library for creating and managing forms in React
-- [Styled Components](https://styled-components.com/) Front-end library for writing CSS in React components
-- [React Router](https://reactrouter.com/en/main) Front-end library creating page navigation for a React application
+- [Styled Components](https://styled-components.com/) front-end library for writing CSS in React components
+- [React Router](https://reactrouter.com/en/main) front-end library creating page navigation for a React application
 
-Other packages installed include [yup](https://www.npmjs.com/package/yup) and [validator](https://www.npmjs.com/package/validator) to assist Formik with form validation for the login and sign up forms.
-
-Above is the router implementation for each page of the application, a welcome page was created which routes to either the login page or signup page. The [React.Suspense](https://beta.reactjs.org/reference/react/Suspense) component is used to lazy load components into the page only when they are needed, improving inital page-load time.
+Other packages installed include [yup](https://www.npmjs.com/package/yup) and [validator](https://www.npmjs.com/package/validator) to assist Formik with form validation for the login and sign up pages.
 
 ### Backend/Server
 
-- [Apollo Server](https://www.apollographql.com/docs/apollo-server) (GraphQL Server)
-- [MongoDB](https://www.mongodb.com/) (NoSQL Database)
-- [Mongoose](https://mongoosejs.com/docs/) (Schema connection with MongoDB)
-- [supertest](https://www.npmjs.com/package/supertest) (HTTP testing for GraphQL server)
+- [Apollo Server](https://www.apollographql.com/docs/apollo-server), GraphQL server for creating queries and mutations
+- [MongoDB](https://www.mongodb.com/), database for storing user information and bookmarked content
+- [Mongoose](https://mongoosejs.com/docs/), ODM for MongoDB
+- [supertest](https://www.npmjs.com/package/supertest), testing library for testing the GraphQL server
 
 Authentication was handled with [JSON Web tokens](https://www.npmjs.com/package/jsonwebtoken), with [bcrypt](https://www.npmjs.com/package/bcrypt) used to hash passwords.
 
-I chose GraphQL as the server because it was easier to structure and grab data from a query or mutation. Since I was using TypeScript, the [graphql codegen tool](https://the-guild.dev/graphql/codegen) allowed me to insert all my GraphQL schema's into one file, run the codegen command, and retrieve the type information for queries and mutations. MongoDB was chosen because it is the database program that I am most familiar with, along with using Mongoose to create the schemas.
+I chose GraphQL as the server because it was easier to structure and grab data from a query or mutation. Since I was using TypeScript, the [graphql codegen tool](https://the-guild.dev/graphql/codegen) allowed me to insert all my GraphQL schema's into one file, run the codegen command, and generate the type information for queries and mutations. MongoDB was chosen because it is the database program that I am most familiar with, along with using Mongoose to create the schemas.
 
-#### Launching the Application Locally
-
-#### Docker
+### Docker
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
 Before starting this project, I had just learned about Docker basics and its benefits to frontend/backend development. Two Docker Compose files were created that initalize a database in a virtual environment that can be accessed by the application. One for the developer environment, the other for the test environment(does not initialize data on build, and allows for the use of a reset query for the entire database). A [JavaScript file](./server/src/database/utils) intialzing the database was created which is used by docker to intialize the database in the virutal environment.
 
-**For Windows Devices**, you must install [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) on your device, which allows developers to install a Linux distribution and use Linux applications, utitlies, and Bash command-line tools diretly on Windows.
+**For Windows Devices**, you must install [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) on your device, which allows developers to install a Linux distribution and use Linux applications, utitlies, and bash command-line tools diretly on Windows.
 
-Please follow the link to download [Docker Desktop](https://docs.docker.com/get-docker/), which must be running on your device when you wish to start a docker container. Once you have Docker Desktop installed, you will be able to run docker compose files without any other configuration. Please see the Docker section above for a link to the Docker Compose page.
+Please download [Docker Desktop](https://docs.docker.com/get-docker/), which must be running on your device when you wish to start a docker container. Once you have Docker Desktop installed, you will be able to run docker compose files without any other configuration. Please see the Docker section above for a link to the Docker Compose page.
+
+#### Launching the Application Locally
+
+This section will cover how to run the application locally on your meachine. Please follow the instructions below:
+
+1. Clone the repository to your machine.
+2. Run the command `npm install` to install all dependencies for the application. This command must be run in both the root, client, and server directories.
+3. Create a `.env` file in the 
+
+
 
 ### Starting the Development Environment
 
@@ -145,7 +151,7 @@ const Movies = () => {
 
 In the [Movie.tsx](./client/src/routes/Movies.tsx) component/page, a memoized value of searched content is created when the user changes the value of the search text, if there is search text, we pass that data to the [SearchResults.tsx](/client/src/components/SearchResults/SearchResults.tsx) component to display the filtered data.
 
-The homepage handles searching differently, due to the way queries are structured, there is a query hook that returns content based on the title text a user has passed in.
+The homepage handles searching differently, due to the query structure on the GraphQL server, there is a query hook that returns content based on the title text a user has passed in.
 
 ```typescript
 const Homepage = () => {
@@ -203,7 +209,7 @@ In the code block above, a "lazy" query is created which only fires if the retur
 
 #### React Router
 
-To allow seamless page navigation, the _react-router_ library, version six of this library was implemented. If any error occurs use will receive an error page and be navigated back to the login page. React.Suspense was implemented to lazy load pages that may not be selected, for example, the movie page will not be imported on initial page load, but if a user navigates to "movies", then they are shown a loading component until the page imported.
+To allow seamless page navigation, verion six of the the _react-router_ library was implemented. If any error occurs users will receive an error page and be navigated back to the login page. _React.Suspense_ was implemented to lazy load pages that may not be selected. For example, the `Movies.tsx` will not be imported on initial page load, but when a user navigates to "movies", then they are shown a loading component until the page component is imported.
 
 ```typescript
 const router = createBrowserRouter([
@@ -266,7 +272,7 @@ const router = createBrowserRouter([
 
 ##### Log in/Sign up
 
-Users can navigate to the login page and sign up page, and once verified, the user is navigated to the homepage. A JSON WebToken is created in saved in [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), which is inserted into every query to the backend for continous authentification.
+Users can navigate to the login page and sign up page, and once verified, the user is directed to the homepage. A JSON WebToken is created in saved in [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), which is inserted into every query to the backend for continous authentication.
 
 When a user leaves the applicaiton and returns, if the token in the local storage is still valid, they are navigated direclty to the homepage, else the application navigates back to the login page. The **Dashboard** route calls a GraphQL query to verify the token. See the code block below:
 
@@ -299,7 +305,7 @@ _Formik_ is used to manage the form state, however, in the future I want to swit
 
 #### GraphQL/Apollo Client
 
-The _Apollo Client_ library was used to handle state management for GraphQL queries and mutations. Similar to the backend, the _codegen_ library is used to read a GraphQL schema file and generate the necesssary types and hooks based on the schema. In the code block below, a generated hook is used to retrieve all movie content from the server:
+The _Apollo Client_ library is used to handle state management for GraphQL queries and mutations. Similar to the backend, the _codegen_ library is used to read a GraphQL schema file and generate the necesssary types and hooks based on the schema. In the code block below, a generated hook is used to retrieve all movie content from the server:
 
 ```typescript
 const Movies = () => {
@@ -416,9 +422,9 @@ export async function createApolloServer(
 }
 ```
 
-The GraphQL server is created along with express, and acts as more of a middlware for the application. The GraphQL Schema file is located in the root directory and contains query and mutation information for the server. The path to the schema is provided to the apollo server thanks to the constant variable created in the `constants.ts` file, as seen above. A file named [`resolvers.ts`](./server/src/apollo/resolvers.ts) contains an object with the resolver information, this is imported into this file and injected into the apollo server arguments, more specifically, using the `addResolversToSchema` method.
+The GraphQL server is created along with express, and acts as as a middlware for the application. The GraphQL Schema file is located in the root directory and contains query and mutation information for the server. The path to the schema is provided to the apollo server thanks to the constant variable created in the `constants.ts` file, as seen above. A file named [`resolvers.ts`](./server/src/apollo/resolvers.ts) contains an object with the resolver information which is imported into this file and injected into the apollo server arguments using the `addResolversToSchema` method.
 
-The apollo server initalizes a context whose purpose is to extract a possible JWT token, decode the token, and return the decoded data as `currentUser` in every resolver. It checks for a authorization header, and if there is a valid head, it attempts to decode a token, else it skips this step. If it doesnt find a token then `currentUser` is null, and the GraphQL query or mutation will throw an error, as seen below:
+The apollo server creates a context which extracts a possible JWT token, decodes the token, and returns the decoded data as `currentUser` in every resolver. It checks for a authorization header, and if there is a valid head, it attempts to decode a token, else it skips this step. If it doesnt find a token then `currentUser` is null the GraphQL query or mutation will throw an error as seen below:
 
 ```typescript
  movies: async (_, __, { currentUser }) => {
@@ -468,13 +474,13 @@ async function main() {
 main().catch((err) => console.log(err));
 ```
 
-The `main` function intializes the server by doing the following:
+The `main` function intializes the server by executing the following:
 
-1. create a path to the static folder whcih will contain images to be used by the application.
-2. Use the `createApolloServer` function from above with an HTTP server passsed in along with the express application created above the main function.
-3. Grab the Mongo URL and Node environment from the `constants.ts`.
-4. Connect to the MongoDB database, if it fails we log an error, else we check to see if we are in the test environment, if we are not then we seed the database.
-5. Have the app listen to the PORT provied by `constants.ts`
+1. create a path to the static folder whcih will contain images used by the application.
+2. Use the `createApolloServer` function with an HTTP server passsed in along with the express application created above the main function.
+3. Grab the Mongo URL and Node environment from the `constants.ts` file.
+4. Connect to the MongoDB database, if it fails we log an error, else we check to see if we are in the test environment. If in the test environment the database is not seeded, else the database is seeded.
+5. Have the app listen to the PORT provied by `constants.ts` file.
 
 If you are on a local machine, you can now go to `localhost:4000/graphql` to view the GraphQL playground and make queries/mutations to the server.
 
@@ -518,7 +524,7 @@ export default mongoose.model<DbUser>('User', userSchema);
 
 A MongoDB database is used in this application, with a piece of content being defined as a movie or show, each having its own schema. The example above displays the mongoose schema for a user, it contains a relationship between users and shows/movies which keeps track of which movies/shows a user has bookmarked.
 
-The movie and show schemas contain the title, rating, links to images, etc. Typescript along with mongoose was used to properly type the schemas. A typescript file named [`db.ts`](./server/src/database/db.ts) contains the schema types which are applied to the schemas and other parts of the application.
+The movie and show schemas contain the title, rating, links to images, etc. Typescript along with mongoose is used to properly type the schemas. A typescript file named [`db.ts`](./server/src/database/db.ts) contains the schema types which are applied to the schemas and other parts of the application.
 
 Models were created to interact with the database instead of having the queries/mutations interact with the database directly.
 
@@ -558,7 +564,7 @@ export default {
 };
 ```
 
-In the code block above, for example, the `getAllMovies` function uses the schema method `find` to grab all movies from the database. The show schema has a simlar service, with the user service having user specific functions. For each function we explicitly state the arguments recieved and return types, these are all async functions so a promise is returned.
+In the code block above the `getAllMovies` function uses the schema method `find` to grab all movies from the database. The `insertMovie` function creates a new movie object using the `NewMovie` type, and saves it to the database. The `deleteMovieById` function grabs a movie by its id, and deletes it from the database.
 
 #### GraphQL Resolvers
 
@@ -585,14 +591,14 @@ const queryResolver: QueryResolvers<EntertainmentResolverContext> = {
   ...
 ```
 
-In the code block above, we have a `movies` resolver which checks to see if a valid user (logged in) is making this query, if not then we throw back an error which is handled by the client. The following then proceeds:
+In the code block above displays a `movies` resolver which checks to see if a valid user (logged in) is making this query, if not then the resolver throws back an error that is by the client. If a user is logged then the following occurs:
 
 1. Get the user information,
-2. grab the id's of all movies the user has bookmarked.
-3. Grab all movie data, and for each movie, we check to see if that movie is bookmarked by the user by using `includes` on the bookmarked movie array. Depending on this result, either a movie marked as "bookmarked" or not will be returned.
-4. A transform function is used to turn the `DBMovie` type into the correct type defined by the GraphQL schema. This just means removing MongoDB specific properties.
+2. Grab the id's of all movies the user has bookmarked.
+3. Grab all movie data, and for each movie check to see if that movie is bookmarked by the user by using `includes` Array method on the bookmarked movie array. Depending on this result, either a movie marked as "bookmarked" or not will be returned.
+4. A transform function is used to turn the `DBMovie` type into the proper type defined by the GraphQL schema. This just means removing MongoDB specific properties and methods.
 
-#### Mutation
+##### Mutation
 
 ```typescript
 async bookmarkContent(_, args, { currentUser }) {
@@ -612,20 +618,60 @@ async bookmarkContent(_, args, { currentUser }) {
   ...
 ```
 
-The code block above displays the code of the mutation `bookmarkContent`, which will mark a movie/show as bookmarked under the target user in the schema. If an unauthenticated user is attempting to fire this mutation, then an error is returned.
-The mutation works as follows:
+The code block above displays the code of the mutation `bookmarkContent` which marks a movie/show as bookmarked under the target user in the schema. If an unauthenticated user is attempting to fire this mutation then an error is thrown, else the mutation executes the following:
 
-1. If valid user, then grab the current user from MongoDB.
-2. If the content being bookmarked is a show, then
+1. If the target content is marked as a content type _show_, then:
    - Call the user service which inserts the show into the user's bookmarked show property
-   - This function will throw an error if a show that is already bookmarked is being inserted again. Error handling for non-existent content is implemented as well.
-3. If the content being bookmarked is a movie, then the steps for bookmarking a show are repeated, but for the bookmarked movie property under the target user.
+   - This function will throw an error if a show that is already bookmarked is being inserted again.
+2. If the content being bookmarked is a movie, then the steps for bookmarking a show are repeated, but for the bookmarked movie property under the target user.
 
-#### Testing
+### Testing
 
-This part was one of the most challenging aspects of the development process, since I had never tested a backend before. I wanted to test the backend while it was running and ensure that all queries made with the correct argumetns and authentication were functioning properly.
+This part was one of the most challenging sections of this project since I had never tested a backend before. I wanted to test the backend while it was running to ensure that all queries/mutations were called propertly with the correct arguments.
 
-According to the [Apollo Server documentation](https://www.apollographql.com/docs/apollo-server/testing/testing/) it is possible to test the resolvers without sending an HTTP request, but I wanted to test resolvers and the HTTP request.
+#### Frontend Testing
+
+```typescript
+describe('user login', () => {
+  beforeEach(() => {
+    cy.visit('/login');
+    cy.request({
+      method: 'POST',
+      url: 'http://localhost:4000/graphql',
+      body: {
+        operationName: 'Mutation',
+        query: 'mutation Mutation {resetDb}',
+      },
+    });
+    cy.get('[data-cy="loginForm"]').as('loginForm');
+    cy.get('[data-cy="loginEmail"]').as('loginEmail');
+    cy.get('[data-cy="loginPassword"]').as('loginPassword');
+    cy.get('[data-cy="loginButton"]').as('loginButton');
+    cy.get('[data-cy="signUpLink"]').as('signUpLink');
+  });
+
+  it('valid login, redirected to home page', () => {
+    cy.get('@loginEmail').type('testuser@gmail.com');
+    cy.get('@loginPassword').type('Chopper!?990');
+    cy.get('@loginButton').click();
+
+    cy.get('@loginForm').should('not.exist');
+    cy.url().should('include', '/dashboard');
+    cy.get('[data-cy="dashboard"]');
+  });
+
+  ...
+
+});
+```
+
+Above is a test for the login page, the test visits the login page, grabs all the elements needed to interact with the login form. Cypress then types in the email and password, clicks the login button, and verifies that the login form no longer exists, and that the user is redirected to the dashboard page.
+
+Using the `beforeEach hook`, each test will make a query to the server to reset the database, this _resetDB_ query will only execute if the server is in testing mode.
+
+#### Backend Testing
+
+According to the [Apollo Server documentation](https://www.apollographql.com/docs/apollo-server/testing/testing/), it is possible to test the resolvers without sending an HTTP request, but I wanted to test resolvers and the HTTP request together.
 
 This led me to use the _supertest_ package to make direct request to the apollo server with custom GraphQL queries and mutations.
 
@@ -657,13 +703,13 @@ describe('User login', () => {
   });
 ```
 
-Above is a test that verifies a user login and confirms that a token is retrieved. With supertest, we can set a base URL to send request to, and in each test I had to write the GraphQL query. This was a very tedious task since there was no syntax help when writing the GraphQL query in this format. Though with this method, I was able to test all main functionalities of the application with no client interaction.
+Above is a test that verifies a user login and confirms that a token is retrieved. With supertest, we can set a base URL to send a request to and must create a GraphQL query or mutation to pass in. This was a very tedious task since there was no syntax help when writing the GraphQL query in this format. Though with this method, I was able to test all main functionalities of the application with no client interaction required.
 
-The main goal was to write test that could be run seperate from the client, but then also have test dedicated for the client-side.
+The main goal was to write test that could be run seperate from the client.
 
 ## Development Wrap-up
 
-There is alot more to say about the developemnt process of this application, regarding the testing issues, refactoring multiple queries into one, etc. One thing I want to research more into is the context of GraphQL, in the FrontEndMasters course the instructor placed some Database methods into the context itself, I didnt do that here since I didn't fully understand why it was being done, but if it is a technique that will improve the application then it will be implemented in the future.
+There is alot more to say about the developemnt process of this application, regarding the testing issues, refactoring multiple queries into one, etc. One thing I want to research more is the context of GraphQL, in the FrontEndMasters course the instructor placed some Database methods into the context itself, I didnt do that here since I didn't fully understand why it was being done, but if it is a technique that will improve the application then it will be implemented in the future.
 
 As I learn more about accessiblity, I wish to improve that aspect of the application as well.
 
