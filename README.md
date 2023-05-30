@@ -10,6 +10,11 @@ The requirement of the project is to create an entertainment app where a user ca
 2. **Database modification**, user's are able to bookmark content, remove bookmarked content, and have those changes reflect on the user-interface and in the backend.
 3. **Front/backend testing**, test the entire application to have confidence in client-side and server-side deployments.
 
+A test user has been created so anybody can interact with the applicaiton without having to sign up
+**Email: testuser@gmail.com**
+**Password: Chopper!?990**
+
+
 [Live Demo]()
 
 ## Techstack Used
