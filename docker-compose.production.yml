@@ -9,8 +9,6 @@ services:
       MONGO_INITDB_DATABASE: entertainment_database
     volumes:
       - ./mongo-init-test.js:/docker-entrypoint-initdb.d/mongo-init.js
-    ports:
-      - 27017:27017
     container_name: entertainment-app-db
   server:
     image: ent-server
@@ -20,7 +18,7 @@ services:
     depends_on:
       - mongo
     environment:
-      MONGO_URL: mongodb://the_username:the_password@localhost:27017/entertainment_database
+      MONGO_URL: mongodb://the_username:the_password@mongo:27017/entertainment_database
       JWT_SECRET: k2ba1bCrKgA9D7bosZzzMhIL02jejmfM
     ports:
       - 4000:4000
