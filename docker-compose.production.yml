@@ -26,8 +26,8 @@ services:
   client:
     image: ent-client
     environment:
-      VITE_GRAPHQL: http://localhost:4000/api
-      VITE_HOST: http://localhost:4000/
+      VITE_GRAPHQL: http://jorge-fullstack-ent.com/api
+      VITE_HOST: http://:jorge-fullstack-ent.com/
     build:
       context: .
       dockerfile: ./docker/prod.client.Dockerfile
