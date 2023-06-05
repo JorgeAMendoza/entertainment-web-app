@@ -31,7 +31,6 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     line-height: 1.4;
-    z-index:1;
   }
   body{
     font-family: 'Outfit', sans-serif;
@@ -42,7 +41,7 @@ const GlobalStyles = createGlobalStyle`
     color: var(--white);
     padding-bottom:3rem;
 
-    @media screen and ${device.laptop}{
+    @media screen and (${device.laptop}){
       padding-bottom: 2rem;
     }
   } 
