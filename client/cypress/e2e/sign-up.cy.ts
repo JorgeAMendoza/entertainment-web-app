@@ -21,11 +21,11 @@ describe('user signup', () => {
     cy.get('[data-cy="loginLink"]').as('loginLink');
   });
 
-  it('valid sign up, directed to home screen', () => {
-    cy.get('@signUpEmail').find('input').type('useremail01@gmail.com');
-    cy.get('@signUpPassword').find('input').type('Luffy!?990');
-    cy.get('@signUpName').find('input').type('Isabel Mendoza');
-    cy.get('@signUpRepeatPassword').find('input').type('Luffy!?990');
+  it.only('valid sign up, directed to home screen', () => {
+    cy.get('@signUpEmail').type('useremail01@gmail.com');
+    cy.get('@signUpPassword').type('Luffy!?990');
+    cy.get('@signUpName').type('Isabel Mendoza');
+    cy.get('@signUpRepeatPassword').type('Luffy!?990');
     cy.get('@signUpButton').click();
     cy.url().should('include', '/dashboard');
 
