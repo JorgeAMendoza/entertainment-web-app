@@ -13,13 +13,13 @@ const AccountMenu = styled.div`
   left: -8rem;
   width: 10rem;
   padding: 0.5rem;
-  z-index: 3;
+  z-index: 3 !important;
 
   ul li:first-of-type {
     margin-bottom: 0.7rem;
   }
 
-  @media screen and ${device.laptop} {
+  @media screen and (${device.laptop}) {
     top: -135%;
     left: 120%;
   }
@@ -39,7 +39,7 @@ const MenuButton = styled(Button)`
     margin-right: 0.3rem;
   }
 
-  @media screen and ${device.laptop} {
+  @media screen and (${device.laptop}) {
     font-size: 1.6rem;
     justify-content: flex-start;
     min-width: 8ch;
