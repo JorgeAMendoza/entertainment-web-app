@@ -21,7 +21,7 @@ describe('user signup', () => {
     cy.get('[data-cy="loginLink"]').as('loginLink');
   });
 
-  it.only('valid sign up, directed to home screen', () => {
+  it('valid sign up, directed to home screen', () => {
     cy.get('@signUpEmail').type('useremail01@gmail.com');
     cy.get('@signUpPassword').type('Luffy!?990');
     cy.get('@signUpName').type('Isabel Mendoza');
