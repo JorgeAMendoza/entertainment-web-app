@@ -14,14 +14,14 @@ const NavBar = styled.nav`
   padding: 1.6rem 1.5rem;
   z-index: 2;
 
-  @media screen and ${device.tablet} {
+  @media screen and (${device.tablet}) {
     width: 93.5%;
     margin: 0 auto;
     border-radius: 10px;
     padding: 2.1rem 2.4rem;
   }
 
-  @media screen and ${device.laptop} {
+  @media screen and (${device.laptop}) {
     width: 100%;
     flex-direction: column;
     min-height: min(95vh, 96rem);
@@ -42,7 +42,7 @@ const NavIcon = styled.div`
     width: 2.5rem;
   }
 
-  @media screen and ${device.tablet} {
+  @media screen and (${device.tablet}) {
     img {
       width: 3.3rem;
     }
@@ -54,11 +54,11 @@ const NavLinks = styled.ul`
   align-items: center;
   gap: 2.3rem;
 
-  @media screen and ${device.tablet} {
+  @media screen and (${device.tablet}) {
     gap: 3.2rem;
   }
 
-  @media screen and ${device.laptop} {
+  @media screen and (${device.laptop}) {
     flex-direction: column;
     margin-bottom: auto;
     gap: 3.9rem;
@@ -89,7 +89,7 @@ const NavLink = styled.li<NavLinkProps>`
     }
   }
 
-  @media screen and ${device.tablet} {
+  @media screen and (${device.tablet}) {
     width: 2rem;
     height: 2rem;
   }
@@ -97,6 +97,7 @@ const NavLink = styled.li<NavLinkProps>`
 
 const Profile = styled.div`
   position: relative;
+  z-index: 2;
 `;
 
 const ProfileButton = styled.button`
@@ -113,7 +114,7 @@ const ProfileButton = styled.button`
     height: 2.4rem;
   }
 
-  @media screen and ${device.tablet} {
+  @media screen and (${device.tablet}) {
     width: 3.2rem;
     height: 3.2rem;
 
@@ -123,7 +124,7 @@ const ProfileButton = styled.button`
     }
   }
 
-  @media screen and ${device.laptop} {
+  @media screen and (${device.laptop}) {
     margin-top: auto;
     align-self: flex-end;
     justify-self: flex-end;

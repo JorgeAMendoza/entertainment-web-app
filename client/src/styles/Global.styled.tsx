@@ -31,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     line-height: 1.4;
+    z-index: 1;
   }
   body{
     font-family: 'Outfit', sans-serif;
