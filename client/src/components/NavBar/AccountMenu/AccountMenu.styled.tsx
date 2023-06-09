@@ -13,7 +13,7 @@ const AccountMenu = styled.div`
   left: -8rem;
   width: 10rem;
   padding: 0.5rem;
-  z-index: 3 !important;
+  overflow: hidden;
 
   ul li:first-of-type {
     margin-bottom: 0.7rem;
