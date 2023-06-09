@@ -26,8 +26,8 @@ services:
   client:
     image: ent-client
     environment:
-      VITE_GRAPHQL: http://jorge-fullstack-ent.com/api
-      VITE_HOST: http://jorge-fullstack-ent.com/
+      VITE_GRAPHQL: https://jorge-fullstack-ent.com/api
+      VITE_HOST: https://jorge-fullstack-ent.com/
     build:
       context: .
       dockerfile: ./docker/prod.client.Dockerfile
