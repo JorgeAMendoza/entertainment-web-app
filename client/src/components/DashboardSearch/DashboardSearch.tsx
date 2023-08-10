@@ -1,17 +1,26 @@
+import { useEffect, useState } from 'react';
 import searchIcon from '../../assets/icon-search.svg';
 import Styled from './DashboardSearch.styled';
 
 interface DashboardSearchProps {
-  search: string;
   setSearch: React.Dispatch<string>;
   placeholderText: string;
 }
 
 const DashboardSearch = ({
-  search,
   setSearch,
   placeholderText,
 }: DashboardSearchProps) => {
+  const [currentSearch, setCurrentSearch] = useState('');
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearch(currentSearch);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [currentSearch, setSearch]);
+
   return (
     <Styled.DashboardSearch data-cy="searchBar">
       <span>
@@ -22,9 +31,9 @@ const DashboardSearch = ({
         name="searchContent"
         placeholder={placeholderText}
         id="searchContent"
-        onChange={({ target }) => setSearch(target.value)}
-        onBlur={({ target }) => setSearch(target.value)}
-        value={search}
+        onChange={({ target }) => setCurrentSearch(target.value)}
+        onBlur={({ target }) => setCurrentSearch(target.value)}
+        value={currentSearch}
       />
     </Styled.DashboardSearch>
   );

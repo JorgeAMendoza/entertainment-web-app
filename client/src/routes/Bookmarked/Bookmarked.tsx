@@ -58,7 +58,6 @@ const Bookmarked = () => {
     return (
       <PageContainer data-cy="bookmarkPage">
         <DashboardSearch
-          search={search}
           setSearch={setSearch}
           placeholderText="Search for bookmarked content"
         />
@@ -70,7 +69,6 @@ const Bookmarked = () => {
   return (
     <PageContainer data-cy="bookmarkPage">
       <DashboardSearch
-        search={search}
         setSearch={setSearch}
         placeholderText="Search for bookmarked content"
       />
