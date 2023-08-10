@@ -104,8 +104,7 @@ const ProfileButton = styled.button`
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 50%;
-  border: none;
-  outline: 1px solid white;
+  border: 1px solid white;
   display: block;
 
   img {
