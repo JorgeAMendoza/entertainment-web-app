@@ -36,7 +36,7 @@ const SmallContentCard = ({
 }: SmallContentProps) => {
   const { bookmarkContent } = useBookmarkMutation();
   const { unbookmarkContent } = useUnbookmarkMutation();
-  const { ref, inView } = useInView({ threshold: 0.5 });
+  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
   const [itemInView, setItemInView] = useState(false);
 
   useEffect(() => {
