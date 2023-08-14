@@ -56,7 +56,6 @@ const Homepage = () => {
     if (searchLoading) {
       <RouteContainer>
         <DashboardSearch
-          search={search}
           setSearch={setSearch}
           placeholderText="Search for movies or TV series"
         />
@@ -68,7 +67,6 @@ const Homepage = () => {
     return (
       <RouteContainer>
         <DashboardSearch
-          search={search}
           setSearch={setSearch}
           placeholderText="Search for movies or TV series"
         />
@@ -80,7 +78,6 @@ const Homepage = () => {
   return (
     <RouteContainer>
       <DashboardSearch
-        search={search}
         setSearch={setSearch}
         placeholderText="Search for movies or TV series"
       />

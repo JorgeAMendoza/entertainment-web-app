@@ -37,7 +37,6 @@ const Movies = () => {
     return (
       <PageContainer data-cy="moviePage">
         <DashboardSearch
-          search={search}
           setSearch={setSearch}
           placeholderText="Search for movies"
         />
@@ -49,7 +48,6 @@ const Movies = () => {
   return (
     <PageContainer data-cy="moviePage">
       <DashboardSearch
-        search={search}
         setSearch={setSearch}
         placeholderText="Search for movies"
       />

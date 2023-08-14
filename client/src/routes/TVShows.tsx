@@ -36,7 +36,6 @@ const TVShows = () => {
     return (
       <PageContainer>
         <DashboardSearch
-          search={search}
           setSearch={setSearch}
           placeholderText="Search for TV shows"
         />
@@ -48,7 +47,6 @@ const TVShows = () => {
   return (
     <PageContainer data-cy="showPage">
       <DashboardSearch
-        search={search}
         setSearch={setSearch}
         placeholderText="Search for TV shows"
       />
